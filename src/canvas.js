@@ -1,14 +1,15 @@
 
 export const canvas = document.getElementsByTagName('canvas')[0];
 export const ctx = canvas.getContext('2d');
+ctx.imageSmoothingEnabled = true;
 
 var w, h;
 export function width() { return w; }
 export function height() { return h; }
 
 export function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth * 2;
+  canvas.height = window.innerHeight * 2;
   w = canvas.width;
   h = canvas.height;
 };

@@ -23,6 +23,7 @@ scene.init();
     // Update, render, and queue game object removal
     removeQueue.length = 0;
     gameobjects.get().forEach((g) => {
+      (g.ecs || []).forEach((u) => u(dT));
       (g.update || noop)(dT);
       (g.render || noop)(canvas.ctx);
       if (g.destroyed) { removeQueue.push(g); }
