@@ -1,4 +1,5 @@
-import EventEmitter from './eventemitter.js'
+import e from './eventemitter.js'
 
-bus = new EventEmitter();
-export default bus;
+// Create global event bus from event emitter
+b = new e();
+export default b;

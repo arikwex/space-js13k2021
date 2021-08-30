@@ -1,4 +1,5 @@
 import bus from './bus.js';
+import * as gameobjects from './gameobjects.js';
 
 // Scenes
 // 0 = MAIN_MENU
@@ -8,6 +9,9 @@ import bus from './bus.js';
 // 4 = LOSE
 // 5 = WIN
 var scene = 0;
+
+// Entities
+
 
 // Game loop
 var lastTime = Date.now();

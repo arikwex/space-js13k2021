@@ -1,11 +1,11 @@
 export default function() {
-  var H = {};
+  var HANDLES = {};
 
   return {
-    clear: () => H = {},
-    on: (e, h) => (H[e] || (H[e] = [])).push(h),
-    off: (e, h) => (H[e] = (H[e] || []).filter((x) => x != h)),
-    emit: (e, d) => (H[e] || []).forEach((h) => h(d)),
+    clear: () => HANDLES = {},
+    on: (e, handler) => (HANDLES[e] || (HANDLES[e] = [])).push(handler),
+    off: (e, handler) => (HANDLES[e] = (HANDLES[e] || []).filter((x) => x != handler)),
+    emit: (e, data) => (HANDLES[e] || []).forEach((handler) => handler(data)),
   };
   return
 }
