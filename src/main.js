@@ -1,3 +1,20 @@
-import { a } from './otherlib.js';
-console.log('testaz');
-console.log(a);
+import bus from './bus.js';
+
+// Scenes
+// 0 = MAIN_MENU
+// 1 = WORLD_MAP
+// 2 = GAME_RUNNER
+// 3 = UPGRADE_MENU
+// 4 = LOSE
+// 5 = WIN
+var scene = 0;
+
+// Game loop
+var lastTime = Date.now();
+var gameloop = () => {
+  var currTime = Date.now();
+  var dT = (currTime - lastTime) * 0.001;
+  lastTime = currTime;
+  requestAnimationFrame(gameloop);
+}
+gameloop();
