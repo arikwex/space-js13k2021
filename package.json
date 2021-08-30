@@ -1,0 +1,25 @@
+{
+  "name": "space-js13k2021",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run compile && npm run minify",
+    "compile": "rollup src/main.js --format es --no-strict --file dist/bundle.js",
+    "minify": "uglifyjs --compress --mangle -o dist/bundle.min.js -- dist/bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arikwex/space-js13k2021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arikwex/space-js13k2021/issues"
+  },
+  "homepage": "https://github.com/arikwex/space-js13k2021#readme",
+  "devDependencies": {
+    "rollup": "^2.56.3",
+    "uglify-js": "^3.14.1"
+  }
+}
