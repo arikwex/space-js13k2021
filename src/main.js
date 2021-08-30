@@ -1,5 +1,6 @@
 import * as scene from './scene.js';
 import * as gameobjects from './gameobjects.js';
+import * as canvas from './canvas.js';
 
 scene.init();
 
@@ -11,15 +12,19 @@ scene.init();
   var noop = () => {};
 
   var gameloop = () => {
-    // Compute frame time
+    // Compute frame time in seconds
     var currTime = Date.now();
     var dT = (currTime - lastTime) * 0.001;
+
+    // Clear frame
+    canvas.ctx.fillStyle = '#000';
+    canvas.ctx.fillRect(0, 0, canvas.width(), canvas.height());
 
     // Update, render, and queue game object removal
     removeQueue.length = 0;
     gameobjects.get().forEach((g) => {
       (g.update || noop)(dT);
-      (g.render || noop)(dT);
+      (g.render || noop)(canvas.ctx);
       if (g.destroyed) { removeQueue.push(g); }
     })
 
