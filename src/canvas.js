@@ -8,8 +8,8 @@ export function width() { return w; }
 export function height() { return h; }
 
 export function resize() {
-  canvas.width = window.innerWidth * 2;
-  canvas.height = window.innerHeight * 2;
+  canvas.width = window.innerWidth * 1;
+  canvas.height = window.innerHeight * 1;
   w = canvas.width;
   h = canvas.height;
 };

@@ -1,4 +1,5 @@
 import * as scene from './scene.js';
+import * as input from './input.js';
 import * as gameobjects from './gameobjects.js';
 import * as canvas from './canvas.js';
 
