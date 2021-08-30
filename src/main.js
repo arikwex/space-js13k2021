@@ -1,29 +1,34 @@
-import './scene.js';
+import * as scene from './scene.js';
 import * as gameobjects from './gameobjects.js';
 
-// Game loop
-var lastTime = Date.now();
-var removeQueue = [];
-var noop = () => {};
+scene.init();
 
-var gameloop = () => {
-  // Compute frame time
-  var currTime = Date.now();
-  var dT = (currTime - lastTime) * 0.001;
+// Wrap in closure to allow variable minification.
+(() => {
+  // Game loop
+  var lastTime = Date.now();
+  var removeQueue = [];
+  var noop = () => {};
 
-  // Update, render, and queue game object removal
-  removeQueue.length = 0;
-  gameobjects.get().forEach((g) => {
-    (g.update || noop)(dT);
-    (g.render || noop)(dT);
-    if (g.destroyed) { removeQueue.push(g); }
-  })
+  var gameloop = () => {
+    // Compute frame time
+    var currTime = Date.now();
+    var dT = (currTime - lastTime) * 0.001;
 
-  // Remove objects enqueued from before
-  removeQueue.forEach((x) => gameobjects.remove(x));
+    // Update, render, and queue game object removal
+    removeQueue.length = 0;
+    gameobjects.get().forEach((g) => {
+      (g.update || noop)(dT);
+      (g.render || noop)(dT);
+      if (g.destroyed) { removeQueue.push(g); }
+    })
 
-  // Request next frame
-  lastTime = currTime;
-  requestAnimationFrame(gameloop);
-}
-gameloop();
+    // Remove objects enqueued from before
+    removeQueue.forEach((x) => gameobjects.remove(x));
+
+    // Request next frame
+    lastTime = currTime;
+    requestAnimationFrame(gameloop);
+  }
+  gameloop();
+})();
