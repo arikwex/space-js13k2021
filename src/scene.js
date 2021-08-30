@@ -6,7 +6,7 @@ import Text from './text.js';
 import Engine from './engine.js';
 
 // Go to main menu
-export function init() { bus.emit('scene', 0); }
+export function init() { bus.emit('scene', 2); }
 
 // Go to scene number
 export function goto(s) { bus.emit('scene', s); }
