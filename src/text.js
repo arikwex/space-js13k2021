@@ -10,7 +10,7 @@ function Text(str, x, y, color = '#fff', size='2', align='left') {
     ctx.textBaseline = 'middle';
     ctx.fillStyle = this.color;
     ctx.font = `${this.size}em monospace`;
-    ctx.fillText(this.str, this.x, this.y);
+    ctx.fillText(this.str, this.x(), this.y());
   }
 }
 export default Text;

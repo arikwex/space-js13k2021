@@ -14,8 +14,8 @@ import Text from './text.js';
 
     // [SCENE = 0] MAIN MENU
     if (scene == 0) {
-      g.push(new Text('SHUTTLEDECK', canvas.width() / 2, canvas.height()  * 0.4, '#fff', 6, 'center'));
-      var pushToStart = new Text('[ Press to start ]', canvas.width() / 2, canvas.height() * 0.6, '#777', 3, 'center');
+      g.push(new Text('SHUTTLEDECK', ()=>canvas.width()/2, ()=>canvas.height()*0.4, '#fff', 6, 'center'));
+      var pushToStart = new Text('[ Press to start ]', ()=>canvas.width()/2, ()=>canvas.height()*0.6, '#777', 3, 'center');
       pushToStart.ecs = [animations.pulse((x) => {pushToStart.size = x;}, 2.8, 3.2, 1)]
       g.push(pushToStart);
     }
