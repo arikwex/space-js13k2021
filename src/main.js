@@ -1,3 +1,3 @@
 import { a } from './otherlib.js';
-console.log('test');
+console.log('testaz');
 console.log(a);

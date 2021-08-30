@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run compile && npm run minify",
+    "dev": "onchange -i 'src/**/*.js' -- npm run build",
+    "build": "npm run compile && npm run package",
     "compile": "rollup src/main.js --format es --no-strict --file dist/bundle.js",
-    "minify": "uglifyjs --compress --mangle -o dist/bundle.min.js -- dist/bundle.js"
+    "package": "npm run minify && npm run html && npm run zip && npm run status",
+    "minify": "uglifyjs --compress --mangle -o dist/bundle.min.js -- dist/bundle.js",
+    "html": "echo \"<html><script>$(cat dist/bundle.min.js)</script></html>\" > dist/index.html",
+    "zip": "zip dist/build.zip dist/index.html",
+    "status": "echo \"===> Build Size: $(wc -c < dist/build.zip) / 13,312 bytes <===\""
   },
   "repository": {
     "type": "git",
@@ -19,6 +24,8 @@
   },
   "homepage": "https://github.com/arikwex/space-js13k2021#readme",
   "devDependencies": {
+    "nodemon": "^2.0.12",
+    "onchange": "^7.1.0",
     "rollup": "^2.56.3",
     "uglify-js": "^3.14.1"
   }
