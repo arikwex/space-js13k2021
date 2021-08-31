@@ -1,4 +1,5 @@
 import * as canvas from './canvas.js';
+import * as gfx from './gfx.js';
 
 export default function Engine() {
   // The sequence and channel of obstacles
@@ -33,6 +34,9 @@ export default function Engine() {
 
     // Scale of the art
     const s = Math.min(ph, w/8) * 0.3;
+
+    // Starmap
+    gfx.drawStars(ctx, -anim*20, 0, 3, 0);
 
     // Minimap
     // Progress path
