@@ -173,6 +173,57 @@ export default function Engine() {
       ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel + cellRadius*1.5, cellRadius-5, cellRadius-5, 0, 0, 6.28);
       ctx.fill();
     }
+
+    // Draw cards
+    ctx.save();
+    // position
+    ctx.translate(w*0.5, h*0.75);
+
+    // dimensions
+    var cs = w * 0.12;
+    var csw = cs / 2;
+    var csh = csw * 1.5;
+
+    // background
+    ctx.fillStyle = 'rgb(50,50,50,0.7)';
+    ctx.fillRect(-csw,-csh,csw*2,csh*2);
+
+    // light sheen
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(-csw,-csh,csw*2,csh*2);
+    ctx.clip();
+    ctx.fillStyle = 'rgba(220,230,250,0.3)';
+    ctx.rotate(-0.3);
+    ctx.translate(cs/2, (Date.now() % 2000) / 1000 * (cs * 5) - cs*1.2);
+    ctx.fillRect(-cs*2,0,cs*4,cs*0.2);
+    ctx.fillRect(-cs*2,-cs*0.2,cs*4,cs*0.05);
+    ctx.restore();
+
+    // outline
+    ctx.beginPath();
+    ctx.lineWidth = cs / 20;
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#0f0';
+    ctx.moveTo(-csw, -csh);
+    ctx.lineTo(csw, -csh);
+    ctx.lineTo(csw, csh);
+    ctx.lineTo(-csw, csh);
+    ctx.closePath();
+    ctx.stroke();
+
+    // text
+    ctx.fillStyle = '#0f0';
+    ctx.textBaseline = 'middle';
+    ctx.font = '1.4em monospace';
+    ctx.textAlign = 'center';
+    var str = 'Gamma Sector';
+    var lines = str.split(' ');
+    for (let i = 0; i < lines.length; i++) {
+      ctx.fillText(lines[i], 0, csh * 0.65 + (i - (lines.length - 1) / 2) * csh * 0.2);
+    }
+
+    ctx.restore();
   };
 };
 
