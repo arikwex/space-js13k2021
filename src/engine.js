@@ -128,102 +128,105 @@ export default function Engine() {
     ctx.restore();
 
     // Draw energy
-    var shieldTextLevel = bh + ph + h * 0.1;
+    var uiScale = Math.max(h * 0.025, 20);
+    var shieldTextLevel = h - 20;
     ctx.textBaseline = 'bottom';
-    ctx.font = '1.8em monospace';
-    ctx.textAlign = 'left';
-    ctx.fillStyle = '#ff3';
-    ctx.fillText('Energy', pw, shieldTextLevel);
+    ctx.font = `${uiScale}px monospace`;
     ctx.textAlign = 'right';
-    ctx.fillText(energy, pw + w * 0.15, shieldTextLevel);
+    ctx.fillStyle = '#ff3';
+    ctx.fillText('Energy', w - pw, shieldTextLevel);
+    ctx.textAlign = 'right';
+    ctx.fillText(energy, w - (pw + uiScale * 6), shieldTextLevel);
     ctx.textAlign = 'left';
     ctx.fillStyle = '#888';
-    ctx.font = '1.3em monospace';
-    ctx.fillText(`/ ${maxEnergy}`, pw + w * 0.158, shieldTextLevel);
-    var cellWidth = w * 0.03;
-    var cellHeight = h * 0.05;
+    ctx.font = `${uiScale*0.8}px monospace`;
+    ctx.fillText(`/ ${maxEnergy}`, w - (pw + uiScale * 5.7), shieldTextLevel);
+    var cellWidth = uiScale * 1.2;
     for (let i = 0; i < maxEnergy; i++) {
       ctx.fillStyle = '#555';
-      ctx.fillRect(pw + i * (cellWidth + 4), shieldTextLevel + cellHeight*0.4, cellWidth, cellHeight);
+      ctx.fillRect(w - (pw + i * (cellWidth + 4) + cellWidth), shieldTextLevel - cellWidth*2.4, cellWidth, cellWidth);
       ctx.fillStyle = '#ff3';
-      ctx.fillRect(pw + i * (cellWidth + 4) + 4, shieldTextLevel + cellHeight*0.4 + 4, cellWidth - 8, cellHeight - 8);
+      ctx.fillRect(w - (pw + i * (cellWidth + 4) + cellWidth) + 4, shieldTextLevel -  cellWidth*2.4+ 4, cellWidth - 8, cellWidth - 8);
     }
 
     // Draw shield
-    var energyTextLevel = bh + ph + h * 0.27;
+    var cellRadius = uiScale * 0.6;//h * 0.02;
+    var energyTextLevel = h - 20;
     ctx.textBaseline = 'bottom';
-    ctx.font = '1.8em monospace';
+    ctx.font = `${uiScale}px monospace`;
     ctx.textAlign = 'left';
     ctx.fillStyle = '#3ff';
     ctx.fillText('Shield', pw, energyTextLevel);
     ctx.textAlign = 'right';
-    ctx.fillText(shield, pw + w * 0.15, energyTextLevel);
+    ctx.fillText(shield, pw + uiScale * 5.3, energyTextLevel);
     ctx.textAlign = 'left';
     ctx.fillStyle = '#888';
-    ctx.font = '1.3em monospace';
-    ctx.fillText(`/ ${maxShield}`, pw + w * 0.158, energyTextLevel);
-    var cellRadius = w * 0.02;
+    ctx.font = `${uiScale*0.8}px monospace`;
+    ctx.fillText(`/ ${maxShield}`, pw + uiScale * 5.6, energyTextLevel);
     for (let i = 0; i < maxShield; i++) {
       ctx.fillStyle = '#555';
       ctx.beginPath();
-      ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel + cellRadius*1.5, cellRadius, cellRadius, 0, 0, 6.28);
+      ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel - cellRadius*4, cellRadius, cellRadius, 0, 0, 6.28);
       ctx.fill();
       ctx.fillStyle = '#3ff';
       ctx.beginPath();
-      ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel + cellRadius*1.5, cellRadius-5, cellRadius-5, 0, 0, 6.28);
+      ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel - cellRadius*4, cellRadius-5, cellRadius-5, 0, 0, 6.28);
       ctx.fill();
     }
 
     // Draw cards
-    ctx.save();
-    // position
-    ctx.translate(w*0.5, h*0.75);
+    var cardsInHand = 3;
+    for (let q = 0; q < cardsInHand; q++) {
+      ctx.save();
 
-    // dimensions
-    var cs = w * 0.12;
-    var csw = cs / 2;
-    var csh = csw * 1.5;
+      // dimensions
+      var cs = Math.min(w * (0.95 / (1 + cardsInHand)), h * 0.19);
+      var csw = cs / 2;
+      var csh = csw * 1.5;
 
-    // background
-    ctx.fillStyle = 'rgb(50,50,50,0.7)';
-    ctx.fillRect(-csw,-csh,csw*2,csh*2);
+      // position
+      ctx.translate(w*0.5+(q-(cardsInHand-1)/2)*cs*1.1, h*0.73);
 
-    // light sheen
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(-csw,-csh,csw*2,csh*2);
-    ctx.clip();
-    ctx.fillStyle = 'rgba(220,230,250,0.3)';
-    ctx.rotate(-0.3);
-    ctx.translate(cs/2, (Date.now() % 2000) / 1000 * (cs * 5) - cs*1.2);
-    ctx.fillRect(-cs*2,0,cs*4,cs*0.2);
-    ctx.fillRect(-cs*2,-cs*0.2,cs*4,cs*0.05);
-    ctx.restore();
+      // background
+      ctx.fillStyle = 'rgb(50,50,50,0.7)';
+      ctx.fillRect(-csw,-csh,csw*2,csh*2);
 
-    // outline
-    ctx.beginPath();
-    ctx.lineWidth = cs / 20;
-    ctx.lineJoin = 'round';
-    ctx.strokeStyle = '#0f0';
-    ctx.moveTo(-csw, -csh);
-    ctx.lineTo(csw, -csh);
-    ctx.lineTo(csw, csh);
-    ctx.lineTo(-csw, csh);
-    ctx.closePath();
-    ctx.stroke();
+      // light sheen
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(-csw,-csh,csw*2,csh*2);
+      ctx.clip();
+      ctx.fillStyle = 'rgba(220,230,250,0.3)';
+      ctx.rotate(-0.3);
+      ctx.translate(cs/2, (Date.now() % 2000) / 1000 * (cs * 5) - cs*1.2);
+      ctx.fillRect(-cs*2,0,cs*4,cs*0.2);
+      ctx.fillRect(-cs*2,-cs*0.2,cs*4,cs*0.05);
+      ctx.restore();
 
-    // text
-    ctx.fillStyle = '#0f0';
-    ctx.textBaseline = 'middle';
-    ctx.font = '1.4em monospace';
-    ctx.textAlign = 'center';
-    var str = 'Gamma Sector';
-    var lines = str.split(' ');
-    for (let i = 0; i < lines.length; i++) {
-      ctx.fillText(lines[i], 0, csh * 0.65 + (i - (lines.length - 1) / 2) * csh * 0.2);
+      // outline
+      ctx.beginPath();
+      ctx.lineWidth = cs / 20;
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#0f0';
+      ctx.moveTo(-csw, -csh);
+      ctx.lineTo(csw, -csh);
+      ctx.lineTo(csw, csh);
+      ctx.lineTo(-csw, csh);
+      ctx.closePath();
+      ctx.stroke();
+
+      // text
+      ctx.fillStyle = '#0f0';
+      ctx.textBaseline = 'middle';
+      ctx.font = `${cs/6}px monospace`;
+      ctx.textAlign = 'center';
+      var str = 'Gamma Sector';
+      var lines = str.split(' ');
+      for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], 0, csh * 0.65 + (i - (lines.length - 1) / 2) * csh * 0.2);
+      }
+      ctx.restore();
     }
-
-    ctx.restore();
   };
 };
 
