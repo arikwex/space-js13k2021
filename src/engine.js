@@ -5,6 +5,19 @@ export default function Engine() {
   // The sequence and channel of obstacles
   var obstacles = [];
 
+  // The cards in the deck
+  var deck = [];
+
+  // The cards in hand
+  var handSize = 3;
+  var hand = [];
+
+  // Shields = HP, Energy = MP
+  var maxShield = 3;
+  var shield = maxShield;
+  var maxEnergy = 6;
+  var energy = maxEnergy;
+
   var totalTicks = 100;
   var currentTick = 0;
   var tickAnim = 0;
@@ -27,7 +40,7 @@ export default function Engine() {
 
     // Lane placements (PillWidth, PillHeight, Top, Mid, Bottom)
     const pw = w / 40;
-    const ph = h / 5;
+    const ph = h * 0.16;
     const th = h * 0.1;
     const mh = th + ph;
     const bh = mh + ph;
@@ -113,5 +126,57 @@ export default function Engine() {
     ctx.fillRect(-s*0.4,s*0.4,s,s*0.15);
     ctx.fillRect(-s*0.4,-s*0.4,s,-s*0.15);
     ctx.restore();
+
+    // Draw energy
+    var shieldTextLevel = bh + ph + h * 0.1;
+    ctx.textBaseline = 'bottom';
+    ctx.font = '1.8em monospace';
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#ff3';
+    ctx.fillText('Energy', pw, shieldTextLevel);
+    ctx.textAlign = 'right';
+    ctx.fillText(energy, pw + w * 0.15, shieldTextLevel);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#888';
+    ctx.font = '1.3em monospace';
+    ctx.fillText(`/ ${maxEnergy}`, pw + w * 0.158, shieldTextLevel);
+    var cellWidth = w * 0.03;
+    var cellHeight = h * 0.05;
+    for (let i = 0; i < maxEnergy; i++) {
+      ctx.fillStyle = '#555';
+      ctx.fillRect(pw + i * (cellWidth + 4), shieldTextLevel + cellHeight*0.4, cellWidth, cellHeight);
+      ctx.fillStyle = '#ff3';
+      ctx.fillRect(pw + i * (cellWidth + 4) + 4, shieldTextLevel + cellHeight*0.4 + 4, cellWidth - 8, cellHeight - 8);
+    }
+
+    // Draw shield
+    var energyTextLevel = bh + ph + h * 0.27;
+    ctx.textBaseline = 'bottom';
+    ctx.font = '1.8em monospace';
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#3ff';
+    ctx.fillText('Shield', pw, energyTextLevel);
+    ctx.textAlign = 'right';
+    ctx.fillText(shield, pw + w * 0.15, energyTextLevel);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#888';
+    ctx.font = '1.3em monospace';
+    ctx.fillText(`/ ${maxShield}`, pw + w * 0.158, energyTextLevel);
+    var cellRadius = w * 0.02;
+    for (let i = 0; i < maxShield; i++) {
+      ctx.fillStyle = '#555';
+      ctx.beginPath();
+      ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel + cellRadius*1.5, cellRadius, cellRadius, 0, 0, 6.28);
+      ctx.fill();
+      ctx.fillStyle = '#3ff';
+      ctx.beginPath();
+      ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel + cellRadius*1.5, cellRadius-5, cellRadius-5, 0, 0, 6.28);
+      ctx.fill();
+    }
   };
 };
+
+
+
+
+
