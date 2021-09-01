@@ -1,22 +1,28 @@
 import * as canvas from './canvas.js';
 import * as gfx from './gfx.js';
+import cards from './cards.js';
 
 export default function Engine() {
   // The sequence and channel of obstacles
   var obstacles = [];
 
   // The cards in the deck
-  var deck = [];
+  var deck = [
+  ];
 
   // The cards in hand
   var handSize = 3;
-  var hand = [];
+  var hand = [
+    cards[0],
+    cards[0]
+  ];
+  console.log(hand)
 
   // Shields = HP, Energy = MP
   var maxShield = 3;
-  var shield = maxShield;
+  var shield = 2;//maxShield;
   var maxEnergy = 6;
-  var energy = maxEnergy;
+  var energy = 3;//maxEnergy;
 
   var totalTicks = 100;
   var currentTick = 0;
@@ -143,14 +149,16 @@ export default function Engine() {
     ctx.fillText(`/ ${maxEnergy}`, w - (pw + uiScale * 5.7), shieldTextLevel);
     var cellWidth = uiScale * 1.2;
     for (let i = 0; i < maxEnergy; i++) {
-      ctx.fillStyle = '#555';
+      ctx.fillStyle = '#333';
       ctx.fillRect(w - (pw + i * (cellWidth + 4) + cellWidth), shieldTextLevel - cellWidth*2.4, cellWidth, cellWidth);
-      ctx.fillStyle = '#ff3';
-      ctx.fillRect(w - (pw + i * (cellWidth + 4) + cellWidth) + 4, shieldTextLevel -  cellWidth*2.4+ 4, cellWidth - 8, cellWidth - 8);
+      if (i < energy) {
+        ctx.fillStyle = '#ff3';
+        ctx.fillRect(w - (pw + i * (cellWidth + 4) + cellWidth) + 4, shieldTextLevel -  cellWidth*2.4+ 4, cellWidth - 8, cellWidth - 8);
+      }
     }
 
     // Draw shield
-    var cellRadius = uiScale * 0.6;//h * 0.02;
+    var cellRadius = uiScale * 0.6;
     var energyTextLevel = h - 20;
     ctx.textBaseline = 'bottom';
     ctx.font = `${uiScale}px monospace`;
@@ -164,68 +172,25 @@ export default function Engine() {
     ctx.font = `${uiScale*0.8}px monospace`;
     ctx.fillText(`/ ${maxShield}`, pw + uiScale * 5.6, energyTextLevel);
     for (let i = 0; i < maxShield; i++) {
-      ctx.fillStyle = '#555';
+      ctx.fillStyle = '#333';
       ctx.beginPath();
       ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel - cellRadius*4, cellRadius, cellRadius, 0, 0, 6.28);
       ctx.fill();
-      ctx.fillStyle = '#3ff';
-      ctx.beginPath();
-      ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel - cellRadius*4, cellRadius-5, cellRadius-5, 0, 0, 6.28);
-      ctx.fill();
+      if (i < shield) {
+        ctx.fillStyle = '#3ff';
+        ctx.beginPath();
+        ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel - cellRadius*4, cellRadius-5, cellRadius-5, 0, 0, 6.28);
+        ctx.fill();
+      }
     }
 
     // Draw cards
-    var cardsInHand = 3;
+    var cardsInHand = hand.length;
     for (let q = 0; q < cardsInHand; q++) {
-      ctx.save();
-
-      // dimensions
-      var cs = Math.min(w * (0.95 / (1 + cardsInHand)), h * 0.19);
-      var csw = cs / 2;
-      var csh = csw * 1.5;
-
-      // position
-      ctx.translate(w*0.5+(q-(cardsInHand-1)/2)*cs*1.1, h*0.73);
-
-      // background
-      ctx.fillStyle = 'rgb(50,50,50,0.7)';
-      ctx.fillRect(-csw,-csh,csw*2,csh*2);
-
-      // light sheen
-      ctx.save();
-      ctx.beginPath();
-      ctx.rect(-csw,-csh,csw*2,csh*2);
-      ctx.clip();
-      ctx.fillStyle = 'rgba(220,230,250,0.3)';
-      ctx.rotate(-0.3);
-      ctx.translate(cs/2, (Date.now() % 2000) / 1000 * (cs * 5) - cs*1.2);
-      ctx.fillRect(-cs*2,0,cs*4,cs*0.2);
-      ctx.fillRect(-cs*2,-cs*0.2,cs*4,cs*0.05);
-      ctx.restore();
-
-      // outline
-      ctx.beginPath();
-      ctx.lineWidth = cs / 20;
-      ctx.lineJoin = 'round';
-      ctx.strokeStyle = '#0f0';
-      ctx.moveTo(-csw, -csh);
-      ctx.lineTo(csw, -csh);
-      ctx.lineTo(csw, csh);
-      ctx.lineTo(-csw, csh);
-      ctx.closePath();
-      ctx.stroke();
-
-      // text
-      ctx.fillStyle = '#0f0';
-      ctx.textBaseline = 'middle';
-      ctx.font = `${cs/6}px monospace`;
-      ctx.textAlign = 'center';
-      var str = 'Gamma Sector';
-      var lines = str.split(' ');
-      for (let i = 0; i < lines.length; i++) {
-        ctx.fillText(lines[i], 0, csh * 0.65 + (i - (lines.length - 1) / 2) * csh * 0.2);
-      }
-      ctx.restore();
+      var cs = Math.min(w * (0.95 / (1 + cardsInHand)), h * 0.185);
+      var x = w * 0.5 + (q - (cardsInHand - 1) / 2) * cs * 1.17;
+      var y = h * 0.735;
+      gfx.drawCard(ctx, x, y, cs, hand[q]);
     }
   };
 };
