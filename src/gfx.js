@@ -49,7 +49,7 @@ export function drawCard(ctx, x, y, cs, card) {
   ctx.beginPath();
   ctx.lineWidth = cs / 20;
   ctx.lineJoin = 'round';
-  ctx.strokeStyle = '#0f0';
+  ctx.strokeStyle = card.color;
   ctx.moveTo(-csw, -csh);
   ctx.lineTo(csw, -csh);
   ctx.lineTo(csw, csh);
@@ -72,12 +72,11 @@ export function drawCard(ctx, x, y, cs, card) {
   ctx.restore();
 
   // text
-  ctx.fillStyle = '#0f0';
+  ctx.fillStyle = card.color;
   ctx.textBaseline = 'middle';
   ctx.font = `${cs/6}px monospace`;
   ctx.textAlign = 'center';
-  var str = 'Gamma Sector';
-  var lines = str.split(' ');
+  var lines = card.title;
   for (let i = 0; i < lines.length; i++) {
     ctx.fillText(lines[i], 0, csh * 0.65 + (i - (lines.length - 1) / 2) * csh * 0.2);
   }

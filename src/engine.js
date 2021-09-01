@@ -14,9 +14,9 @@ export default function Engine() {
   var handSize = 3;
   var hand = [
     cards[0],
-    cards[0]
+    cards[1],
+    cards[2],
   ];
-  console.log(hand)
 
   // Shields = HP, Energy = MP
   var maxShield = 3;
