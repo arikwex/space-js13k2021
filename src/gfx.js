@@ -19,8 +19,12 @@ export function drawStars(ctx, x, y, vx, vy) {
   ctx.stroke();
 }
 
-export function drawCard(ctx, x, y, cs, card) {
+export function drawCard(ctx, x, y, cs, card, hovering) {
   ctx.save();
+
+  if (hovering) {
+    cs *= 1.04;
+  }
 
   // dimensions
   var csw = cs / 2;
@@ -30,7 +34,11 @@ export function drawCard(ctx, x, y, cs, card) {
   ctx.translate(x, y);
 
   // background
-  ctx.fillStyle = 'rgb(50,50,50,0.7)';
+  if (hovering) {
+    ctx.fillStyle = 'rgb(80,80,80,0.7)';
+  } else {
+    ctx.fillStyle = 'rgb(50,50,50,0.7)';
+  }
   ctx.fillRect(-csw,-csh,csw*2,csh*2);
 
   // light sheen

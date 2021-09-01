@@ -9,7 +9,7 @@
     "compile": "rollup src/main.js --format es --no-strict --file dist/bundle.js",
     "package": "npm run minify && npm run html && npm run zip && npm run status",
     "minify": "uglifyjs --compress --mangle -o dist/bundle.min.js -- dist/bundle.js",
-    "html": "echo \"<html><style>canvas{width:100%;height:100%;}body{margin:0;background:#000;}</style><canvas><script>$(cat dist/bundle.min.js)</script></html>\" > dist/index.html",
+    "html": "echo \"<html><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\"><style>canvas{width:100%;height:100%;}body{margin:0;background:#000;touch-action: none;}</style><canvas><script>$(cat dist/bundle.min.js)</script></html>\" > dist/index.html",
     "zip": "zip dist/build.zip dist/index.html",
     "status": "echo \"===> Build Size: $(wc -c < dist/build.zip) / 13,312 bytes <===\""
   },

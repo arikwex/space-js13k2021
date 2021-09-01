@@ -1,5 +1,6 @@
 import * as canvas from './canvas.js';
 import * as gfx from './gfx.js';
+import bus from './bus.js';
 import cards from './cards.js';
 
 export default function Engine() {
@@ -17,6 +18,7 @@ export default function Engine() {
     cards[1],
     cards[2],
   ];
+  var hovering = -1;
 
   // Shields = HP, Energy = MP
   var maxShield = 3;
@@ -28,6 +30,28 @@ export default function Engine() {
   var currentTick = 0;
   var tickAnim = 0;
   var anim = 0;
+
+  // events handlers
+  bus.on('tap', (evt) => {
+
+  });
+  bus.on('move', (evt) => {
+    const w = canvas.width();
+    const h = canvas.height();
+    const mx = evt.x, my = evt.y;
+
+    hovering = -1;
+    var cardsInHand = hand.length;
+    var cs = Math.min(w * (0.95 / (1 + cardsInHand)), h * 0.185);
+
+    for (let q = 0; q < cardsInHand; q++) {
+      var x = w * 0.5 + (q - (cardsInHand - 1) / 2) * cs * 1.17;
+      var y = h * 0.735;
+      if (mx > x - cs/2 && mx < x + cs/2 && my > y - cs*3/4 && my < y + cs*3/4) {
+        hovering = q;
+      }
+    }
+  });
 
   this.update = (dT) => {
     anim += dT;
@@ -190,7 +214,7 @@ export default function Engine() {
       var cs = Math.min(w * (0.95 / (1 + cardsInHand)), h * 0.185);
       var x = w * 0.5 + (q - (cardsInHand - 1) / 2) * cs * 1.17;
       var y = h * 0.735;
-      gfx.drawCard(ctx, x, y, cs, hand[q]);
+      gfx.drawCard(ctx, x, y, cs, hand[q], hovering == q);
     }
   };
 };
