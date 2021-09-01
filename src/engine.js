@@ -32,15 +32,12 @@ export default function Engine() {
   var anim = 0;
 
   // events handlers
-  bus.on('tap', (evt) => {
-
-  });
-  bus.on('move', (evt) => {
+  const getHoverIndex = (evt) => {
     const w = canvas.width();
     const h = canvas.height();
     const mx = evt.x, my = evt.y;
 
-    hovering = -1;
+    var hov = -1;
     var cardsInHand = hand.length;
     var cs = Math.min(w * (0.95 / (1 + cardsInHand)), h * 0.185);
 
@@ -48,9 +45,18 @@ export default function Engine() {
       var x = w * 0.5 + (q - (cardsInHand - 1) / 2) * cs * 1.17;
       var y = h * 0.735;
       if (mx > x - cs/2 && mx < x + cs/2 && my > y - cs*3/4 && my < y + cs*3/4) {
-        hovering = q;
+        hov = q;
       }
     }
+    return hov;
+  };
+
+  bus.on('tap', (evt) => {
+    var h = getHoverIndex(evt);
+    console.log(h);
+  });
+  bus.on('move', (evt) => {
+    hovering = getHoverIndex(evt);
   });
 
   this.update = (dT) => {
