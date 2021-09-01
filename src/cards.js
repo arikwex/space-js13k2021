@@ -1,3 +1,5 @@
+import bus from './bus.js';
+
 const cards = [
 {
   color: '#f33',
@@ -11,7 +13,7 @@ const cards = [
     ctx.stroke();
     ctx.restore();
   },
-  use: function() { console.log('Used: ' + this.title); }
+  use: () => { bus.emit('lane', 0) }
 },
 {
   color: '#3f3',
@@ -25,7 +27,7 @@ const cards = [
     ctx.stroke();
     ctx.restore();
   },
-  use: function() { console.log('Used: ' + this.title); }
+  use: () => { bus.emit('lane', 1) }
 },
 {
   color: '#33f',
@@ -39,7 +41,7 @@ const cards = [
     ctx.stroke();
     ctx.restore();
   },
-  use: function() { console.log('Used: ' + this.title); }
+  use: () => { bus.emit('lane', 2) }
 },
 ];
 export default cards;

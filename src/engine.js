@@ -20,6 +20,11 @@ export default function Engine() {
   ];
   var hovering = -1;
 
+  // Ship position
+  var currentLane = 1;
+  var laneAnim = 1;
+  var shipAngle = 0;
+
   // Shields = HP, Energy = MP
   var maxShield = 3;
   var shield = 2;//maxShield;
@@ -53,10 +58,17 @@ export default function Engine() {
 
   bus.on('tap', (evt) => {
     var h = getHoverIndex(evt);
-    console.log(h);
+    if (h>=0) {
+      hand[h].use();
+    }
   });
+
   bus.on('move', (evt) => {
     hovering = getHoverIndex(evt);
+  });
+
+  bus.on('lane', (lane) => {
+    currentLane = lane;
   });
 
   this.update = (dT) => {
@@ -67,6 +79,10 @@ export default function Engine() {
       currentTick++;
       // TODO: handle round over
     }
+
+    // Animate tween
+    shipAngle += ((currentLane - laneAnim) * 0.5 - shipAngle) * 7.0 * dT;
+    laneAnim += (currentLane - laneAnim) * 5.0 * dT;
   };
 
   this.render = (ctx) => {
@@ -129,7 +145,8 @@ export default function Engine() {
     ctx.save();
 
     // base ship position
-    ctx.translate(50 + pw + s, mh + ph/2);
+    ctx.translate(50 + pw + s, th + ph/2 + laneAnim * ph );
+    ctx.rotate(shipAngle);
 
     // ship flames
     for (let i = 5; i >= 0; i--) {
