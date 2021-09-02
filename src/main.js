@@ -16,6 +16,7 @@ scene.init();
     // Compute frame time in seconds
     var currTime = Date.now();
     var dT = (currTime - lastTime) * 0.001;
+    if (dT > 0.3) { dT = 0.3; }
 
     // Clear frame
     canvas.ctx.fillStyle = '#000';

@@ -5,6 +5,7 @@ import bus from './bus.js';
 import cards from './cards.js';
 import PlayedCard from './playedcard.js';
 import PullCard from './pullcard.js';
+import Asteroid from './asteroid.js';
 
 export default function Engine() {
   // Card handling
@@ -37,9 +38,6 @@ export default function Engine() {
   var getCardScale = (w, h) => Math.min(w * (0.95 / (1 + handSize)), h * 0.185);
   var getCardPosX = (q, cs, w) => w * 0.5 + (q - (handSize - 1) / 2) * cs * 1.17;
   var getCardPosY = (h) => h * 0.735;
-
-  // The sequence and channel of obstacles
-  var obstacles = [];
 
   // The cards in the deck
   var deck = [
@@ -133,12 +131,42 @@ export default function Engine() {
     hand[slot] = card;
   });
 
+  // Actually put stuff on the playing field.
+  var generateContent = () => {
+    if (Math.random() > 0.07) {
+      gameobjects.add(new Asteroid(this, currentTick, parseInt(Math.random()*3)));
+    }
+  };
+
+  this.laneY = (slot) => {
+    var h = canvas.height();
+    if (slot == 0) return h * 0.18;
+    if (slot == 1) return h * 0.34;
+    return h * 0.5;
+  }
+
+  this.laneX = (tick) => {
+    var w = canvas.width(), h = canvas.height();
+    var ticksInView = 5;
+    var shipX = 50 + w/40 + this.laneScale();
+    return shipX + (1 - (currentTick + tickAnim - tick) / ticksInView) * (w + shipX);
+  }
+
+  this.laneScale = () => {
+    var w = canvas.width(), h = canvas.height();
+    const ph = h * 0.16;
+    return Math.min(ph, w/8) * 0.3;
+  }
+
+  this.getTick = () => currentTick;
+
   this.update = (dT) => {
     anim += dT;
     tickAnim += dT * 2;
     if (tickAnim > 1) {
       tickAnim--;
       currentTick++;
+      generateContent();
       // TODO: handle round over
     }
 
