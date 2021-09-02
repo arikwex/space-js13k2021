@@ -2,7 +2,7 @@ import bus from './bus.js';
 
 const cards = [
 {
-  color: '#f33',
+  color: [255, 51, 51],
   title: ['Rho', 'Channel'],
   cost: 1,
   glyph: function (ctx, cs) {
@@ -16,7 +16,7 @@ const cards = [
   use: () => { bus.emit('lane', 0) }
 },
 {
-  color: '#3f3',
+  color: [51, 255, 51],
   title: ['Gamma', 'Sector'],
   cost: 1,
   glyph: function (ctx, cs) {
@@ -30,7 +30,7 @@ const cards = [
   use: () => { bus.emit('lane', 1) }
 },
 {
-  color: '#33f',
+  color: [51, 51, 255],
   title: ['Beta', 'Stream'],
   cost: 1,
   glyph: function (ctx, cs) {

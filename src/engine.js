@@ -1,7 +1,9 @@
+import * as gameobjects from './gameobjects.js';
 import * as canvas from './canvas.js';
 import * as gfx from './gfx.js';
 import bus from './bus.js';
 import cards from './cards.js';
+import PlayedCard from './playedcard.js';
 
 export default function Engine() {
   // Card handling
@@ -23,6 +25,9 @@ export default function Engine() {
       discardPile = [];
     }
   };
+  var getCardScale = (w, h) => Math.min(w * (0.95 / (1 + handSize)), h * 0.185);
+  var getCardPosX = (q, cs, w) => w * 0.5 + (q - (handSize - 1) / 2) * cs * 1.17;
+  var getCardPosY = (h) => h * 0.735;
 
   // The sequence and channel of obstacles
   var obstacles = [];
@@ -89,14 +94,20 @@ export default function Engine() {
   };
 
   bus.on('tap', (evt) => {
-    var h = getHoverIndex(evt);
-    if (h>=0) {
-      cost = hand[h].cost;
+    var hov = getHoverIndex(evt);
+    if (hov>=0) {
+      cost = hand[hov].cost;
       if (energy >= cost) {
         energy -= cost;
-        hand[h].use();
-        removeFromHand(h);
-        pullFromDeckToSlot(h);
+        hand[hov].use();
+        var w = canvas.width();
+        var h = canvas.height();
+        var cs = getCardScale(w, h);
+        var x = getCardPosX(hov, cs, w);
+        var y = getCardPosY(h);
+        gameobjects.add(new PlayedCard(x, y, hand[hov], cs));
+        removeFromHand(hov);
+        pullFromDeckToSlot(hov);
       }
     }
   });
@@ -288,11 +299,11 @@ export default function Engine() {
 
     // Draw cards
     var cardsInHand = hand.length;
+    var cs = getCardScale(w, h);
     for (let q = 0; q < cardsInHand; q++) {
-      var cs = Math.min(w * (0.95 / (1 + cardsInHand)), h * 0.185);
-      var x = w * 0.5 + (q - (cardsInHand - 1) / 2) * cs * 1.17;
-      var y = h * 0.735;
-      gfx.drawCard(ctx, x, y, cs, hand[q], hovering == q);
+      var x = getCardPosX(q, cs, w);
+      var y = getCardPosY(h);
+      gfx.drawCard(ctx, x, y, cs, hand[q], hovering == q, 1);
     }
   };
 };

@@ -19,12 +19,15 @@ export function drawStars(ctx, x, y, vx, vy) {
   ctx.stroke();
 }
 
-export function drawCard(ctx, x, y, cs, card, hovering) {
+export function drawCard(ctx, x, y, cs, card, hovering, opacity) {
   ctx.save();
 
   if (hovering) {
     cs *= 1.04;
   }
+
+  // faded color
+  var netColor = `rgba(${card.color[0]},${card.color[1]},${card.color[2]},${opacity})`;
 
   // dimensions
   var csw = cs / 2;
@@ -35,9 +38,9 @@ export function drawCard(ctx, x, y, cs, card, hovering) {
 
   // background
   if (hovering) {
-    ctx.fillStyle = 'rgb(80,80,80,0.7)';
+    ctx.fillStyle = `rgb(80,80,80,${0.7 * opacity})`;
   } else {
-    ctx.fillStyle = 'rgb(50,50,50,0.7)';
+    ctx.fillStyle = `rgb(50,50,50,${0.7 * opacity})`;
   }
   ctx.fillRect(-csw,-csh,csw*2,csh*2);
 
@@ -46,7 +49,7 @@ export function drawCard(ctx, x, y, cs, card, hovering) {
   ctx.beginPath();
   ctx.rect(-csw,-csh,csw*2,csh*2);
   ctx.clip();
-  ctx.fillStyle = 'rgba(220,230,250,0.3)';
+  ctx.fillStyle = `rgba(220,230,250,${0.3 * opacity})`;
   ctx.rotate(-0.3);
   ctx.translate(cs/2, (Date.now() % 2000) / 1000 * (cs * 5) - cs*1.2);
   ctx.fillRect(-cs*2,0,cs*4,cs*0.2);
@@ -57,7 +60,7 @@ export function drawCard(ctx, x, y, cs, card, hovering) {
   ctx.beginPath();
   ctx.lineWidth = cs / 20;
   ctx.lineJoin = 'round';
-  ctx.strokeStyle = card.color;
+  ctx.strokeStyle = netColor;
   ctx.moveTo(-csw, -csh);
   ctx.lineTo(csw, -csh);
   ctx.lineTo(csw, csh);
@@ -72,7 +75,7 @@ export function drawCard(ctx, x, y, cs, card, hovering) {
 
   // cost
   ctx.translate(0, -cs * 0.52);
-  ctx.fillStyle = '#ff3';
+  ctx.fillStyle = `rgba(255,255,51,${opacity})`;
   var es = cs * 0.12;
   for (let i = 0; i < card.cost; i++) {
     ctx.fillRect((i - (card.cost - 1) / 2) * es - es * 0.45, 0, es * 0.9, es * 0.9);
@@ -80,7 +83,7 @@ export function drawCard(ctx, x, y, cs, card, hovering) {
   ctx.restore();
 
   // text
-  ctx.fillStyle = card.color;
+  ctx.fillStyle = netColor;
   ctx.textBaseline = 'middle';
   ctx.font = `${cs/6}px monospace`;
   ctx.textAlign = 'center';
