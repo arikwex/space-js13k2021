@@ -131,9 +131,16 @@ export default function Engine() {
     hand[slot] = card;
   });
 
+  bus.on('hit', (dmg) => {
+    shield -= dmg;
+    if (shield <= 0) {
+      // TODO: game over!
+    }
+  });
+
   // Actually put stuff on the playing field.
   var generateContent = () => {
-    if (Math.random() > 0.07) {
+    if (Math.random() > 0.5 && currentTick > 20) {
       gameobjects.add(new Asteroid(this, currentTick, parseInt(Math.random()*3)));
     }
   };
@@ -159,6 +166,16 @@ export default function Engine() {
   }
 
   this.getTick = () => currentTick;
+
+  this.getShipX = () => {
+    var w = canvas.width();
+    return 50 + w/40 + this.laneScale();
+  };
+
+  this.getShipY = () => {
+    var h = canvas.height();
+    return h * 0.18 + laneAnim * h * 0.16;
+  };
 
   this.update = (dT) => {
     anim += dT;
