@@ -4,20 +4,50 @@ import bus from './bus.js';
 import cards from './cards.js';
 
 export default function Engine() {
+  // Card handling
+  var cloneCard = (card) => Object.assign({}, card);
+  var shuffle = (d) => d.sort(() => Math.random() - 0.5)
+  var removeFromHand = (idx) => {
+    discardPile.push(hand[idx]);
+    hand[idx] = null;
+  };
+  var pullFromDeckToSlot = (slot) => {
+    var idx = parseInt(Math.random() * deck.length);
+    var pulledCard = deck[idx];
+    deck.splice(idx, 1);
+    hand[slot] = pulledCard;
+    // reshuffle deck
+    if (deck.length == 0) {
+      deck = discardPile;
+      shuffle(deck);
+      discardPile = [];
+    }
+  };
+
   // The sequence and channel of obstacles
   var obstacles = [];
 
   // The cards in the deck
   var deck = [
+    cloneCard(cards[0]),
+    cloneCard(cards[0]),
+    cloneCard(cards[0]),
+    cloneCard(cards[1]),
+    cloneCard(cards[1]),
+    cloneCard(cards[1]),
+    cloneCard(cards[2]),
+    cloneCard(cards[2]),
+    cloneCard(cards[2]),
   ];
+  var discardPile = [];
+  shuffle(deck);
 
   // The cards in hand
   var handSize = 3;
-  var hand = [
-    cards[0],
-    cards[1],
-    cards[2],
-  ];
+  var hand = [];
+  for (let i = 0; i < handSize; i++) {
+    pullFromDeckToSlot(i);
+  }
   var hovering = -1;
 
   // Ship position
@@ -27,9 +57,11 @@ export default function Engine() {
 
   // Shields = HP, Energy = MP
   var maxShield = 3;
-  var shield = 2;//maxShield;
+  var shield = maxShield;
   var maxEnergy = 6;
-  var energy = 3;//maxEnergy;
+  var energy = maxEnergy;
+  var energyRefill = 0;
+  var energyRefillRate = 0.75;
 
   var totalTicks = 100;
   var currentTick = 0;
@@ -59,7 +91,13 @@ export default function Engine() {
   bus.on('tap', (evt) => {
     var h = getHoverIndex(evt);
     if (h>=0) {
-      hand[h].use();
+      cost = hand[h].cost;
+      if (energy >= cost) {
+        energy -= cost;
+        hand[h].use();
+        removeFromHand(h);
+        pullFromDeckToSlot(h);
+      }
     }
   });
 
@@ -78,6 +116,17 @@ export default function Engine() {
       tickAnim--;
       currentTick++;
       // TODO: handle round over
+    }
+
+    // Energy refill
+    if (energy < maxEnergy) {
+      energyRefill += energyRefillRate * dT;
+      if (energyRefill >= 1) {
+        energyRefill -= 1;
+        energy++;
+      }
+    } else {
+      energyRefill = 0;
     }
 
     // Animate tween
@@ -203,6 +252,12 @@ export default function Engine() {
         ctx.fillRect(w - (pw + i * (cellWidth + 4) + cellWidth) + 4, shieldTextLevel -  cellWidth*2.4+ 4, cellWidth - 8, cellWidth - 8);
       }
     }
+    // energy refill meter
+    ctx.fillStyle = '#333';
+    var fillMeterScale = (cellWidth + 4) * maxEnergy - 4;
+    ctx.fillRect(w - pw, shieldTextLevel - cellWidth*1.07, -fillMeterScale, 2);
+    ctx.fillStyle = '#ff3';
+    ctx.fillRect(w - pw, shieldTextLevel - cellWidth*1.07, -energyRefill * fillMeterScale, 2);
 
     // Draw shield
     var cellRadius = uiScale * 0.6;
