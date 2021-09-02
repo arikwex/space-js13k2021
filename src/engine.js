@@ -4,6 +4,7 @@ import * as gfx from './gfx.js';
 import bus from './bus.js';
 import cards from './cards.js';
 import PlayedCard from './playedcard.js';
+import PullCard from './pullcard.js';
 
 export default function Engine() {
   // Card handling
@@ -17,7 +18,15 @@ export default function Engine() {
     var idx = parseInt(Math.random() * deck.length);
     var pulledCard = deck[idx];
     deck.splice(idx, 1);
-    hand[slot] = pulledCard;
+
+    // pull card animation
+    var w = canvas.width();
+    var h = canvas.height();
+    var cs = getCardScale(w, h);
+    var x = getCardPosX(slot, cs, w);
+    var y = getCardPosY(h);
+    gameobjects.add(new PullCard(x, y, pulledCard, cs, slot));
+
     // reshuffle deck
     if (deck.length == 0) {
       deck = discardPile;
@@ -95,7 +104,7 @@ export default function Engine() {
 
   bus.on('tap', (evt) => {
     var hov = getHoverIndex(evt);
-    if (hov>=0) {
+    if (hov>=0 && hand[hov] != null) {
       cost = hand[hov].cost;
       if (energy >= cost) {
         energy -= cost;
@@ -118,6 +127,10 @@ export default function Engine() {
 
   bus.on('lane', (lane) => {
     currentLane = lane;
+  });
+
+  bus.on('place', ({slot, card}) => {
+    hand[slot] = card;
   });
 
   this.update = (dT) => {
@@ -301,6 +314,7 @@ export default function Engine() {
     var cardsInHand = hand.length;
     var cs = getCardScale(w, h);
     for (let q = 0; q < cardsInHand; q++) {
+      if (hand[q] == null) continue;
       var x = getCardPosX(q, cs, w);
       var y = getCardPosY(h);
       gfx.drawCard(ctx, x, y, cs, hand[q], hovering == q, 1);
