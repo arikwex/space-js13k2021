@@ -10,7 +10,7 @@ window.addEventListener('touchstart', (evt) => {
 window.addEventListener('mousedown', (evt) => {
   evt.preventDefault();
   evt.stopPropagation();
-  bus.emit('tap', { x: evt.x, y: evt.y });
+  if (!isMobile()) { bus.emit('tap', { x: evt.x, y: evt.y });}
 });
 
 window.addEventListener('mousemove', (evt) => {

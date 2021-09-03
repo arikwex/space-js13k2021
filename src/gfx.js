@@ -247,3 +247,37 @@ export function drawDialogBox(ctx, title, txt) {
   // Split line text
   ctx.restore();
 }
+
+export function drawItemShell(ctx, x, y, s) {
+  ctx.save();
+  ctx.translate(x, y);
+  s/=2;
+  ctx.fillStyle = '#333';
+  ctx.strokeStyle = '#666';
+  ctx.lineWidth = s*0.1;
+  ctx.beginPath();
+  ctx.arc(0, 0, s, 0, 6.29);
+  ctx.fill();
+  ctx.stroke();
+  ctx.restore();
+}
+
+export function drawItemXeno(ctx, x, y, s) {
+  ctx.save();
+  ctx.translate(x, y);
+  s/=2;
+  ctx.fillStyle = '#ccd';
+  ctx.fillRect(s*0.07, -s*0.7, s*0.15, s*0.7);
+  ctx.beginPath();
+  ctx.arc(s*0.1,-s*0.54,s*0.24,0,6.29);
+  ctx.fill();
+  ctx.fillStyle = '#b94';
+  ctx.fillRect(-s*0.6, -s*0.1, s*1.2, s*0.7);
+  ctx.fillRect(s*0.3, -s*0.3, s*0.4, s*0.5);
+  ctx.fillStyle = '#aaa';
+  ctx.textAlign='center';
+  ctx.textBaseline='bottom';
+  ctx.font=`${s*0.2}px monospace`;
+  ctx.fillText('Xenotransponder',0,s*1.4);
+  ctx.restore();
+}

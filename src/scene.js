@@ -38,9 +38,12 @@ export function goto(s) { bus.emit('scene', s); }
       g.push(new Text('Professor Zoren\'s Lab', ()=>canvas.width()*0.03, ()=>canvas.width()*0.05, '#fff', 0.5, 'left'));
       g.push({
         render: (ctx) => {
+          var uiScale = canvas.height() * 0.3;
           gfx.drawCharPlayer(ctx);
           gfx.drawCharZoren(ctx);
           gfx.drawDialogBox(ctx, 'Professor Zoren', 'Hey there Courier, I need your help getting this Xenotransponder to Korva-6. It\'s only a few planets away.');
+          gfx.drawItemShell(ctx, canvas.width()*0.5, canvas.height()*0.4,uiScale);
+          gfx.drawItemXeno(ctx, canvas.width()*0.5, canvas.height()*0.4,uiScale);
         }
       });
       // Touch anywhere to start game
