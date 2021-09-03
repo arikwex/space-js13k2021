@@ -10,8 +10,8 @@ export function drawStars(ctx, x, y, vx, vy) {
   ctx.lineWidth = 0.5;
   for (let i = 0; i < N; i++) {
     let s = 1 + (Math.sin(i * i * 1217 + i * i * i * 983) * 0.5 + 0.5) * 5;
-    let ax = (1234918 * i * i + i * i * i * i * 2291722 + x * s) % w;
-    let ay = (3000182 * i * i * i * i + i * i * i * i * i * 500291 + y * s) % h;
+    let ax = (1234918 * i * i + i * i * i * i * 2291722 + x * s) % (w+100)-50;
+    let ay = (3000182 * i * i * i * i + i * i * i * i * i * 500291 + y * s) % (h+100)-50;
     ctx.moveTo(ax, ay);
     ctx.lineTo(ax+vx*s, ay+vy*s);
     ctx.fillRect(ax-1, ay-1, 2, 2);
