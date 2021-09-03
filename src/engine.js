@@ -77,7 +77,7 @@ export default function Engine() {
   var energyRefill = 0;
   var energyRefillRate = 0.75;
 
-  var totalTicks = 100;
+  var totalTicks = 20;
   var currentTick = 0;
   var tickAnim = 0;
   var anim = 0;
@@ -251,9 +251,19 @@ export default function Engine() {
     // Starmap
     gfx.drawStars(ctx, -anim*20, 0, 3, 0);
 
+    // Planets
+    var r = h * 0.3;
+    ctx.fillStyle = '#224';
+    ctx.beginPath();
+    ctx.arc(-(currentTick + tickAnim) / 5 * w * 0.5, h * 0.34, r, 0, 6.28);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(-(currentTick + tickAnim - totalTicks) / 5 * w + w*0.3, h * 0.34, r, 0, 6.28);
+    ctx.fill();
+
     // Minimap
     // Progress path
-    var pr=th/2*0.7;
+    var pr=h*0.02;
     ctx.fillStyle = '#446';
     ctx.fillRect(15 + pw, th/2, w - 30 - 2*pw, 1);
     // Source planet
@@ -280,14 +290,17 @@ export default function Engine() {
     ctx.fillStyle = '#f33'; ctx.fillRect(15, th, pw, ph);
     ctx.fillStyle = '#3f3'; ctx.fillRect(15, mh, pw, ph);
     ctx.fillStyle = '#33f'; ctx.fillRect(15, bh, pw, ph);
-    ctx.fillStyle = '#311'; ctx.fillRect(w-15, th, -pw, ph);
-    ctx.fillStyle = '#131'; ctx.fillRect(w-15, mh, -pw, ph);
-    ctx.fillStyle = '#113'; ctx.fillRect(w-15, bh, -pw, ph);
-    ctx.fillStyle = '#222';
-    ctx.fillRect(15, th, w-30, 1);
-    ctx.fillRect(15, mh, w-30, 1);
-    ctx.fillRect(15, bh, w-30, 1);
-    ctx.fillRect(15, bh+ph, w-30, 1);
+    ctx.fillStyle = '#f33'; ctx.fillRect(w-15, th, -pw, ph);
+    ctx.fillStyle = '#3f3'; ctx.fillRect(w-15, mh, -pw, ph);
+    ctx.fillStyle = '#33f'; ctx.fillRect(w-15, bh, -pw, ph);
+    // ctx.fillStyle = '#311'; ctx.fillRect(w-15, th, -pw, ph);
+    // ctx.fillStyle = '#131'; ctx.fillRect(w-15, mh, -pw, ph);
+    // ctx.fillStyle = '#113'; ctx.fillRect(w-15, bh, -pw, ph);
+    // ctx.fillStyle = '#222';
+    // ctx.fillRect(15, th, w-30, 1);
+    // ctx.fillRect(15, mh, w-30, 1);
+    // ctx.fillRect(15, bh, w-30, 1);
+    // ctx.fillRect(15, bh+ph, w-30, 1);
 
     // Draw the main ship
     ctx.save();
