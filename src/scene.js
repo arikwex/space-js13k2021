@@ -1,12 +1,13 @@
 import * as canvas from './canvas.js';
 import * as gameobjects from './gameobjects.js';
 import * as animations from './animations.js';
+import * as gfx from './gfx.js';
 import bus from './bus.js';
 import Text from './text.js';
 import Engine from './engine.js';
 
 // Go to main menu
-export function init() { bus.emit('scene', 0); }
+export function init() { bus.emit('scene', 1); }
 
 // Go to scene number
 export function goto(s) { bus.emit('scene', s); }
@@ -24,10 +25,9 @@ export function goto(s) { bus.emit('scene', s); }
     // [SCENE = 0] MAIN MENU
     if (scene == 0) {
       // Main Menu text
-      var uiScale = canvas.width() * 0.08;
-      g.push(new Text('SHUTTLEDECK', ()=>canvas.width()/2, ()=>canvas.height()*0.4, '#fff', uiScale, 'center'));
-      var pushToStart = new Text('[ Press to start ]', ()=>canvas.width()/2, ()=>canvas.height()*0.6, '#777', uiScale/2, 'center');
-      pushToStart.ecs = [animations.pulse((x) => {pushToStart.size = x * uiScale / 6;}, 2.8, 3.2, 1)];
+      g.push(new Text('SHUTTLEDECK', ()=>canvas.width()/2, ()=>canvas.height()*0.4, '#fff', 1, 'center'));
+      var pushToStart = new Text('[ Press to start ]', ()=>canvas.width()/2, ()=>canvas.height()*0.6, '#777', 0.5, 'center');
+      pushToStart.ecs = [animations.pulse((x) => {pushToStart.size = x;}, 0.45, 0.55, 1)];
       g.push(pushToStart);
       // Touch anywhere to go to intro
       bus.on('tap', () => goto(1));
@@ -35,7 +35,13 @@ export function goto(s) { bus.emit('scene', s); }
 
     // [SCENE = 2] INTRO
     if (scene == 1) {
-      g.push(new Text('Professor Zoren\'s Lab', ()=>canvas.width()/2, ()=>canvas.height()*0.4, '#fff', 6, 'center'));
+      g.push(new Text('Professor Zoren\'s Lab', ()=>canvas.width()*0.03, ()=>canvas.width()*0.05, '#fff', 0.5, 'left'));
+      g.push({
+        render: (ctx) => {
+          gfx.drawCharPlayer(ctx);
+          gfx.drawCharZoren(ctx);
+        }
+      });
       // Touch anywhere to start game
       bus.on('tap', () => goto(2));
     }

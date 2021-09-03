@@ -123,3 +123,56 @@ export function drawDeck(ctx, x, y, s) {
   ctx.strokeRect(-s, -s*1.5, 2*s, 3*s);
   ctx.restore();
 }
+
+export function drawCharPlayer(ctx) {
+  var w = canvas.width();
+  var h = canvas.height();
+  var s = Math.min(h * 0.075, w * 0.1);
+  ctx.save();
+  ctx.translate(s*1.2, h + Math.sin(Date.now()*0.003)*s*0.1);
+  // Torso
+  ctx.fillStyle='#bbb';
+  ctx.beginPath();
+  ctx.arc(-s*0.1, s*0.1, s*1.4, 0, 6.29);
+  ctx.fill();
+  // Head
+  ctx.fillStyle='#eee';
+  ctx.beginPath();
+  ctx.arc(0, -s*1.9, s, 0, 6.29);
+  ctx.fill();
+  // Visor
+  ctx.fillStyle='#3af';
+  ctx.fillRect(-s*0.1,-s*2.1,s,s*0.4);
+  ctx.restore();
+}
+
+export function drawCharZoren(ctx) {
+  var w = canvas.width();
+  var h = canvas.height();
+  var s = Math.min(h * 0.075, w * 0.1);
+  ctx.save();
+  ctx.translate(w-s*1.2, h+Math.sin(Date.now()*0.0021+3)*s*0.1);
+  // Torso
+  ctx.fillStyle='#8a8';
+  ctx.fillRect(-s*0.5,-s*1.5,s*1.4,s*2);
+  ctx.fillStyle='#686';
+  ctx.fillRect(-s*0.2,-s*1.5,s*0.1,s*2);
+  ctx.fillRect(-s*0.35,-s*0.8,s*0.1,s*0.1);
+  ctx.fillRect(-s*0.35,-s*0.6,s*0.1,s*0.1);
+  // Head
+  ctx.fillStyle='#fdb';
+  ctx.beginPath();
+  ctx.arc(0, -s*1.8, s, 0, 6.29);
+  ctx.fill();
+  // Glasses
+  ctx.fillStyle='#333';
+  ctx.fillRect(-s*1,-s*1.95,s*1.6,s*0.1);
+  ctx.fillStyle='#3b5';
+  ctx.beginPath();
+  ctx.arc(-s*0.8,-s*1.8,s*0.3,0,6.29);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(-s*0.1,-s*1.8,s*0.3,0,6.29);
+  ctx.fill();
+  ctx.restore();
+}
