@@ -1,11 +1,13 @@
 import * as gameobjects from './gameobjects.js';
 import * as canvas from './canvas.js';
 import * as gfx from './gfx.js';
+import persist from './persist.js';
 import bus from './bus.js';
 import cards from './cards.js';
 import PlayedCard from './playedcard.js';
 import PullCard from './pullcard.js';
 import Asteroid from './asteroid.js';
+import Mineral from './mineral.js';
 
 export default function Engine() {
   // Card handling
@@ -138,10 +140,31 @@ export default function Engine() {
     }
   });
 
+  bus.on('mineral', (m) => {
+    persist.addMineral(m);
+    console.log(persist.getMinerals());
+  });
+
   // Actually put stuff on the playing field.
   var generateContent = () => {
-    if (Math.random() > 0.5 && currentTick > 20) {
-      gameobjects.add(new Asteroid(this, currentTick, parseInt(Math.random()*3)));
+    var lanes = {};
+
+    // Asteroid
+    if (Math.random() > 0.5) {
+      var lane = parseInt(Math.random()*3);
+      if (!lanes[lane]) {
+        lanes[lane] = 1;
+        gameobjects.add(new Asteroid(this, currentTick, lane));
+      }
+    }
+
+    // Minerals
+    if (Math.random() > 0.5) {
+      var lane = parseInt(Math.random()*3);
+      if (!lanes[lane]) {
+        lanes[lane] = 1;
+        gameobjects.add(new Mineral(this, currentTick, lane, 1));
+      }
     }
   };
 
@@ -175,6 +198,13 @@ export default function Engine() {
   this.getShipY = () => {
     var h = canvas.height();
     return h * 0.18 + laneAnim * h * 0.16;
+  };
+
+  this.closeToShip = (tick, slot, dist) => {
+    var s = this.laneScale();
+    var dx = this.laneX(tick) - this.getShipX();
+    var dy = this.laneY(slot) - this.getShipY();
+    return dx * dx + dy * dy < s * s * dist;
   };
 
   this.update = (dT) => {
@@ -299,7 +329,7 @@ export default function Engine() {
     ctx.restore();
 
     // Draw energy
-    var uiScale = Math.max(h * 0.025, 20);
+    var uiScale = Math.min(Math.max(h * 0.025, 20), w*0.035);
     var shieldTextLevel = h - 20;
     ctx.textBaseline = 'bottom';
     ctx.font = `${uiScale}px monospace`;
@@ -315,15 +345,15 @@ export default function Engine() {
     var cellWidth = uiScale * 1.2;
     for (let i = 0; i < maxEnergy; i++) {
       ctx.fillStyle = '#333';
-      ctx.fillRect(w - (pw + i * (cellWidth + 4) + cellWidth), shieldTextLevel - cellWidth*2.4, cellWidth, cellWidth);
+      ctx.fillRect(w - (pw + i * (cellWidth*0.8 + 4) + cellWidth), shieldTextLevel - cellWidth*2.4, cellWidth*0.8, cellWidth);
       if (i < energy) {
         ctx.fillStyle = '#ff3';
-        ctx.fillRect(w - (pw + i * (cellWidth + 4) + cellWidth) + 4, shieldTextLevel -  cellWidth*2.4+ 4, cellWidth - 8, cellWidth - 8);
+        ctx.fillRect(w - (pw + i * (cellWidth*0.8 + 4) + cellWidth) + cellWidth*0.175, shieldTextLevel -  cellWidth*2.4 + cellWidth*0.175, cellWidth*0.8 - cellWidth*0.35, cellWidth - cellWidth*0.35);
       }
     }
     // energy refill meter
     ctx.fillStyle = '#333';
-    var fillMeterScale = (cellWidth + 4) * maxEnergy - 4;
+    var fillMeterScale = (cellWidth*0.8 + 4) * maxEnergy;
     ctx.fillRect(w - pw, shieldTextLevel - cellWidth*1.07, -fillMeterScale, 2);
     ctx.fillStyle = '#ff3';
     ctx.fillRect(w - pw, shieldTextLevel - cellWidth*1.07, -energyRefill * fillMeterScale, 2);
@@ -350,10 +380,24 @@ export default function Engine() {
       if (i < shield) {
         ctx.fillStyle = '#3ff';
         ctx.beginPath();
-        ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel - cellRadius*4, cellRadius-5, cellRadius-5, 0, 0, 6.28);
+        ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel - cellRadius*4, cellRadius*0.65, cellRadius*0.65, 0, 0, 6.28);
         ctx.fill();
       }
     }
+
+    // Draw mineral count
+    var mineralTextLevel = h - 20;
+    ctx.textBaseline = 'bottom';
+    ctx.font = `${uiScale}px monospace`;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#f3f';
+    ctx.fillText(persist.getMinerals(), w*0.4, mineralTextLevel);
+    gfx.drawMineral(ctx, w*0.4, mineralTextLevel-uiScale*2.1,0.785,uiScale*0.5);
+
+    // Draw deck size remaining
+    ctx.fillStyle = '#aaa';
+    ctx.fillText(deck.length, w*0.6, mineralTextLevel);
+    gfx.drawDeck(ctx, w*0.6, mineralTextLevel-uiScale*2.1,uiScale*0.4);
 
     // Draw cards
     var cardsInHand = hand.length;

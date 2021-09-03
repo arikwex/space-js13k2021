@@ -93,3 +93,33 @@ export function drawCard(ctx, x, y, cs, card, hovering, opacity) {
   }
   ctx.restore();
 }
+
+export function drawMineral(ctx, x, y, angle, s) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.fillStyle = '#f3f';
+  ctx.rotate(angle);
+  ctx.fillRect(-s, -s, 2*s, 2*s);
+  s *= 0.6;
+  ctx.fillStyle = '#fbf';
+  ctx.fillRect(-s, -s, 2*s, 2*s);
+  ctx.restore();
+}
+
+export function drawDeck(ctx, x, y, s) {
+  ctx.save();
+  ctx.strokeStyle = '#ccc';
+  ctx.fillStyle = '#222';
+  ctx.lineWidth = s*0.1;
+  var step = s * 0.5;
+  ctx.translate(x-step, y+step);
+  ctx.fillRect(-s, -s*1.5, 2*s, 3*s);
+  ctx.strokeRect(-s, -s*1.5, 2*s, 3*s);
+  ctx.translate(step, -step);
+  ctx.fillRect(-s, -s*1.5, 2*s, 3*s);
+  ctx.strokeRect(-s, -s*1.5, 2*s, 3*s);
+  ctx.translate(step, -step);
+  ctx.fillRect(-s, -s*1.5, 2*s, 3*s);
+  ctx.strokeRect(-s, -s*1.5, 2*s, 3*s);
+  ctx.restore();
+}

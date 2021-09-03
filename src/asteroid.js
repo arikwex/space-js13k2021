@@ -8,10 +8,7 @@ function Asteroid(engine, tick, slot) {
     if (engine.getTick() > tick + 6) {
       this.destroyed = true;
     }
-    var s = engine.laneScale();
-    var dx = engine.laneX(tick) - engine.getShipX();
-    var dy = engine.laneY(slot) - engine.getShipY();
-    if (dx * dx + dy * dy < s * s * 2) {
+    if (engine.closeToShip(tick, slot, 2)) {
       this.destroyed = true;
       bus.emit('hit', 1);
     }
@@ -20,7 +17,7 @@ function Asteroid(engine, tick, slot) {
     ctx.save();
     ctx.translate(engine.laneX(tick), engine.laneY(slot));
     var s = engine.laneScale() * 1.0;
-    ctx.fillStyle = '#753';
+    ctx.fillStyle = '#963';
     // debris trail
     for (let i = 0; i < 8; i++) {
       ctx.beginPath();
