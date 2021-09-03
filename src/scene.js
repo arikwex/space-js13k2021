@@ -40,6 +40,7 @@ export function goto(s) { bus.emit('scene', s); }
         render: (ctx) => {
           gfx.drawCharPlayer(ctx);
           gfx.drawCharZoren(ctx);
+          gfx.drawDialogBox(ctx, 'Professor Zoren', 'Hey there Courier, I need your help getting this Xenotransponder to Korva-6. It\'s only a few planets away.');
         }
       });
       // Touch anywhere to start game

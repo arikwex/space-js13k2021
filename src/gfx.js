@@ -176,3 +176,74 @@ export function drawCharZoren(ctx) {
   ctx.fill();
   ctx.restore();
 }
+
+var lineBreaks = (ctx, txt, maxWidth) => {
+  var str = '';
+  var lines = [];
+  for (let i = 0; i < txt.length; i++) {
+    str += txt[i];
+    if (ctx.measureText(str).width > maxWidth) {
+      var ls = str.lastIndexOf(' ');
+      var ps = str.substring(0, ls);
+      lines.push(ps.trim());
+      str = str.substring(ls);
+    }
+  }
+  if (str.trim().length > 0) {
+    lines.push(str.trim());
+  }
+  return lines;
+}
+var getTextLines = (ctx, txt, w, h, maxWidth) => {
+  var r = textLineMap[txt];
+  if (r) {
+    if (r.w == w && r.h == h) {
+      return r.lines;
+    }
+  }
+  var l = lineBreaks(ctx, txt, maxWidth);
+  textLineMap[txt] = {w,h,lines:l};
+  return l;
+}
+var textLineMap = {};
+
+export function drawDialogBox(ctx, title, txt) {
+  var w = canvas.width();
+  var h = canvas.height();
+  var s = Math.min(h * 0.075, w * 0.1);
+  var ts = Math.max(w * 0.08, h * 0.07);
+  ctx.save();
+  // Dialog box
+  ctx.fillStyle = '#236';
+  ctx.strokeStyle = '#3af';
+  ctx.lineWidth = s * 0.1;
+  ctx.beginPath();
+  ctx.moveTo(s*2.8,h*0.75);
+  ctx.lineTo(w-s*2.8,h*0.75);
+  ctx.lineTo(w-s*2.8,h-s*1.8);
+  ctx.lineTo(w-s*2.5,h-s*1.6);
+  ctx.lineTo(w-s*2.8,h-s*1.4);
+  ctx.lineTo(w-s*2.8,h-s*0.2);
+  ctx.lineTo(s*2.8,h-s*0.2);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+
+  // title text
+  ctx.fillStyle='#ff3';
+  ctx.textAlign='left';
+  ctx.font=`${ts*0.3}px monospace`;
+  ctx.fillText(title, s*3, h*0.75+ts*0.25);
+
+  // title text
+  ctx.fillStyle='#fff';
+  ctx.textAlign='left';
+  ctx.font=`${ts*0.25}px monospace`;
+
+  var lines = getTextLines(ctx, txt, w, h, w - s*6);
+  for (let i = 0; i < lines.length; i++) {
+    ctx.fillText(lines[i], s*3, h*0.75+ts*(2.1 + i)*0.3);
+  }
+  // Split line text
+  ctx.restore();
+}
