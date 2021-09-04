@@ -4,8 +4,11 @@ import * as animations from './animations.js';
 import * as gfx from './gfx.js';
 import StartButton from './startbutton.js';
 import bus from './bus.js';
-import Text from './text.js';
 import Steam from './steam.js';
+
+// Scenes
+import MainMenu from './mainmenu.js';
+import Intro from './intro.js';
 import Engine from './engine.js';
 
 // Go to main menu
@@ -37,41 +40,15 @@ export function transition(s) {
     bus.clear();
     bus.on('scene', sceneConfig);
     gameobjects.clear();
-    var g = gameobjects.get();
 
     // [SCENE = 0] MAIN MENU
-    if (scene == 0) {
-      // Main Menu text
-      g.push({render: (ctx) => {gfx.drawStars(ctx,-Date.now()*0.03,0,3,0);}});
-      g.push(new Text('SHUTTLEDECK', ()=>canvas.width()/2, ()=>canvas.height()*0.4, '#fff', 1, 'center'));
-      var pushToStart = new Text('[ Press to start ]', ()=>canvas.width()/2, ()=>canvas.height()*0.6, '#777', 0.5, 'center');
-      pushToStart.ecs = [animations.pulse((x) => {pushToStart.size = x;}, 0.45, 0.55, 1)];
-      g.push(pushToStart);
-      // Touch anywhere to go to intro
-      bus.on('tap', () => transition(1));
-    }
+    if (scene == 0) { gameobjects.add(new MainMenu()); }
 
     // [SCENE = 1] INTRO
-    if (scene == 1) {
-      g.push(new Text('Professor Zoren\'s Lab', ()=>canvas.width()*0.03, ()=>canvas.width()*0.05, '#fff', 0.5, 'left'));
-      g.push(new StartButton());
-      g.push({
-        render: (ctx) => {
-          var uiScale = canvas.height() * 0.3;
-          gfx.drawCharPlayer(ctx);
-          gfx.drawCharZoren(ctx);
-          gfx.drawDialogBox(ctx, 'Professor Zoren', 'Hey there Courier, I need your help getting this Xenotransponder to Korva-6. It\'s only a few planets away.');
-          gfx.drawItemShell(ctx, canvas.width()*0.5, canvas.height()*0.4,uiScale);
-          gfx.drawItemXeno(ctx, canvas.width()*0.5, canvas.height()*0.4,uiScale);
-        }
-      });
-      bus.on('start', () => transition(2));
-    }
+    if (scene == 1) { gameobjects.add(new Intro()); }
 
     // [SCENE = 2] GAME
-    else if (scene == 2) {
-      g.push(new Engine());
-    }
+    if (scene == 2) { gameobjects.add(new Engine()); }
   };
 
   bus.on('scene', sceneConfig);
