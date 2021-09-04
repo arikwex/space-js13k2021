@@ -72,7 +72,7 @@ export default function Engine() {
   // Shields = HP, Energy = MP
   var maxShield = 3;
   var shield = maxShield;
-  var maxEnergy = 6;
+  var maxEnergy = 5;
   var energy = maxEnergy;
   var energyRefill = 0;
   var energyRefillRate = 0.75;
@@ -341,8 +341,8 @@ export default function Engine() {
     ctx.restore();
 
     // Draw energy
-    var uiScale = Math.min(Math.max(h * 0.025, 20), w*0.035);
-    var shieldTextLevel = h - 20;
+    var uiScale = Math.min(h * 0.025, w*0.035);
+    var shieldTextLevel = h - uiScale;
     ctx.textBaseline = 'bottom';
     ctx.font = `${uiScale}px monospace`;
     ctx.textAlign = 'right';
@@ -372,7 +372,7 @@ export default function Engine() {
 
     // Draw shield
     var cellRadius = uiScale * 0.6;
-    var energyTextLevel = h - 20;
+    var energyTextLevel = h - uiScale;
     ctx.textBaseline = 'bottom';
     ctx.font = `${uiScale}px monospace`;
     ctx.textAlign = 'left';
@@ -398,7 +398,7 @@ export default function Engine() {
     }
 
     // Draw mineral count
-    var mineralTextLevel = h - 20;
+    var mineralTextLevel = h - uiScale;
     ctx.textBaseline = 'bottom';
     ctx.font = `${uiScale}px monospace`;
     ctx.textAlign = 'center';
