@@ -264,7 +264,7 @@ export function drawDialogBox(ctx, title, txt) {
   var w = canvas.width();
   var h = canvas.height();
   var s = Math.min(h * 0.075, w * 0.1);
-  var ts = Math.max(w * 0.08, h * 0.07);
+  var ts = Math.max(w * 0.09, h * 0.08);
   ctx.save();
   // Dialog box
   ctx.fillStyle = '#236';

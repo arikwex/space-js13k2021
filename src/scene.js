@@ -14,7 +14,7 @@ import Engine from './engine.js';
 import PlanetEvent from './planetevent.js';
 
 // Init/Reset game
-export function init() { persist.reset(); bus.emit('scene', 3); }
+export function init() { persist.reset(); bus.emit('scene', 0); }
 
 // Go to scene number
 export function goto(s) { bus.emit('scene', s); }
