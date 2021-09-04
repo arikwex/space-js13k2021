@@ -1,6 +1,7 @@
 import * as gameobjects from './gameobjects.js';
 import * as canvas from './canvas.js';
 import * as gfx from './gfx.js';
+import * as scene from './scene.js';
 import persist from './persist.js';
 import bus from './bus.js';
 import cards from './cards.js';
@@ -146,10 +147,13 @@ export default function Engine() {
 
   // Actually put stuff on the playing field.
   var generateContent = () => {
+    if (currentTick > totalTicks - 7) {
+      return;
+    }
     var lanes = {};
 
     // Asteroid
-    if (Math.random() > 0.5) {
+    if (Math.random() > 0.5 * 0) {
       var lane = parseInt(Math.random()*3);
       if (!lanes[lane]) {
         lanes[lane] = 1;
@@ -208,12 +212,16 @@ export default function Engine() {
 
   this.update = (dT) => {
     anim += dT;
-    tickAnim += dT * 2;
+    if (anim > 1) { tickAnim += dT * 2; }
     if (tickAnim > 1) {
       tickAnim--;
       currentTick++;
       generateContent();
-      // TODO: handle round over
+
+      // Journey finished -- visit planet now
+      if (currentTick > totalTicks) {
+        scene.transition(3);
+      }
     }
 
     // Energy refill
@@ -277,7 +285,7 @@ export default function Engine() {
     ctx.fill();
     // Progress ship
     ctx.fillStyle = '#fff';
-    var px = 15 + pw + (w - 30 - 2*pw) * ((currentTick + tickAnim)/totalTicks);
+    var px = 15 + pw + (w - 30 - 2*pw) * ((currentTick + tickAnim)/(totalTicks+1));
     ctx.beginPath();
     ctx.moveTo(px+pw/3, th/2);
     ctx.lineTo(px-pw/3, th/2-pw/3);
