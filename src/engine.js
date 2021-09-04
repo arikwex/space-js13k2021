@@ -43,17 +43,7 @@ export default function Engine() {
   var getCardPosY = (h) => h * 0.735;
 
   // The cards in the deck
-  var deck = [
-    cloneCard(cards[0]),
-    cloneCard(cards[0]),
-    cloneCard(cards[0]),
-    cloneCard(cards[1]),
-    cloneCard(cards[1]),
-    cloneCard(cards[1]),
-    cloneCard(cards[2]),
-    cloneCard(cards[2]),
-    cloneCard(cards[2]),
-  ];
+  var deck = persist.getDeck().map(cloneCard);
   var discardPile = [];
   shuffle(deck);
 
@@ -84,6 +74,7 @@ export default function Engine() {
   var anim = 0;
 
   // events handlers
+  // HOVERING animation may be worth removing for some bytes :O
   const getHoverIndex = (evt) => {
     const w = canvas.width();
     const h = canvas.height();
@@ -364,12 +355,9 @@ export default function Engine() {
     ctx.fillText(`/ ${maxEnergy}`, w - (pw + uiScale * 5.7), shieldTextLevel);
     var cellWidth = uiScale * 1.2;
     for (let i = 0; i < maxEnergy; i++) {
-      ctx.fillStyle = '#333';
-      ctx.fillRect(w - (pw + i * (cellWidth*0.8 + 4) + cellWidth), shieldTextLevel - cellWidth*2.4, cellWidth*0.8, cellWidth);
-      if (i < energy) {
-        ctx.fillStyle = '#ff3';
-        ctx.fillRect(w - (pw + i * (cellWidth*0.8 + 4) + cellWidth) + cellWidth*0.175, shieldTextLevel -  cellWidth*2.4 + cellWidth*0.175, cellWidth*0.8 - cellWidth*0.35, cellWidth - cellWidth*0.35);
-      }
+      var sx = w - (pw + i * (cellWidth*0.8 + 4) + cellWidth);
+      var sy = shieldTextLevel - cellWidth*2.4;
+      gfx.drawEnergy(ctx, sx, sy, cellWidth, i < energy);
     }
     // energy refill meter
     ctx.fillStyle = '#333';
@@ -393,16 +381,9 @@ export default function Engine() {
     ctx.font = `${uiScale*0.8}px monospace`;
     ctx.fillText(`/ ${maxShield}`, pw + uiScale * 5.6, energyTextLevel);
     for (let i = 0; i < maxShield; i++) {
-      ctx.fillStyle = '#333';
-      ctx.beginPath();
-      ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel - cellRadius*4, cellRadius, cellRadius, 0, 0, 6.28);
-      ctx.fill();
-      if (i < shield) {
-        ctx.fillStyle = '#3ff';
-        ctx.beginPath();
-        ctx.ellipse(pw + i * (cellRadius*2.5 + 4) + cellRadius, energyTextLevel - cellRadius*4, cellRadius*0.65, cellRadius*0.65, 0, 0, 6.28);
-        ctx.fill();
-      }
+      var sx = pw + i * (cellRadius*2.5 + 4) + cellRadius;
+      var sy =  energyTextLevel - cellRadius*4;
+      gfx.drawShield(ctx, sx, sy, cellRadius, i < shield);
     }
 
     // Draw mineral count

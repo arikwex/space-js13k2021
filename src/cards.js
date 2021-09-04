@@ -5,6 +5,7 @@ const cards = [
   color: [255, 51, 51],
   title: ['Rho', 'Channel'],
   cost: 1,
+  price: 5,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -19,6 +20,7 @@ const cards = [
   color: [51, 255, 51],
   title: ['Gamma', 'Sector'],
   cost: 1,
+  price: 5,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -33,6 +35,7 @@ const cards = [
   color: [51, 51, 255],
   title: ['Beta', 'Stream'],
   cost: 1,
+  price: 5,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;

@@ -3,6 +3,7 @@ import * as gameobjects from './gameobjects.js';
 import * as animations from './animations.js';
 import * as gfx from './gfx.js';
 import StartButton from './startbutton.js';
+import persist from './persist.js'
 import bus from './bus.js';
 import Steam from './steam.js';
 
@@ -10,9 +11,10 @@ import Steam from './steam.js';
 import MainMenu from './mainmenu.js';
 import Intro from './intro.js';
 import Engine from './engine.js';
+import PlanetEvent from './planetevent.js';
 
-// Go to main menu
-export function init() { bus.emit('scene', 0); }
+// Init/Reset game
+export function init() { persist.reset(); bus.emit('scene', 3); }
 
 // Go to scene number
 export function goto(s) { bus.emit('scene', s); }
@@ -22,7 +24,7 @@ export function transition(s) {
   // When transition animation done, swap scene and perform fade in
   bus.on('txn-done', () => {
     bus.emit('scene', s);
-    gameobjects.add(new animations.transition(0.7, false));
+    gameobjects.add(new animations.transition(1.2, false));
     for (let i = 0; i < canvas.width(); i+=canvas.width()*0.01) {
       gameobjects.add(new Steam(i,canvas.height()/2));
     }
@@ -49,6 +51,9 @@ export function transition(s) {
 
     // [SCENE = 2] GAME
     if (scene == 2) { gameobjects.add(new Engine()); }
+
+    // [SCENE = 3] PLANET EVENT
+    if (scene == 3) { gameobjects.add(new PlanetEvent()); }
   };
 
   bus.on('scene', sceneConfig);

@@ -106,6 +106,28 @@ export function drawMineral(ctx, x, y, angle, s) {
   ctx.restore();
 }
 
+export function drawShield(ctx, x, y, r, isFull) {
+  ctx.fillStyle = '#333';
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, 6.28);
+  ctx.fill();
+  if (isFull) {
+    ctx.fillStyle = '#3ff';
+    ctx.beginPath();
+    ctx.arc(x, y, r*0.65, 0, 6.28);
+    ctx.fill();
+  }
+}
+
+export function drawEnergy(ctx, x, y, r, isFull) {
+  ctx.fillStyle = '#333';
+  ctx.fillRect(x, y, r*0.8, r);
+  if (isFull) {
+    ctx.fillStyle = '#ff3';
+    ctx.fillRect(x + r*0.175, y + r*0.175, r*0.45, r*0.65);
+  }
+}
+
 export function drawDeck(ctx, x, y, s) {
   ctx.save();
   ctx.strokeStyle = '#ccc';
@@ -173,6 +195,37 @@ export function drawCharZoren(ctx) {
   ctx.fill();
   ctx.beginPath();
   ctx.arc(-s*0.1,-s*1.8,s*0.3,0,6.29);
+  ctx.fill();
+  ctx.restore();
+}
+
+export function drawCharWeaponTech(ctx) {
+  var w = canvas.width();
+  var h = canvas.height();
+  var s = Math.min(h * 0.075, w * 0.1);
+  ctx.save();
+  ctx.translate(w-s*1.2, h+Math.sin(Date.now()*0.0021+3)*s*0.1);
+  // Torso
+  ctx.fillStyle='#d72';
+  ctx.beginPath();
+  ctx.ellipse(s*0.1, s*0.1, s*1.0, s*1.4, 0, 0, 6.29);
+  ctx.fill();
+  // Head
+  ctx.fillStyle='#f94';
+  ctx.beginPath();
+  ctx.arc(0, -s*1.9, s, 0, 6.29);
+  ctx.fill();
+  // Ears
+  ctx.fillRect(-s*0.8,-s*2.3,s*0.4,-s);
+  ctx.fillRect(s*0.4,-s*2.4,s*0.4,-s);
+  // Eye
+  ctx.fillStyle='#fff';
+  ctx.beginPath();
+  ctx.ellipse(-s*0.3, -s*2, s*0.5, s*0.3, 0, 0, 6.29);
+  ctx.fill();
+  ctx.fillStyle='#222';
+  ctx.beginPath();
+  ctx.arc(-s*0.4, -s*2, s*0.2, 0, 6.29);
   ctx.fill();
   ctx.restore();
 }
