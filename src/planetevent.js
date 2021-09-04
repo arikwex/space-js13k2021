@@ -44,7 +44,7 @@ export default function PlanetEvent() {
 
   // [EVT == 0] WEAPON TECHNICIAN
   if (evtType == 0) {
-    items = [cards[0], cards[1], cards[2]];
+    items = [cards[3], cards[4], cards[5]];
     bus.on('tap', onTapCard);
   }
 
@@ -83,7 +83,7 @@ export default function PlanetEvent() {
     gfx.drawCharPlayer(ctx);
     gfx.drawCharWeaponTech(ctx);
     gfx.drawDialogBox(ctx,
-      'Weapon Technician',
+      'Weapon Tech',
       'Stop staring human! Either buy something or leave.'
     );
 

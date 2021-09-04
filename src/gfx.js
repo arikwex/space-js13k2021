@@ -78,7 +78,7 @@ export function drawCard(ctx, x, y, cs, card, hovering, opacity) {
   ctx.fillStyle = `rgba(255,255,51,${opacity})`;
   var es = cs * 0.12;
   for (let i = 0; i < card.cost; i++) {
-    ctx.fillRect((i - (card.cost - 1) / 2) * es - es * 0.45, 0, es * 0.9, es * 0.9);
+    ctx.fillRect((i - (card.cost - 1) / 2) * es * 1.1 - es * 0.45, 0, es * 0.9, es * 0.9);
   }
   ctx.restore();
 
