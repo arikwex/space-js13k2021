@@ -142,7 +142,6 @@ export default function Engine() {
 
   bus.on('mineral', (m) => {
     persist.addMineral(m);
-    console.log(persist.getMinerals());
   });
 
   // Actually put stuff on the playing field.
