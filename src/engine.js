@@ -123,6 +123,14 @@ export default function Engine() {
     currentLane = lane;
   });
 
+  bus.on('hop', () => {
+    var newLane = currentLane;
+    while (newLane == currentLane) {
+      newLane = parseInt(Math.random() * 3);
+    }
+    currentLane = newLane;
+  });
+
   bus.on('poof', ({x, y, color, size, t}) => {
     gameobjects.add(new Poof(this, x, y, color, size, t));
   });

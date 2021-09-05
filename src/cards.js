@@ -222,7 +222,7 @@ const cards = [
     ctx.stroke();
     ctx.restore();
   },
-  use: () => { bus.emit('lane', 2) }
+  use: () => { bus.emit('hop', 2) }
 },
 {
   // Jump through obstacle in front of you
