@@ -61,6 +61,8 @@ export default function Engine() {
   var currentLane = 1;
   var laneAnim = 1;
   var shipAngle = 0;
+  var dashing = 0;
+  var dashSpeed = 0;
 
   // Shields = HP, Energy = MP
   var maxShield = persist.getMaxShield();
@@ -131,6 +133,11 @@ export default function Engine() {
     currentLane = newLane;
   });
 
+  bus.on('dash', () => {
+    dashing = 0.5;
+    dashSpeed = 2;
+  });
+
   bus.on('poof', ({x, y, color, size, t}) => {
     gameobjects.add(new Poof(this, x, y, color, size, t));
   });
@@ -167,7 +174,7 @@ export default function Engine() {
 
   bus.on('hit', (dmg) => {
     shield -= dmg;
-    bus.emit('poof', {x: this.x, y: this.y, color: [255,255,255], size: 1, t: 0.5});
+    bus.emit('poof', {x: this.getShipX(), y: this.getShipY(), color: [255,255,255], size: 1, t: 0.5});
     if (shield <= 0) {
       // TODO: game over!
     }
@@ -236,6 +243,7 @@ export default function Engine() {
   };
 
   this.closeToShip = (tick, slot, dist) => {
+    if (dashing > 0) return false;
     var s = this.laneScale();
     var dx = this.laneX(tick) - this.getShipX();
     var dy = this.laneY(slot) - this.getShipY();
@@ -260,7 +268,16 @@ export default function Engine() {
 
   this.update = (dT) => {
     anim += dT;
-    if (anim > 1) { tickAnim += dT * 2; }
+    if (anim > 1) {
+      if (dashing > 0) {
+        dashing -= dT;
+        tickAnim += dT * dashSpeed;
+        anim += dT * dashSpeed * 2;
+      } else {
+        dashSpeed = 0;
+      }
+      tickAnim += dT * 2;
+    }
     if (tickAnim > 1) {
       tickAnim--;
       currentTick++;
@@ -304,7 +321,7 @@ export default function Engine() {
     const s = Math.min(ph, w/8) * 0.3;
 
     // Starmap
-    gfx.drawStars(ctx, -anim*20, 0, 3, 0);
+    gfx.drawStars(ctx, -anim*20, 0, 3 + dashSpeed, 0);
 
     // Planets
     var r = h * 0.3;
@@ -391,7 +408,13 @@ export default function Engine() {
     ctx.lineTo(-s*0.65,s*0.3);
     ctx.lineTo(-s*0.65,s*0.8);
     ctx.closePath();
-    ctx.fill();
+    if (dashing > 0) {
+      ctx.lineWidth = s * 0.1;
+      ctx.strokeStyle = '#fff';
+      ctx.stroke();
+    } else {
+      ctx.fill();
+    }
     ctx.fillRect(-s*0.4,s*0.4,s,s*0.15);
     ctx.fillRect(-s*0.4,-s*0.4,s,-s*0.15);
     ctx.restore();

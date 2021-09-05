@@ -253,7 +253,7 @@ const cards = [
     ctx.stroke();
     ctx.restore();
   },
-  use: () => { bus.emit('lane', 2) }
+  use: () => { bus.emit('dash') }
 },
 {
   // Regenerate one shield
