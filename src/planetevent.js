@@ -43,7 +43,7 @@ export default function PlanetEvent() {
   };
 
   // Event types
-  var evtType = 4;//parseInt(Math.random() * 5);
+  var evtType = parseInt(Math.random() * 5);
   // TBD: Prevent increasing blessings to comical scales?
   var items = [];
   var merchantName = '';

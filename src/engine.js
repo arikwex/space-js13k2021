@@ -9,6 +9,8 @@ import PlayedCard from './playedcard.js';
 import PullCard from './pullcard.js';
 import Asteroid from './asteroid.js';
 import Mineral from './mineral.js';
+import Projectile from './projectile.js';
+import Poof from './poof.js';
 
 export default function Engine() {
   // Card handling
@@ -121,12 +123,24 @@ export default function Engine() {
     currentLane = lane;
   });
 
+  bus.on('poof', ({x, y, color, size, t}) => {
+    gameobjects.add(new Poof(this, x, y, color, size, t));
+  });
+
+  bus.on('projectile', (projectileType) => {
+    // Kepler Missile
+    if (projectileType == 1) {
+      gameobjects.add(new Projectile(this, this.getShipX(), this.getShipY(), currentLane, projectileType));
+    }
+  });
+
   bus.on('place', ({slot, card}) => {
     hand[slot] = card;
   });
 
   bus.on('hit', (dmg) => {
     shield -= dmg;
+    bus.emit('poof', {x: this.x, y: this.y, color: [255,255,255], size: 1, t: 0.5});
     if (shield <= 0) {
       // TODO: game over!
     }
@@ -199,6 +213,22 @@ export default function Engine() {
     var dx = this.laneX(tick) - this.getShipX();
     var dy = this.laneY(slot) - this.getShipY();
     return dx * dx + dy * dy < s * s * dist;
+  };
+
+  this.collideTargets = (x, y, dist) => {
+    var s = this.laneScale();
+    var hit = false;
+    gameobjects.get().forEach((g) => {
+      if (g.obstacle) {
+        var dx = x - g.x;
+        var dy = y - g.y;
+        if (dx * dx + dy * dy < s * s * dist) {
+          hit = true;
+          g.destroyed = true;
+        }
+      }
+    });
+    return hit;
   };
 
   this.update = (dT) => {

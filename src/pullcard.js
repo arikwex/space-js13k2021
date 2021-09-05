@@ -3,7 +3,7 @@ import * as canvas from './canvas.js';
 import bus from './bus.js';
 
 function PullCard(x, y, card, cs, slot) {
-  var anim = -2;
+  var anim = -0.5;
 
   this.update = (dT) => {
     anim += dT * 3;

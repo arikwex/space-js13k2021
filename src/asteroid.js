@@ -3,8 +3,14 @@ import bus from './bus.js';
 
 function Asteroid(engine, tick, slot) {
   var anim = Math.random() * 100;
+  this.x = 0;
+  this.y = 0;
+  this.obstacle = true;
+
   this.update = (dT) => {
     anim += dT * 0.1;
+    this.x = engine.laneX(tick);
+    this.y = engine.laneY(slot);
     if (engine.getTick() > tick + 6) {
       this.destroyed = true;
     }
@@ -15,7 +21,7 @@ function Asteroid(engine, tick, slot) {
   }
   this.render = (ctx) => {
     ctx.save();
-    ctx.translate(engine.laneX(tick), engine.laneY(slot));
+    ctx.translate(this.x, this.y);
     var s = engine.laneScale() * 1.0;
     ctx.fillStyle = '#963';
     // debris trail

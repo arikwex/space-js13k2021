@@ -82,7 +82,7 @@ const cards = [
     ctx.stroke();
     ctx.restore();
   },
-  use: () => { bus.emit('lane', 2) }
+  use: () => { bus.emit('projectile', 1) }
 },
 {
   // Powerful beam that destroys all content on this channel (good and bad)
