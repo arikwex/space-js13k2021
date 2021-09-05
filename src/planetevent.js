@@ -39,12 +39,60 @@ export default function PlanetEvent() {
   };
 
   // Event types
-  var evtType = parseInt(Math.random() * 1);
+  var evtType = parseInt(Math.random() * 4);
   var items = [];
+  var merchantName = '';
+  var merchantGfx = gfx.drawCharWeaponTech;
 
-  // [EVT == 0] WEAPON TECHNICIAN
+  // [EVT == 0] WEAPON TECH
   if (evtType == 0) {
-    items = [cards[12], cards[10], cards[11]];
+    // weapon cards
+    merchantName = 'Weapon Tech';
+    merchantGfx = gfx.drawCharWeaponTech;
+    var selection = [cards[3], cards[4], cards[5], cards[6], cards[7]];
+    var numCardsInShop = parseInt(Math.random() * 2) + 2;
+    for (let i = 0; i < numCardsInShop; i++) {
+      items.push(selection[parseInt(Math.random() * selection.length)]);
+    }
+    bus.on('tap', onTapCard);
+  }
+
+  // [EVT == 1] SHIP MECHANIC
+  if (evtType == 1) {
+    // ship upgrade cards
+    merchantName = 'Ship Mechanic';
+    merchantGfx = gfx.drawCharShipMech;
+    var selection = [cards[8], cards[9], cards[10], cards[11], cards[12]];
+    var numCardsInShop = parseInt(Math.random() * 2) + 2;
+    for (let i = 0; i < numCardsInShop; i++) {
+      items.push(selection[parseInt(Math.random() * selection.length)]);
+    }
+    bus.on('tap', onTapCard);
+  }
+
+  // [EVT == 2] Street MERCHANT
+  if (evtType == 2) {
+    // mix of low tech card
+    merchantName = 'Street Merchant';
+    merchantGfx = gfx.drawCharMerchant;
+    var selection = [cards[3], cards[4], cards[8], cards[9]];
+    var numCardsInShop = parseInt(Math.random() * 2) + 2;
+    for (let i = 0; i < numCardsInShop; i++) {
+      items.push(selection[parseInt(Math.random() * selection.length)]);
+    }
+    bus.on('tap', onTapCard);
+  }
+
+  // [EVT == 3] BLACK MARKET
+  if (evtType == 3) {
+    // mix of high tech card
+    merchantName = 'Cytox Smuggler';
+    merchantGfx = gfx.drawCharSmuggler;
+    var selection = [cards[5], cards[6], cards[10], cards[11]];
+    var numCardsInShop = parseInt(Math.random() * 2) + 2;
+    for (let i = 0; i < numCardsInShop; i++) {
+      items.push(selection[parseInt(Math.random() * selection.length)]);
+    }
     bus.on('tap', onTapCard);
   }
 
@@ -81,9 +129,9 @@ export default function PlanetEvent() {
 
     // Show characters
     gfx.drawCharPlayer(ctx);
-    gfx.drawCharWeaponTech(ctx);
+    merchantGfx(ctx);
     gfx.drawDialogBox(ctx,
-      'Weapon Tech',
+      merchantName,
       'Stop staring human! Either buy something or leave.'
     );
 
@@ -110,7 +158,7 @@ export default function PlanetEvent() {
     ctx.fillText(me, us*1.7,h*0.75-us*3);
 
     // Show items for interaction
-    if (evtType == 0) {
+    if (evtType >= 0 && evtType <= 3) {
       var cs = Math.min(h*0.2, w*0.25);
       for (let i = 0; i < items.length; i++) {
         if (items[i] != null) {

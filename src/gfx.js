@@ -230,6 +230,130 @@ export function drawCharWeaponTech(ctx) {
   ctx.restore();
 }
 
+export function drawCharShipMech(ctx) {
+  var w = canvas.width();
+  var h = canvas.height();
+  var s = Math.min(h * 0.075, w * 0.1);
+  ctx.save();
+  ctx.translate(w-s*1.2, h+Math.sin(Date.now()*0.0021+3)*s*0.1);
+  // Torso
+  ctx.fillStyle='#77b';
+  ctx.fillRect(-s*1.1, -s*1.5, s*2.2, s*2);
+  ctx.fillStyle='#669';
+  ctx.fillRect(s*0.9, -s*1.5, s*0.2, s*2);
+  // Head
+  ctx.fillStyle='#338';
+  ctx.fillRect(s*0.5, -s*2.7, s*0.3, s*1.25);
+  ctx.fillRect(-s*0.2, -s*2.7, s*0.1, -s*0.8);
+  ctx.fillStyle='#55a';
+  ctx.fillRect(-s*0.8, -s*2.7, s*1.3, s*1.25);
+  // Eyes
+  ctx.fillStyle='#ff4';
+  ctx.fillRect(-s*0.25, -s*3.4, s*0.2, -s*0.2);
+  ctx.fillRect(-s*0.7, -s*2.5, s*0.4, s*0.2);
+  ctx.fillRect(-s*0.2, -s*2.5, s*0.4, s*0.2);
+  ctx.restore();
+}
+
+export function drawCharMerchant(ctx) {
+  var w = canvas.width();
+  var h = canvas.height();
+  var s = Math.min(h * 0.075, w * 0.1);
+  ctx.save();
+  ctx.translate(w-s*1.2, h+Math.sin(Date.now()*0.0021+3)*s*0.1);
+  // Torso
+  ctx.fillStyle='#b31';
+  ctx.beginPath();
+  ctx.ellipse(s*0.4, s*0.1, s*0.8, s*1.8, 0, 0, 6.29);
+  ctx.fill();
+  // Head
+  ctx.fillStyle='#d74';
+  ctx.beginPath();
+  ctx.arc(0, -s*1.6, s*0.6, 0, 6.29);
+  ctx.fill();
+  // Eye holders
+  ctx.strokeStyle='#d74';
+  ctx.beginPath();
+  ctx.lineWidth = s * 0.1;
+  ctx.moveTo(-s*0.4, -s*2.0);
+  ctx.lineTo(-s*0.7, -s*3.0);
+  ctx.moveTo(-s*0.1, -s*2.0);
+  ctx.lineTo(-s*0.1, -s*3.2);
+  ctx.moveTo(s*0.2, -s*2.0);
+  ctx.lineTo(s*0.4, -s*3.0);
+  ctx.stroke();
+  // Eye balls
+  ctx.fillStyle='#eee';
+  ctx.beginPath();
+  ctx.arc(-s*0.7, -s*3.0,s*0.2,0,6.29);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(-s*0.1, -s*3.2,s*0.2,0,6.29);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(s*0.4, -s*3.0,s*0.2,0,6.29);
+  ctx.fill();
+  // Eye pupils
+  ctx.fillStyle='#611';
+  ctx.beginPath();
+  ctx.arc(-s*0.78, -s*3.0,s*0.1,0,6.29);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(-s*0.18, -s*3.2,s*0.1,0,6.29);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(s*0.32, -s*3.0,s*0.1,0,6.29);
+  ctx.fill();
+  ctx.restore();
+}
+
+export function drawCharSmuggler(ctx) {
+  var w = canvas.width();
+  var h = canvas.height();
+  var s = Math.min(h * 0.075, w * 0.1);
+  ctx.save();
+  ctx.translate(w-s*1.2, h+Math.sin(Date.now()*0.0021+3)*s*0.1);
+  // Torso
+  ctx.fillStyle='#343';
+  ctx.beginPath();
+  ctx.arc(s*0.2, 0, s*0.6, 0, 6.29);
+  ctx.fill();
+  ctx.fillStyle='#353';
+  ctx.beginPath();
+  ctx.arc(s*0.5, -s*0.7, s*0.6, 0, 6.29);
+  ctx.fill();
+  ctx.fillStyle='#363';
+  ctx.beginPath();
+  ctx.arc(s*0.4, -s*1.4, s*0.6, 0, 6.29);
+  ctx.fill();
+  // Head
+  ctx.fillStyle='#474';
+  ctx.beginPath();
+  ctx.arc(0, -s*1.9, s*0.8, 0, 6.29);
+  ctx.fill();
+  // Eyes
+  ctx.fillStyle='#3f3';
+  ctx.beginPath();
+  ctx.arc(-s*0.6, -s*2.1, s*0.07, 0, 6.29);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(-s*0.4, -s*2.08, s*0.07, 0, 6.29);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(-s*0.65, -s*1.9, s*0.07, 0, 6.29);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(-s*0.45, -s*1.88, s*0.07, 0, 6.29);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(-s*0.62, -s*1.7, s*0.07, 0, 6.29);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(-s*0.42, -s*1.68, s*0.07, 0, 6.29);
+  ctx.fill();
+  ctx.restore();
+}
+
 var lineBreaks = (ctx, txt, maxWidth) => {
   var str = '';
   var lines = [];

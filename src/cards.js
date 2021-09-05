@@ -203,7 +203,7 @@ const cards = [
 {
   // Move to a new random channel
   color: [255, 70, 255],
-  title: ['Lane', 'Scramble'],
+  title: ['Lane', 'Hopper'],
   cost: 1,
   price: 10,
   glyph: function (ctx, cs) {
