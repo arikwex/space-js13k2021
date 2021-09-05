@@ -112,7 +112,7 @@ const cards = [
     ctx.stroke();
     ctx.restore();
   },
-  use: () => { bus.emit('lane', 2) }
+  use: () => { bus.emit('projectile', 2) }
 },
 {
   // 3 parallel pulses that break the first obstacle on each channel
