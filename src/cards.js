@@ -140,7 +140,7 @@ const cards = [
     ctx.strokeRect(-cs/8, -cs/30, -cs/8, cs/15);
     ctx.restore();
   },
-  use: () => { bus.emit('lane', 2) }
+  use: () => { bus.emit('projectile', 3) }
 },
 {
   // Twin rockets that will destroy two random obstacles

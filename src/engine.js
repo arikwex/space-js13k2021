@@ -132,6 +132,12 @@ export default function Engine() {
     if (projectileType == 1 || projectileType == 2) {
       gameobjects.add(new Projectile(this, this.getShipX(), this.getShipY(), currentLane, projectileType));
     }
+    // Pulse breaker
+    if (projectileType == 3) {
+      gameobjects.add(new Projectile(this, this.getShipX(), this.laneY(0), 0, projectileType));
+      gameobjects.add(new Projectile(this, this.getShipX(), this.laneY(1), 1, projectileType));
+      gameobjects.add(new Projectile(this, this.getShipX(), this.laneY(2), 2, projectileType));
+    }
   });
 
   bus.on('place', ({slot, card}) => {

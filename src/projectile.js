@@ -18,7 +18,12 @@ function Projectile(engine, x, y, targetLane, projectileType) {
       }
       if (engine.collideTargets(this.x, this.y, 1.5)) {
         this.destroyed = true;
-        bus.emit('poof', {x: this.x, y: this.y, color: [255,200,100], size: 1, t: 0.5});
+        if (projectileType == 1) {
+          bus.emit('poof', {x: this.x, y: this.y, color: [255,200,100], size: 1, t: 0.5});
+        }
+        if (projectileType == 3) {
+          bus.emit('poof', {x: this.x, y: this.y, color: [100,255,100], size: 1, t: 0.5});
+        }
       }
     }
     // Laser beam
@@ -68,6 +73,22 @@ function Projectile(engine, x, y, targetLane, projectileType) {
       if (Math.sin(Date.now() / 14) > 0) {
         ctx.fillRect(s,-s*0.1,canvas.width(),s*0.2);
         ctx.fillRect(s*0.9,-s*0.2,s*0.4,s*0.4);
+      }
+    }
+
+    // PULSE BREAKER
+    if (projectileType == 3) {
+      ctx.fillStyle='#383';
+      ctx.translate(this.x, this.y);
+      ctx.beginPath();
+      ctx.arc(0, 0, s*0.6, 0, 6.29);
+      ctx.fill();
+      // Flicker flame
+      if (Math.sin(Date.now() / 14) > 0) {
+        ctx.fillStyle='#8f8';
+        ctx.beginPath();
+        ctx.arc(0, 0, s*0.4, 0, 6.29);
+        ctx.fill();
       }
     }
 
