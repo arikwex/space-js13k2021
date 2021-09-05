@@ -17,8 +17,6 @@ export default function PlanetEvent() {
   gameobjects.add(new StartButton());
   bus.on('start', () => scene.transition(2));
 
-  // TBD: Price inflation?
-
   // Handlers
   onTapCard = ({x, y}) => {
     var w = canvas.width();
@@ -31,7 +29,13 @@ export default function PlanetEvent() {
         if (x > bx-cs/2 && x < bx+cs/2 && y > h*0.4-cs*3/4 && y < h*0.4+cs*3/4) {
           gameobjects.add(new PlayedCard(bx, h*0.4, items[i], cs));
           persist.addMineral(-items[i].price);
-          persist.addToDeck(items[i]);
+          // Templar does not add cards to deck
+          if (evtType == 4) {
+            items[i].use();
+          } else {
+            // All other shops add cards to deck
+            persist.addToDeck(items[i]);
+          }
           items[i] = null;
         }
       }
@@ -39,7 +43,8 @@ export default function PlanetEvent() {
   };
 
   // Event types
-  var evtType = parseInt(Math.random() * 4);
+  var evtType = 4;//parseInt(Math.random() * 5);
+  // TBD: Prevent increasing blessings to comical scales?
   var items = [];
   var merchantName = '';
   var merchantGfx = gfx.drawCharWeaponTech;
@@ -92,6 +97,20 @@ export default function PlanetEvent() {
     var numCardsInShop = parseInt(Math.random() * 2) + 2;
     for (let i = 0; i < numCardsInShop; i++) {
       items.push(selection[parseInt(Math.random() * selection.length)]);
+    }
+    bus.on('tap', onTapCard);
+  }
+
+  // [EVT == 4] BLACK MARKET
+  if (evtType == 4) {
+    // grant max energy, max shield, hand size
+    merchantName = 'Neuro-Templar';
+    merchantGfx = gfx.drawCharTemplar;
+    var selection = [cards[13], cards[14], cards[15]];
+    for (let i = 0; i < 2; i++) {
+      var opt = parseInt(Math.random() * selection.length);
+      items.push(selection[opt]);
+      selection.splice(opt,1);
     }
     bus.on('tap', onTapCard);
   }
@@ -158,14 +177,12 @@ export default function PlanetEvent() {
     ctx.fillText(me, us*1.7,h*0.75-us*3);
 
     // Show items for interaction
-    if (evtType >= 0 && evtType <= 3) {
-      var cs = Math.min(h*0.2, w*0.25);
-      for (let i = 0; i < items.length; i++) {
-        if (items[i] != null) {
-          var bx = w/2 + (i - (items.length - 1)/2) * w * 0.3;
-          gfx.drawCard(ctx, bx, h*0.4, cs, items[i], false,1);
-          this.drawCost(ctx, `${items[i].price}`, bx, h*0.4, cs, m >= items[i].price);
-        }
+    var cs = Math.min(h*0.2, w*0.25);
+    for (let i = 0; i < items.length; i++) {
+      if (items[i] != null) {
+        var bx = w/2 + (i - (items.length - 1)/2) * w * 0.3;
+        gfx.drawCard(ctx, bx, h*0.4, cs, items[i], false,1);
+        this.drawCost(ctx, `${items[i].price}`, bx, h*0.4, cs, m >= items[i].price);
       }
     }
   }

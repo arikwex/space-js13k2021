@@ -1,4 +1,5 @@
 import bus from './bus.js';
+import persist from './persist.js';
 
 const cards = [
 {
@@ -331,6 +332,67 @@ const cards = [
     ctx.restore();
   },
   use: () => { bus.emit('lane', 2) }
+},
+{
+  // Increase max shield
+  color: [0, 255, 255],
+  title: ['Defense', 'Blessing'],
+  cost: 0,
+  price: 30,
+  glyph: function (ctx, cs) {
+    ctx.save();
+    ctx.lineWidth = cs * 0.05;
+    ctx.beginPath();
+    ctx.arc(0,0,cs/3,0,6.29);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(0,0,cs/7,0,6.29);
+    ctx.stroke();
+    ctx.restore();
+  },
+  use: () => { persist.setMaxShield(persist.getMaxShield() + 1) }
+},
+{
+  // Increase max energy
+  color: [255, 255, 0],
+  title: ['Strength', 'Blessing'],
+  cost: 0,
+  price: 30,
+  glyph: function (ctx, cs) {
+    ctx.save();
+    ctx.lineWidth = cs * 0.05;
+    ctx.lineCap='round';
+    ctx.translate(0,-cs/10);
+    ctx.strokeRect(-cs/4,-cs/6, cs/2,cs*0.6);
+    ctx.strokeRect(-cs/10,-cs/4, cs/5,-cs/8);
+    ctx.translate(0,cs/7);
+    ctx.beginPath();
+    ctx.moveTo(-cs/10, -cs/6);
+    ctx.lineTo(cs/10, -cs/6);
+    ctx.lineTo(-cs/20, 0);
+    ctx.lineTo(cs/20, 0);
+    ctx.lineTo(0, cs/6);
+    ctx.stroke();
+    ctx.restore();
+  },
+  use: () => { persist.setMaxEnergy(persist.getMaxEnergy() + 1) }
+},
+{
+  // Increase max hand size
+  color: [200, 200, 200],
+  title: ['Vision', 'Blessing'],
+  cost: 0,
+  price: 30,
+  glyph: function (ctx, cs) {
+    ctx.save();
+    ctx.lineWidth = cs * 0.05;
+    ctx.lineCap='round';
+    ctx.strokeRect(-cs*0.25,0,cs*0.2,cs*0.3);
+    ctx.strokeRect(cs*0.05,0,cs*0.2,cs*0.3);
+    ctx.strokeRect(-cs*0.1,-cs*0.4,cs*0.2,cs*0.3);
+    ctx.restore();
+  },
+  use: () => { persist.setHandSize(persist.getHandSize() + 1) }
 },
 ];
 export default cards;

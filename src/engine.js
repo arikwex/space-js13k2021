@@ -48,7 +48,7 @@ export default function Engine() {
   shuffle(deck);
 
   // The cards in hand
-  var handSize = 3;
+  var handSize = persist.getHandSize();
   var hand = [];
   for (let i = 0; i < handSize; i++) {
     pullFromDeckToSlot(i);
@@ -61,9 +61,9 @@ export default function Engine() {
   var shipAngle = 0;
 
   // Shields = HP, Energy = MP
-  var maxShield = 3;
+  var maxShield = persist.getMaxShield();
   var shield = maxShield;
-  var maxEnergy = 5;
+  var maxEnergy = persist.getMaxEnergy();
   var energy = maxEnergy;
   var energyRefill = 0;
   var energyRefillRate = 0.75;
