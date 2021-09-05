@@ -138,6 +138,19 @@ export default function Engine() {
       gameobjects.add(new Projectile(this, this.getShipX(), this.laneY(1), 1, projectileType));
       gameobjects.add(new Projectile(this, this.getShipX(), this.laneY(2), 2, projectileType));
     }
+    // Crazy Rockets
+    if (projectileType == 4) {
+      var s = this.laneScale();
+      var p1 = new Projectile(this, this.getShipX(), this.getShipY()-s/2, currentLane, projectileType);
+      var p2 = new Projectile(this, this.getShipX(), this.getShipY()+s/2, currentLane, projectileType);
+      var targets = gameobjects.get().filter((g) => g.obstacle && g.x > s*3);
+      var idx = parseInt(Math.random() * targets.length);
+      p1.homing = targets[idx]; targets.splice(idx,1);
+      var idx = parseInt(Math.random() * targets.length);
+      p2.homing = targets[idx]; targets.splice(idx,1);
+      gameobjects.add(p1);
+      gameobjects.add(p2);
+    }
   });
 
   bus.on('place', ({slot, card}) => {

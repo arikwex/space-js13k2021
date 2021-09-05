@@ -170,7 +170,7 @@ const cards = [
     }
     ctx.restore();
   },
-  use: () => { bus.emit('lane', 2) }
+  use: () => { bus.emit('projectile', 4) }
 },
 {
   // Blows up everything on the screen

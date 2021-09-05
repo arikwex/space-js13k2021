@@ -7,12 +7,23 @@ function Projectile(engine, x, y, targetLane, projectileType) {
   var anim = 0;
   this.x = x;
   this.y = y;
+  var trail = [];
 
   this.update = (dT) => {
     anim += dT * 1.0;
     // Forward-moving projectiles
     if (projectileType != 2) {
-      this.x += dT * canvas.width() / 2;
+      if (projectileType != 4) {
+        this.x += dT * canvas.width() / 2;
+      } else {
+        // crazy rockets homing
+        var angle = Math.sin(Date.now()/30)*0.4;
+        if (this.homing && !this.homing.destroyed) {
+          angle += Math.atan2(this.homing.y-this.y, this.homing.x-this.x);
+        }
+        this.y += dT * canvas.width() / 2 * Math.sin(angle);
+        this.x += dT * canvas.width() / 2 * Math.cos(angle);
+      }
       if (anim > 4) {
         this.destroyed = true;
       }
@@ -23,6 +34,9 @@ function Projectile(engine, x, y, targetLane, projectileType) {
         }
         if (projectileType == 3) {
           bus.emit('poof', {x: this.x, y: this.y, color: [100,255,100], size: 1, t: 0.5});
+        }
+        if (projectileType == 4) {
+          bus.emit('poof', {x: this.x, y: this.y, color: [255,200,140], size: 0.6, t: 0.5});
         }
       }
     }
@@ -90,6 +104,24 @@ function Projectile(engine, x, y, targetLane, projectileType) {
         ctx.arc(0, 0, s*0.4, 0, 6.29);
         ctx.fill();
       }
+    }
+
+      // CRAZY ROCKETS
+    if (projectileType == 4) {
+      ctx.fillStyle='#fa4';
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, s*0.3, 0, 6.29);
+      ctx.fill();
+      trail.unshift({x: this.x, y: this.y});
+      if (trail.length > 14) { trail.pop(); }
+      ctx.lineWidth = s * 0.1;
+      ctx.strokeStyle='#fa4';
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      for (let i = 0; i < trail.length; i++) {
+        ctx.lineTo(trail[i].x, trail[i].y);
+      }
+      ctx.stroke();
     }
 
     ctx.restore();
