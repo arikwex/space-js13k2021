@@ -128,8 +128,8 @@ export default function Engine() {
   });
 
   bus.on('projectile', (projectileType) => {
-    // Kepler Missile, Sigma Cannon
-    if (projectileType == 1 || projectileType == 2) {
+    // Kepler Missile, Sigma Cannon, Tactical Nuke
+    if (projectileType == 1 || projectileType == 2 || projectileType == 5) {
       gameobjects.add(new Projectile(this, this.getShipX(), this.getShipY(), currentLane, projectileType));
     }
     // Pulse breaker

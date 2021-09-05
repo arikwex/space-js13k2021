@@ -11,8 +11,27 @@ function Projectile(engine, x, y, targetLane, projectileType) {
 
   this.update = (dT) => {
     anim += dT * 1.0;
+    // Nuke
+    if (projectileType == 5) {
+      this.x += dT * canvas.width() * (1 - anim/0.35);
+      if (anim > 0.35) {
+        // Destroy all obstacles
+        gameobjects.get().forEach((g) => {
+          if (g.obstacle) {
+            g.destroyed = true;
+            bus.emit('poof', {x: g.x, y: g.y, color: [255,50,50], size: 1, t: 0.5});
+          }
+        });
+        // A bunch of poof
+        var w = canvas.width(), h = canvas.height(), n = Math.sqrt(w*h)/20;
+        for (let i = 0; i < n; i++) {
+          bus.emit('poof', {x: Math.random()*w, y: Math.random()*h, color: [255,244,50], size: Math.random()*1+1, t: Math.random()*0.4+0.4});
+        }
+        this.destroyed = true;
+      }
+    }
     // Forward-moving projectiles
-    if (projectileType != 2) {
+    else if (projectileType != 2) {
       if (projectileType != 4) {
         this.x += dT * canvas.width() / 2;
       } else {
@@ -122,6 +141,17 @@ function Projectile(engine, x, y, targetLane, projectileType) {
         ctx.lineTo(trail[i].x, trail[i].y);
       }
       ctx.stroke();
+    }
+
+    // TACTICAL NUKE
+    if (projectileType == 5) {
+      ctx.fillStyle='#ff0';
+      ctx.translate(this.x,this.y);
+      ctx.beginPath();
+      ctx.arc(0, 0, s*0.4, 0, 6.29);
+      ctx.fill();
+      ctx.fillStyle='#333';
+      ctx.fillRect(-s*0.2, -s*0.2, s*0.4, s*0.4);
     }
 
     ctx.restore();

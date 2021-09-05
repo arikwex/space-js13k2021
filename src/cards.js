@@ -199,7 +199,7 @@ const cards = [
     }
     ctx.restore();
   },
-  use: () => { bus.emit('lane', 2) }
+  use: () => { bus.emit('projectile', 5) }
 },
 {
   // Move to a new random channel
