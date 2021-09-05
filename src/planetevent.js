@@ -44,7 +44,7 @@ export default function PlanetEvent() {
 
   // [EVT == 0] WEAPON TECHNICIAN
   if (evtType == 0) {
-    items = [cards[3], cards[4], cards[5]];
+    items = [cards[12], cards[10], cards[11]];
     bus.on('tap', onTapCard);
   }
 
