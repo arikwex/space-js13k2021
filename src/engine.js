@@ -138,6 +138,11 @@ export default function Engine() {
     dashSpeed = 2;
   });
 
+  bus.on('hyper', () => {
+    dashing = 0.4;
+    dashSpeed = 10;
+  });
+
   bus.on('heal', () => {
     shield = Math.min(shield + 1, maxShield);
     gameobjects.add(new Poof(this, this.getShipX(), this.getShipY(), [0, 255, 0], 1, 0.5));
@@ -191,7 +196,7 @@ export default function Engine() {
 
   // Actually put stuff on the playing field.
   var generateContent = () => {
-    if (currentTick > totalTicks - 7) {
+    if (currentTick > totalTicks - 7 || dashSpeed > 4) {
       return;
     }
     var lanes = {};
