@@ -203,17 +203,19 @@ export default function Engine() {
     }
     var lanes = {};
 
-    // Asteroid
-    if (Math.random() > 0.5 * 0) {
-      var lane = parseInt(Math.random()*3);
-      if (!lanes[lane]) {
-        lanes[lane] = 1;
-        gameobjects.add(new Asteroid(this, currentTick, lane));
+    // Asteroid (more frequent as levels progress)
+    for (let q = 0; q < 0.1 + currLevel * 0.15; q++) {
+      if (Math.random() > 0.5 / (1 + currLevel * 0.1)) {
+        var lane = parseInt(Math.random()*3);
+        if (!lanes[lane]) {
+          lanes[lane] = 1;
+          gameobjects.add(new Asteroid(this, currentTick, lane));
+        }
       }
     }
 
     // Minerals
-    if (Math.random() > 0.5) {
+    if (Math.random() > 0.6) {
       var lane = parseInt(Math.random()*3);
       if (!lanes[lane]) {
         lanes[lane] = 1;

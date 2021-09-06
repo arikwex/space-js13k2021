@@ -15,11 +15,12 @@ function Mineral(engine, tick, slot, type) {
       value = 7;
     }
   }
-
-  bus.on('mine', () => {
+  var mineFn = () => {
     homing = true;
     bus.emit('poof', {x: this.x, y: this.y, color: [255,130,255], size: 0.6, t: 0.3});
-  })
+    bus.off('mine', mineFn);
+  };
+  bus.on('mine', mineFn);
 
   this.update = (dT) => {
     anim += dT * 1.0;
