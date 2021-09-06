@@ -2,6 +2,7 @@ import * as canvas from './canvas.js';
 import * as gameobjects from './gameobjects.js';
 import * as gfx from './gfx.js';
 import * as scene from './scene.js';
+import * as utils from './utils.js';
 import bus from './bus.js';
 import StartButton from './startbutton.js';
 import Text from './text.js';
@@ -43,17 +44,23 @@ export default function PlanetEvent() {
   };
 
   // Event types
-  var evtType = parseInt(Math.random() * 5);
+  var evtType = 2;//parseInt(Math.random() * 5);
   // TBD: Prevent increasing blessings to comical scales?
   var items = [];
   var merchantName = '';
   var merchantGfx = gfx.drawCharWeaponTech;
+  var merchantText = '';
 
   // [EVT == 0] WEAPON TECH
   if (evtType == 0) {
     // weapon cards
     merchantName = 'Weapon Tech';
     merchantGfx = gfx.drawCharWeaponTech;
+    merchantText = utils.pick([
+      'Stop staring human! Either buy something or leave.',
+      'Rockets! Laser beams! What are you looking for? I\'ve got it all.',
+      'Hey hey, don\'t touch the merchandise! You might hurt yourself...'
+    ]);
     var selection = [cards[3], cards[4], cards[5], cards[6], cards[7]];
     var numCardsInShop = parseInt(Math.random() * 2) + 2;
     for (let i = 0; i < numCardsInShop; i++) {
@@ -67,6 +74,11 @@ export default function PlanetEvent() {
     // ship upgrade cards
     merchantName = 'Ship Mechanic';
     merchantGfx = gfx.drawCharShipMech;
+    merchantText = utils.pick([
+      'Beep Boop - May I assist you with upgrades for that spacefaring vessel?',
+      'Zip Zap - Your shield generator looks a bit flimsy. I can help with that.',
+      'Wrrrrr - Do you call that piece of scrap metal a ship?',
+    ]);
     var selection = [cards[8], cards[9], cards[10], cards[11], cards[12]];
     var numCardsInShop = parseInt(Math.random() * 2) + 2;
     for (let i = 0; i < numCardsInShop; i++) {
@@ -80,6 +92,11 @@ export default function PlanetEvent() {
     // mix of low tech card
     merchantName = 'Street Merchant';
     merchantGfx = gfx.drawCharMerchant;
+    merchantText = utils.pick([
+      'Pssst. Yeah you. You look like you could use a pumpjack for that ship.',
+      'Only the best mechatronics here. Forged from the finest Worlax Steel.',
+      'Got this stuff from the Gateway District... You\'re not a cop right?',
+    ]);
     var selection = [cards[3], cards[4], cards[8], cards[9]];
     var numCardsInShop = parseInt(Math.random() * 2) + 2;
     for (let i = 0; i < numCardsInShop; i++) {
@@ -149,10 +166,7 @@ export default function PlanetEvent() {
     // Show characters
     gfx.drawCharPlayer(ctx);
     merchantGfx(ctx);
-    gfx.drawDialogBox(ctx,
-      merchantName,
-      'Stop staring human! Either buy something or leave.'
-    );
+    gfx.drawDialogBox(ctx, merchantName, merchantText);
 
     // Show stats
     var us = Math.min(h*0.04,w*0.04);

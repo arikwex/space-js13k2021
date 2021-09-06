@@ -497,7 +497,9 @@ export default function Engine() {
       if (hand[q] == null) continue;
       var x = getCardPosX(q, cs, w);
       var y = getCardPosY(h);
-      gfx.drawCard(ctx, x, y, cs, hand[q], hovering == q, 1);
+      var opacity = 1;
+      if (energy < hand[q].cost) { opacity = 0.15; }
+      gfx.drawCard(ctx, x, y, cs, hand[q], hovering == q, opacity);
     }
   };
 };
