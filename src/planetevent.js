@@ -44,7 +44,7 @@ export default function PlanetEvent() {
   };
 
   // Event types
-  var evtType = 2;//parseInt(Math.random() * 5);
+  var evtType = 3;//parseInt(Math.random() * 5);
   // TBD: Prevent increasing blessings to comical scales?
   var items = [];
   var merchantName = '';
@@ -110,6 +110,11 @@ export default function PlanetEvent() {
     // mix of high tech card
     merchantName = 'Cytox Smuggler';
     merchantGfx = gfx.drawCharSmuggler;
+    merchantText = utils.pick([
+      'Sssseems like you need ssssome black market tech. Letssss sssee what I\'ve got...',
+      'Elzo Mineralsss are in short sssupply these daysss. My pricing hasss to ssslither up.',
+      'This lot isn\'t my normal sssset of ssssuplies, but itsss much sssafer than the cccytox trade.',
+    ]);
     var selection = [cards[5], cards[6], cards[10], cards[11]];
     var numCardsInShop = parseInt(Math.random() * 2) + 2;
     for (let i = 0; i < numCardsInShop; i++) {
