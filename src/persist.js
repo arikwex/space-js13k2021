@@ -16,7 +16,7 @@ export default (() => {
       maxEnergy = 5;
       maxShield = 3;
       deck = [
-        cards[10],cards[10],cards[10],cards[10],
+        cards[11],cards[11],cards[11],cards[11],
         // cards[0],cards[0],cards[0],
         // cards[1],cards[1],cards[1],
         // cards[2],cards[2],cards[2],

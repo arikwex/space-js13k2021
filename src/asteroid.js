@@ -14,7 +14,7 @@ function Asteroid(engine, tick, slot) {
     if (engine.getTick() > tick + 6) {
       this.destroyed = true;
     }
-    if (engine.closeToShip(tick, slot, 2)) {
+    if (engine.closeToShip(engine.laneX(tick), engine.laneY(slot), 2)) {
       this.destroyed = true;
       bus.emit('hit', 1);
     }

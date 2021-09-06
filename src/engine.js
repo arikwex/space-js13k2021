@@ -247,11 +247,11 @@ export default function Engine() {
     return h * 0.18 + laneAnim * h * 0.16;
   };
 
-  this.closeToShip = (tick, slot, dist) => {
+  this.closeToShip = (x, y, dist) => {
     if (dashing > 0) return false;
     var s = this.laneScale();
-    var dx = this.laneX(tick) - this.getShipX();
-    var dy = this.laneY(slot) - this.getShipY();
+    var dx = x - this.getShipX();
+    var dy = y - this.getShipY();
     return dx * dx + dy * dy < s * s * dist;
   };
 

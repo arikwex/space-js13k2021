@@ -310,7 +310,7 @@ const cards = [
     ctx.stroke();
     ctx.restore();
   },
-  use: () => { bus.emit('lane', 2) }
+  use: () => { bus.emit('mine') }
 },
 {
   // Advance 15% of the journey with no damage
