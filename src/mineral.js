@@ -36,11 +36,13 @@ function Mineral(engine, tick, slot, type) {
       this.x = engine.laneX(tick);
       this.y = engine.laneY(slot);
     }
-    if (engine.getTick() > tick + 6) {
+    if (engine.getTick() > tick + 6 && !homing) {
       this.destroyed = true;
+      bus.off('mine', mineFn);
     }
     if (engine.closeToShip(this.x, this.y, 1)) {
       this.destroyed = true;
+      bus.off('mine', mineFn);
       bus.emit('mineral', value);
     }
   }
