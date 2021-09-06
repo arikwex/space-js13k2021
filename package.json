@@ -7,9 +7,10 @@
     "dev": "onchange -i 'src/**/*.js' -- npm run build",
     "build": "npm run compile && npm run package",
     "compile": "rollup src/main.js --format es --no-strict --file dist/bundle.js",
-    "package": "npm run minify && npm run html && npm run zip && npm run status",
+    "package": "npm run minify && npm run roadroller && npm run html && npm run zip && npm run status",
     "minify": "uglifyjs --compress --mangle -o dist/bundle.min.js -- dist/bundle.js",
-    "html": "echo \"<html><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\"><style>canvas{width:100%;height:100%;}body{margin:0;background:#000;}</style><canvas><script>$(cat dist/bundle.min.js)</script></html>\" > index.html",
+    "roadroller": "roadroller dist/bundle.min.js -o dist/bundle.min.js --optimize 0",
+    "html": "node src/build-html.js",
     "zip": "zip dist/build.zip index.html",
     "status": "echo \"===> Build Size: $(wc -c < dist/build.zip) / 13,312 bytes <===\""
   },
@@ -26,6 +27,7 @@
   "devDependencies": {
     "nodemon": "^2.0.12",
     "onchange": "^7.1.0",
+    "roadroller": "git+https://github.com/lifthrasiir/roadroller.git",
     "rollup": "^2.56.3",
     "uglify-js": "^3.14.1"
   }
