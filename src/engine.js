@@ -13,6 +13,8 @@ import Projectile from './projectile.js';
 import Poof from './poof.js';
 
 export default function Engine() {
+  var currLevel = persist.getLevel();
+
   // Card handling
   var cloneCard = (card) => Object.assign({}, card);
   var shuffle = (d) => d.sort(() => Math.random() - 0.5)
@@ -184,10 +186,10 @@ export default function Engine() {
 
   bus.on('hit', (dmg) => {
     shield -= dmg;
-    bus.emit('poof', {x: this.getShipX(), y: this.getShipY(), color: [255,255,255], size: 1, t: 0.5});
     if (shield <= 0) {
-      // TODO: game over!
+      scene.transition(4);
     }
+    bus.emit('poof', {x: this.getShipX(), y: this.getShipY(), color: [255,255,255], size: 1, t: 0.5});
   });
 
   bus.on('mineral', (m) => {
@@ -295,7 +297,14 @@ export default function Engine() {
 
       // Journey finished -- visit planet now
       if (currentTick > totalTicks) {
-        scene.transition(3);
+        // 13'th zero indexed planet ==> Korva-6
+        if (currLevel == 13) {
+          // Victory!
+          scene.transition(5);
+        } else {
+          // Planet Event
+          scene.transition(3);
+        }
       }
     }
 
@@ -337,10 +346,10 @@ export default function Engine() {
     var r = h * 0.3;
     ctx.fillStyle = '#224';
     ctx.beginPath();
-    ctx.arc(-(currentTick + tickAnim) / 5 * w * 0.5, h * 0.34, r, 0, 6.28);
+    ctx.arc(-(currentTick + tickAnim) / 10 * w, h * 0.34, r, 0, 6.28);
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(-(currentTick + tickAnim - totalTicks) / 5 * w + w*0.3, h * 0.34, r, 0, 6.28);
+    ctx.arc(-(currentTick + tickAnim - totalTicks) / 10 * w + w*0.4, h * 0.34, r, 0, 6.28);
     ctx.fill();
 
     // Minimap
@@ -375,14 +384,11 @@ export default function Engine() {
     ctx.fillStyle = '#f33'; ctx.fillRect(w-15, th, -pw, ph);
     ctx.fillStyle = '#3f3'; ctx.fillRect(w-15, mh, -pw, ph);
     ctx.fillStyle = '#33f'; ctx.fillRect(w-15, bh, -pw, ph);
-    // ctx.fillStyle = '#311'; ctx.fillRect(w-15, th, -pw, ph);
-    // ctx.fillStyle = '#131'; ctx.fillRect(w-15, mh, -pw, ph);
-    // ctx.fillStyle = '#113'; ctx.fillRect(w-15, bh, -pw, ph);
-    // ctx.fillStyle = '#222';
-    // ctx.fillRect(15, th, w-30, 1);
-    // ctx.fillRect(15, mh, w-30, 1);
-    // ctx.fillRect(15, bh, w-30, 1);
-    // ctx.fillRect(15, bh+ph, w-30, 1);
+    ctx.fillStyle = 'rgba(100,100,100,0.4)';
+    ctx.fillRect(15, th, w-30, 1);
+    ctx.fillRect(15, mh, w-30, 1);
+    ctx.fillRect(15, bh, w-30, 1);
+    ctx.fillRect(15, bh+ph, w-30, 1);
 
     // Draw the main ship
     ctx.save();

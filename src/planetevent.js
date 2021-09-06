@@ -12,11 +12,33 @@ import persist from './persist.js';
 
 export default function PlanetEvent() {
   // Planet label
-  gameobjects.add(new Text('Planet: Tenadu', ()=>canvas.width()*0.03, ()=>canvas.width()*0.05, '#fff', 0.5, 'left'));
+  var planets = [
+    'Tenadu',
+    'Nurosto Prime',
+    'Worlax',
+    'Mektrov Zero',
+    'Cytoxia',
+    'Broggendor',
+    'Voitec',
+    'Helion',
+    'Earth (Remnants)',
+    'Yonzi Mata',
+    'Streva Gateway',
+    'Lumatorr',
+    'Desela',
+    // 'Korva-6'
+  ];
+  var currLevel = persist.getLevel();
+  gameobjects.add(new Text(`Planet ${planets[currLevel]}`,
+    ()=>canvas.width()*0.03, ()=>canvas.width()*0.05, '#fff', 0.5, 'left'));
 
   // Start button
   gameobjects.add(new StartButton());
-  bus.on('start', () => scene.transition(2));
+  bus.on('start', () => {
+    // Increment level
+    persist.setLevel(persist.getLevel() + 1);
+    scene.transition(2);
+  });
 
   // Handlers
   onTapCard = ({x, y}) => {

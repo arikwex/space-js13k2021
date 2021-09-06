@@ -1,16 +1,19 @@
 import * as canvas from './canvas.js';
 import bus from './bus.js';
 
-function StartButton() {
+function StartButton(txt = 'Liftoff') {
   var hovering = false;
 
-  bus.on('tap', ({x, y}) => {
+  var fn = ({x, y}) => {
     var w = canvas.width();
     var uiScale = w * 0.1;
     if (x > w*0.97 - uiScale*2 && x < w*0.97 && y > 0 && y < uiScale*0.9) {
       bus.emit('start');
+      bus.off('tap', fn);
     }
-  });
+  };
+
+  bus.on('tap', fn);
 
   this.render = (ctx) => {
     var w = canvas.width();
@@ -33,7 +36,7 @@ function StartButton() {
     ctx.font = `${uiScale*0.35}px monospace`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('Liftoff', w*0.97 - uiScale * 1, w*0.02+uiScale * 0.4);
+    ctx.fillText(txt, w*0.97 - uiScale * 1, w*0.02+uiScale * 0.4);
   }
 }
 export default StartButton;

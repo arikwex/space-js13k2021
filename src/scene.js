@@ -3,7 +3,6 @@ import * as gameobjects from './gameobjects.js';
 import * as animations from './animations.js';
 import * as gfx from './gfx.js';
 import StartButton from './startbutton.js';
-import persist from './persist.js'
 import bus from './bus.js';
 import Steam from './steam.js';
 
@@ -12,9 +11,11 @@ import MainMenu from './mainmenu.js';
 import Intro from './intro.js';
 import Engine from './engine.js';
 import PlanetEvent from './planetevent.js';
+import GameOver from './gameover.js';
+import Win from './win.js';
 
 // Init/Reset game
-export function init() { persist.reset(); bus.emit('scene', 3); }
+export function init() { bus.emit('scene', 0); }
 
 // Go to scene number
 export function goto(s) { bus.emit('scene', s); }
@@ -54,6 +55,12 @@ export function transition(s) {
 
     // [SCENE = 3] PLANET EVENT
     if (scene == 3) { gameobjects.add(new PlanetEvent()); }
+
+    // [SCENE = 4] LOSE SCREEN
+    if (scene == 4) { gameobjects.add(new GameOver()); }
+
+    // [SCENE = 5] WIN SCREEN
+    if (scene == 5) { gameobjects.add(new Win()); }
   };
 
   bus.on('scene', sceneConfig);

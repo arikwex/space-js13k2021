@@ -8,13 +8,13 @@ export default (() => {
   var maxShield = 3;
   var deck = [];
 
-  return {
+  var a = {
     reset: () => {
-      minerals = 100;
+      minerals = 0;
       level = 0;
       handSize = 3;
       maxEnergy = 5;
-      maxShield = 3;
+      maxShield = 30;
       deck = [
         cards[0],cards[0],cards[0],
         cards[1],cards[1],cards[1],
@@ -37,8 +37,10 @@ export default (() => {
     getMaxShield: () => maxShield,
     setMaxShield: (e) => maxShield = e,
 
-    clearDeck: (c) => deck = [],
     getDeck: () => deck,
     addToDeck: (c) => deck.push(c),
   };
+  a.reset();
+
+  return a;
 })();

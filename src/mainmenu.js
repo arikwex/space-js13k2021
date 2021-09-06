@@ -19,5 +19,9 @@ export default function MainMenu() {
   gameobjects.add(pushToStart);
 
   // Touch anywhere to go to intro
-  bus.on('tap', () => scene.transition(1));
+  var fn = () => {
+    scene.transition(1);
+    bus.off('tap', fn);
+  };
+  bus.on('tap', fn);
 }
