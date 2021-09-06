@@ -44,7 +44,7 @@ export default function PlanetEvent() {
   };
 
   // Event types
-  var evtType = 3;//parseInt(Math.random() * 5);
+  var evtType = 4;//parseInt(Math.random() * 5);
   // TBD: Prevent increasing blessings to comical scales?
   var items = [];
   var merchantName = '';
@@ -128,6 +128,11 @@ export default function PlanetEvent() {
     // grant max energy, max shield, hand size
     merchantName = 'Neuro-Templar';
     merchantGfx = gfx.drawCharTemplar;
+    merchantText = utils.pick([
+      'I sense your journey has experienced rough patches. A blessing will surely aid you.',
+      'The Great Consciousness has a gift for you, but an exchange of minerals must be made.',
+      'Words from The Cortex will pave your road to enlightenment... for a small fee.',
+    ]);
     var selection = [cards[13], cards[14], cards[15]];
     for (let i = 0; i < 2; i++) {
       var opt = parseInt(Math.random() * selection.length);
