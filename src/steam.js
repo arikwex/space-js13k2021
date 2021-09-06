@@ -20,7 +20,7 @@ export default function Steam(x, y) {
     var opacity = ttl;
     ctx.fillStyle = `rgba(255,255,255,${opacity})`;
     ctx.beginPath();
-    ctx.arc(x,y,size,0,6.29);
+    ctx.arc(x,y,Math.max(size,1),0,6.29);
     ctx.fill();
   }
 }
