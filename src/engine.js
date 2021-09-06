@@ -205,7 +205,7 @@ export default function Engine() {
 
     // Asteroid (more frequent as levels progress)
     for (let q = 0; q < 0.1 + currLevel * 0.15; q++) {
-      if (Math.random() > 0.5 / (1 + currLevel * 0.1)) {
+      if (Math.random() > 0.7 / (1 + currLevel * 0.04)) {
         var lane = parseInt(Math.random()*3);
         if (!lanes[lane]) {
           lanes[lane] = 1;
