@@ -14,7 +14,7 @@ export default (() => {
       level = 0;
       handSize = 3;
       maxEnergy = 5;
-      maxShield = 30;
+      maxShield = 3;
       deck = [
         cards[0],cards[0],cards[0],
         cards[1],cards[1],cards[1],

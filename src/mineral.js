@@ -8,6 +8,13 @@ function Mineral(engine, tick, slot, type) {
   this.y = 0;
   var homing = false;
   var ht = 0;
+  var value = 1;
+  if (Math.random() > 0.6) {
+    value = 3;
+    if (Math.random() > 0.6) {
+      value = 7;
+    }
+  }
 
   bus.on('mine', () => {
     homing = true;
@@ -33,11 +40,23 @@ function Mineral(engine, tick, slot, type) {
     }
     if (engine.closeToShip(this.x, this.y, 1)) {
       this.destroyed = true;
-      bus.emit('mineral', 1);
+      bus.emit('mineral', value);
     }
   }
   this.render = (ctx) => {
-    gfx.drawMineral(ctx, this.x, this.y, anim, engine.laneScale() * 0.4);
+    var s = engine.laneScale();
+    if (value == 1) {
+      gfx.drawMineral(ctx, this.x, this.y, anim, s * 0.4);
+    } else if (value == 3) {
+      gfx.drawMineral(ctx, this.x-s/3, this.y, anim, s * 0.3);
+      gfx.drawMineral(ctx, this.x+s/3, this.y-s/2, anim, s * 0.3);
+      gfx.drawMineral(ctx, this.x+s/3, this.y+s/2, anim, s * 0.3);
+    } else if (value == 7) {
+      for (let i = 0; i < 6; i++) {
+        gfx.drawMineral(ctx, this.x+Math.sin(i*1.04)*s*0.8, this.y+Math.cos(i*1.04)*s*0.8, anim, s * 0.25);
+      }
+      gfx.drawMineral(ctx, this.x, this.y, anim, s * 0.3);
+    }
   }
 }
 export default Mineral;

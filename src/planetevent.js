@@ -66,7 +66,14 @@ export default function PlanetEvent() {
   };
 
   // Event types
-  var evtType = 4;//parseInt(Math.random() * 5);
+  var evtType = [];
+  if (currLevel == 0) {
+    // Only allow weapon tech and merchant for first level
+    evtType = utils.pick([0, 2])
+  } else {
+    // All shops are fair game after
+    evtType = utils.pick([0, 1, 2, 3, 4])
+  }
   // TBD: Prevent increasing blessings to comical scales?
   var items = [];
   var merchantName = '';

@@ -89,7 +89,7 @@ const cards = [
   color: [255, 160, 30],
   title: ['Sigma', 'Cannon'],
   cost: 3,
-  price: 20,
+  price: 15,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.translate(cs/12, cs/15);
@@ -119,7 +119,7 @@ const cards = [
   color: [255, 160, 30],
   title: ['Pulse', 'Breaker'],
   cost: 3,
-  price: 25,
+  price: 15,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.translate(-cs/30, 0);
@@ -147,7 +147,7 @@ const cards = [
   color: [255, 160, 30],
   title: ['Crazy', 'Rockets'],
   cost: 2,
-  price: 15,
+  price: 10,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -177,7 +177,7 @@ const cards = [
   color: [255, 160, 30],
   title: ['Tactical', 'Nuke'],
   cost: 4,
-  price: 30,
+  price: 20,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -206,7 +206,7 @@ const cards = [
   color: [255, 70, 255],
   title: ['Lane', 'Hopper'],
   cost: 1,
-  price: 10,
+  price: 5,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -229,7 +229,7 @@ const cards = [
   color: [255, 70, 255],
   title: ['Shadow', 'Dash'],
   cost: 2,
-  price: 15,
+  price: 10,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -260,7 +260,7 @@ const cards = [
   color: [255, 70, 255],
   title: ['Shield', 'Charger'],
   cost: 3,
-  price: 25,
+  price: 15,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -283,7 +283,7 @@ const cards = [
   color: [255, 70, 255],
   title: ['Mineral', 'Siphon'],
   cost: 3,
-  price: 20,
+  price: 15,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -317,7 +317,7 @@ const cards = [
   color: [255, 70, 255],
   title: ['Hyper', 'Drive'],
   cost: 4,
-  price: 25,
+  price: 20,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -338,7 +338,7 @@ const cards = [
   color: [0, 255, 255],
   title: ['Defense', 'Blessing'],
   cost: 0,
-  price: 30,
+  price: 25,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -357,7 +357,7 @@ const cards = [
   color: [255, 255, 0],
   title: ['Strength', 'Blessing'],
   cost: 0,
-  price: 30,
+  price: 25,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -382,7 +382,7 @@ const cards = [
   color: [200, 200, 200],
   title: ['Vision', 'Blessing'],
   cost: 0,
-  price: 30,
+  price: 25,
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;

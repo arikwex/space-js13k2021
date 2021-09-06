@@ -74,7 +74,7 @@ export default function Engine() {
   var energyRefill = 0;
   var energyRefillRate = 0.75;
 
-  var totalTicks = 20;
+  var totalTicks = 20 + currLevel * 2;
   var currentTick = 0;
   var tickAnim = 0;
   var anim = 0;
