@@ -138,6 +138,11 @@ export default function Engine() {
     dashSpeed = 2;
   });
 
+  bus.on('heal', () => {
+    shield = Math.min(shield + 1, maxShield);
+    gameobjects.add(new Poof(this, this.getShipX(), this.getShipY(), [0, 255, 0], 1, 0.5));
+  });
+
   bus.on('poof', ({x, y, color, size, t}) => {
     gameobjects.add(new Poof(this, x, y, color, size, t));
   });

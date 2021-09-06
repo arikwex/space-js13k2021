@@ -276,7 +276,7 @@ const cards = [
     ctx.stroke();
     ctx.restore();
   },
-  use: () => { bus.emit('lane', 2) }
+  use: () => { bus.emit('heal') }
 },
 {
   // Siphon all minerals on screen toward you
