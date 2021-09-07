@@ -625,6 +625,8 @@ function Audio() {
     }
     return audioBuffer;//source;
   };
+
+  var sin = (i) => Math.min(Math.max(Math.sin(i), -1), 1);
   var saw = (i) => ((i % 6.28)-3.14)/6.28;
   var sqr = (i) => Math.min(Math.max(Math.sin(i) * 1000, -1), 1);
   var win = (i, ts, te) => {
@@ -634,12 +636,12 @@ function Audio() {
 
   // Transition animation - Gate whirring close
   var gateCloseSound = generate(0.6, (i) => {
-    return 0.05 * sqr(i/150) * (sqr(i/400)+1);
+    return 0.05 * sqr(i/250) * (sqr(i/600)+1);
   });
 
   // Transition animation -  Gate whirring open + noise of steam
   var gateOpenSound = generate(1, (i) => {
-    return 0.05 * sqr(i/130) * (sqr(i/400)+1) + 0.1 * Math.random() * win(i, 0, 1);
+    return 0.05 * sqr(i/250) * (sqr(i/600)+1) + 0.1 * Math.random() * win(i, 0, 1);
   });
 
   // Buy an item (ding + ding)
@@ -647,9 +649,14 @@ function Audio() {
     return 0.1 * (saw(i/19) * win(i, 0, 0.15) + saw(i/11) * win(i, 0.1, 0.7));
   });
 
-  // Gain mineral sound
+  // Gain mineral blip
   var mineralSound = generate(0.15, (i) => {
-    return 0.04 * sqr(i/(10 - i / 2000));
+    return 0.04 * sin(i/(15 - i / 2000));
+  });
+
+  // Collision / take damage
+  var collisionSound = generate(0.8, (i) => {
+    return 0.1 * Math.random() * win(i, 0, 0.8);
   });
 
   var play = (audioBuffer) => {
@@ -660,11 +667,11 @@ function Audio() {
   };
 
   this.setup = () => {
-    // bus.on('start', () => { source.start(); });
     bus.on('txn', () => { play(gateCloseSound); });
     bus.on('txn-done', () => { play(gateOpenSound); });
     bus.on('buy', () => { play(buySound); });
     bus.on('mineral', () => { play(mineralSound); });
+    bus.on('hit', () => { play(collisionSound); });
   };
 }
 
