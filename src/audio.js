@@ -39,7 +39,7 @@ function Audio() {
     return 0.1 * (saw(i/19) * win(i, 0, 0.15) + saw(i/11) * win(i, 0.1, 0.7));
   });
 
-  // Gain mineral blip
+  // Gain mineral blip + Siphon sound
   var mineralSound = generate(0.15, (i) => {
     return 0.04 * sin(i/(15 - i / 2000));
   });
@@ -99,6 +99,11 @@ function Audio() {
     return 0.05*acc;
   });
 
+  // Heal sound
+  var healSound = generate(0.6, (i) => {
+    return 0.04 * sin(i/(50-i/2000))*(sqr(i/700+1)+1);
+  });
+
   var play = (audioBuffer) => {
     var source = audioCtx.createBufferSource();
     source.buffer = audioBuffer;
@@ -111,12 +116,14 @@ function Audio() {
     bus.on('txn-done', () => { play(gateOpenSound); });
     bus.on('buy', () => { play(buySound); });
     bus.on('mineral', () => { play(mineralSound); });
+    bus.on('mine', () => { play(mineralSound); });
     bus.on('hit', () => { play(collisionSound); });
     bus.on('boom', () => { play(collisionSound); });
     bus.on('lane', () => { play(laneSound); });
     bus.on('hop', () => { play(hopSound); });
     bus.on('dash', () => { play(dashSound); });
     bus.on('hyper', () => { play(hyperSound); });
+    bus.on('heal', () => { play(healSound); });
     bus.on('projectile', (t) => {
       if (t==1 || t==4 || t==5) {play(missileSound);}
       if (t==2) {play(laserSound);}
