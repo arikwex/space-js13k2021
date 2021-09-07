@@ -59,6 +59,11 @@ function Audio() {
     return 0.04 * Math.random() * win(i, 0, 0.7) * (sqr(i/200) + 1);
   });
 
+  // Sigma cannon / laser
+  var laserSound = generate(1.5, (i) => {
+    return 0.08 * (sin(i/(30-i/400)) * win(i, 0, 0.15) * 3 + saw(i/60)*(sqr(i/400)+1)/2*win(i,0.1,1.5))
+  });
+
   // Hop sound
   var hopSound = generate(0.7, (i) => {
     return 0.1 * (
@@ -87,6 +92,7 @@ function Audio() {
     bus.on('hop', () => { play(hopSound); });
     bus.on('projectile', (t) => {
       if (t==1) {play(missileSound);}
+      if (t==2) {play(laserSound);}
     });
   };
 }
