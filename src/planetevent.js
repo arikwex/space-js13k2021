@@ -12,24 +12,8 @@ import persist from './persist.js';
 
 export default function PlanetEvent() {
   // Planet label
-  var planets = [
-    'Tenadu',
-    'Nurosto Prime',
-    'Worlax',
-    'Mektrov Zero',
-    'Cytoxia',
-    'Broggendor',
-    'Voitec',
-    'Helion',
-    'Earth (Remnants)',
-    'Yonzi Mata',
-    'Streva Gateway',
-    'Lumatorr',
-    'Desela',
-    // 'Korva-6'
-  ];
   var currLevel = persist.getLevel();
-  gameobjects.add(new Text(`Planet ${planets[currLevel]}`,
+  gameobjects.add(new Text(`Planet ${utils.planets[currLevel]}`,
     ()=>canvas.width()*0.03, ()=>canvas.width()*0.05, '#fff', 0.5, 'left'));
 
   // Start button

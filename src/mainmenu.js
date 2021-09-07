@@ -18,6 +18,9 @@ export default function MainMenu() {
   pushToStart.ecs = [animations.pulse((x) => {pushToStart.size = x;}, 0.45, 0.55, 1)];
   gameobjects.add(pushToStart);
 
+  // By me :)
+  gameobjects.add(new Text('by Ariel Wexler', ()=>canvas.width()/2, ()=>canvas.height()*0.8, '#f3f', 0.35, 'center'));
+
   // Touch anywhere to go to intro
   var fn = () => {
     scene.transition(1);
