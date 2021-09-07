@@ -42,8 +42,8 @@ function Projectile(engine, x, y, targetLane, projectileType) {
         if (this.homing && !this.homing.destroyed) {
           angle += Math.atan2(this.homing.y-this.y, this.homing.x-this.x);
         }
-        this.y += dT * canvas.width() / 2 * Math.sin(angle);
-        this.x += dT * canvas.width() / 2 * Math.cos(angle);
+        this.y += dT * canvas.width()*0.8 * Math.sin(angle);
+        this.x += dT * canvas.width()*0.8 * Math.cos(angle);
       }
       if (anim > 4) {
         this.destroyed = true;

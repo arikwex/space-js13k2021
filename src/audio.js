@@ -36,7 +36,7 @@ function Audio() {
 
   // Buy an item (ding + ding)
   var buySound = generate(0.7, (i) => {
-    return 0.1 * (saw(i/19) * win(i, 0, 0.15) + saw(i/11) * win(i, 0.1, 0.7));
+    return 0.07 * (saw(i/19) * win(i, 0, 0.15) + saw(i/11) * win(i, 0.1, 0.7));
   });
 
   // Gain mineral blip + Siphon sound
