@@ -27,6 +27,8 @@ function Projectile(engine, x, y, targetLane, projectileType) {
         for (let i = 0; i < n; i++) {
           bus.emit('poof', {x: Math.random()*w, y: Math.random()*h, color: [255,244,50], size: Math.random()*1+1, t: Math.random()*0.4+0.4});
         }
+        // For audio cue...
+        bus.emit('boom');
         this.destroyed = true;
       }
     }
@@ -48,6 +50,8 @@ function Projectile(engine, x, y, targetLane, projectileType) {
       }
       if (engine.collideTargets(this.x, this.y, 1.5)) {
         this.destroyed = true;
+        // Audio cue...
+        bus.emit('boom');
         if (projectileType == 1) {
           bus.emit('poof', {x: this.x, y: this.y, color: [255,200,100], size: 1, t: 0.5});
         }

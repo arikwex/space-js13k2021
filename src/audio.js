@@ -26,12 +26,12 @@ function Audio() {
 
   // Transition animation - Gate whirring close
   var gateCloseSound = generate(0.6, (i) => {
-    return 0.05 * sqr(i/250) * (sqr(i/600)+1);
+    return 0.05 * sqr(i/250) * (sin(i/300)+0);
   });
 
   // Transition animation -  Gate whirring open + noise of steam
   var gateOpenSound = generate(1, (i) => {
-    return 0.05 * sqr(i/250) * (sqr(i/600)+1) + 0.1 * Math.random() * win(i, 0, 1);
+    return 0.05 * sqr(i/250) * (sin(i/300)+0) + 0.1 * Math.random() * win(i, 0, 1);
   });
 
   // Buy an item (ding + ding)
@@ -46,7 +46,7 @@ function Audio() {
 
   // Collision / take damage
   var collisionSound = generate(0.8, (i) => {
-    return 0.1 * Math.random() * win(i, 0, 0.8);
+    return 0.1 * Math.random() * win(i, 0, 0.8) * (sqr(i/200)+1);
   });
 
   // Swap lane
@@ -54,9 +54,9 @@ function Audio() {
     return 0.04 * (1+Math.random()/3) * win(i, 0, 0.4) * sin(i/50);
   });
 
-  // Kepler missile + Crazy Rockets
+  // Kepler missile + Crazy Rockets + Nuke
   var missileSound = generate(0.7, (i) => {
-    return 0.04 * Math.random() * win(i, 0, 0.7) * (sqr(i/200) + 1);
+    return 0.04 * Math.random() * win(i, 0, 0.7) * (sqr(i/100) + 1);
   });
 
   // Sigma cannon / laser
@@ -93,10 +93,11 @@ function Audio() {
     bus.on('buy', () => { play(buySound); });
     bus.on('mineral', () => { play(mineralSound); });
     bus.on('hit', () => { play(collisionSound); });
+    bus.on('boom', () => { play(collisionSound); });
     bus.on('lane', () => { play(laneSound); });
     bus.on('hop', () => { play(hopSound); });
     bus.on('projectile', (t) => {
-      if (t==1) {play(missileSound);}
+      if (t==1 || t==4 || t==5) {play(missileSound);}
       if (t==2) {play(laserSound);}
       if (t==3) {play(pulseBreakerSound);}
     });
