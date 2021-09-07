@@ -80,6 +80,25 @@ function Audio() {
     );
   });
 
+  // Dash sound
+  var dashSound = generate(0.7, (i) => {
+    var acc = 0;
+    for (let q = 0; q < 10; q++) {
+      acc += sin(i/(10+q*q/20)) * win(i, q/10, (q+1)/10);
+    }
+    return 0.05*acc;
+  });
+
+  // Hyperdrive sound
+  var hyperSound = generate(1.5, (i) => {
+    var acc = 0;
+    for (let q = 0; q < 13; q++) {
+      acc += sqr(i/(10-q*q/15)) * win(i, q/15, (q+1)/15);
+      acc += sqr(i/(40-q*q/3)) * win(i, q/15+0.03, (q+1)/15);
+    }
+    return 0.05*acc;
+  });
+
   var play = (audioBuffer) => {
     var source = audioCtx.createBufferSource();
     source.buffer = audioBuffer;
@@ -96,6 +115,8 @@ function Audio() {
     bus.on('boom', () => { play(collisionSound); });
     bus.on('lane', () => { play(laneSound); });
     bus.on('hop', () => { play(hopSound); });
+    bus.on('dash', () => { play(dashSound); });
+    bus.on('hyper', () => { play(hyperSound); });
     bus.on('projectile', (t) => {
       if (t==1 || t==4 || t==5) {play(missileSound);}
       if (t==2) {play(laserSound);}
