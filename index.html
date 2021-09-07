@@ -627,15 +627,26 @@ function Audio() {
     }
     return audioBuffer;//source;
   };
+  var saw = (i) => ((i % 6.28)-3.14)/6.28;
   var sqr = (i) => Math.min(Math.max(Math.sin(i) * 1000, -1), 1);
+  var win = (i, ts, te) => {
+    if (i<ts*44100 || i>te*44100) {return 0;}
+    return 1 - ((i/44100) - ts)/(te - ts);
+  };
 
+  // Transition animation - Gate whirring close
   var gateCloseSound = generate(0.6, (i) => {
-    // Gate whirring close
     return 0.05 * sqr(i/150) * (sqr(i/400)+1);
   });
+
+  // Transition animation -  Gate whirring open + noise of steam
   var gateOpenSound = generate(1, (i) => {
-    // Gate whirring open + noise of steam
     return 0.05 * sqr(i/130) * (sqr(i/400)+1) + 0.1 * Math.random() * Math.max(1 - i / 44100, 0);
+  });
+
+  // Buy an item (ding + ding)
+  var buySound = generate(0.7, (i) => {
+    return 0.1 * (saw(i/19) * win(i, 0, 0.15) + saw(i/11) * win(i, 0.1, 0.7));
   });
 
   var play = (audioBuffer) => {
@@ -649,6 +660,7 @@ function Audio() {
     // bus.on('start', () => { source.start(); });
     bus.on('txn', () => { play(gateCloseSound); });
     bus.on('txn-done', () => { play(gateOpenSound); });
+    bus.on('buy', () => { play(buySound); });
   };
 }
 
@@ -1111,7 +1123,7 @@ const cards = [
 ];
 
 var persist = (() => {
-  var minerals = 0;
+  var minerals = 1110;
   var level = 0;
   var handSize = 3;
   var maxEnergy = 5;
@@ -1120,7 +1132,7 @@ var persist = (() => {
 
   var a = {
     reset: () => {
-      minerals = 0;
+      minerals = 1110;
       level = 0;
       handSize = 3;
       maxEnergy = 5;
@@ -2042,6 +2054,7 @@ function PlanetEvent() {
         if (x > bx-cs/2 && x < bx+cs/2 && y > h*0.4-cs*3/4 && y < h*0.4+cs*3/4) {
           add(new PlayedCard(bx, h*0.4, items[i], cs));
           persist.addMineral(-items[i].price);
+          bus.emit('buy');
           // Templar does not add cards to deck
           if (evtType == 4) {
             items[i].use();
@@ -2267,7 +2280,7 @@ function Win() {
 }
 
 // Init/Reset game
-function init() { bus.emit('scene', 0); }
+function init() { bus.emit('scene', 3); }
 
 // Go to scene number
 function transition(s) {
