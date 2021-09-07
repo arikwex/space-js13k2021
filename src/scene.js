@@ -44,6 +44,7 @@ export function transition(s) {
     scene = sceneNum;
     bus.clear();
     bus.on('scene', sceneConfig);
+    audio.stopMusic();
     audio.setup();
     gameobjects.clear();
 
@@ -51,13 +52,13 @@ export function transition(s) {
     if (scene == 0) { gameobjects.add(new MainMenu()); }
 
     // [SCENE = 1] INTRO
-    if (scene == 1) { gameobjects.add(new Intro()); }
+    if (scene == 1) { gameobjects.add(new Intro()); audio.music(); }
 
     // [SCENE = 2] GAME
     if (scene == 2) { gameobjects.add(new Engine()); }
 
     // [SCENE = 3] PLANET EVENT
-    if (scene == 3) { gameobjects.add(new PlanetEvent()); }
+    if (scene == 3) { gameobjects.add(new PlanetEvent()); audio.music(); }
 
     // [SCENE = 4] LOSE SCREEN
     if (scene == 4) { gameobjects.add(new GameOver()); }
