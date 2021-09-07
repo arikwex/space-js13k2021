@@ -132,6 +132,14 @@ export default function Engine() {
     while (newLane == currentLane) {
       newLane = parseInt(Math.random() * 3);
     }
+    var sx = this.getShipX();
+    var sc = this.laneScale();
+    for (let i = 0; i < 3; i++) {
+      sz = 0.3;
+      var col = [255, 0, 255];
+      if (i == newLane) { sz = 1; col = [100, 255, 100]; }
+      gameobjects.add(new Poof(this, sx+sc*2, this.laneY(i), col, sz, 0.7));
+    }
     currentLane = newLane;
   });
 

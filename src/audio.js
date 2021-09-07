@@ -49,6 +49,27 @@ function Audio() {
     return 0.1 * Math.random() * win(i, 0, 0.8);
   });
 
+  // Swap lane
+  var laneSound = generate(0.4, (i) => {
+    return 0.04 * (1+Math.random()/3) * win(i, 0, 0.4) * sin(i/50);
+  });
+
+  // Kepler missile
+  var missileSound = generate(0.7, (i) => {
+    return 0.04 * Math.random() * win(i, 0, 0.7) * (sqr(i/200) + 1);
+  });
+
+  // Hop sound
+  var hopSound = generate(0.7, (i) => {
+    return 0.1 * (
+      saw(i/30) * win(i, 0, 0.1) +
+      saw(i/50) * win(i, 0.1, 0.2) +
+      saw(i/40) * win(i, 0.2, 0.3) +
+      saw(i/20) * win(i, 0.3, 0.4) +
+      saw(i/10) * win(i, 0.4, 0.5)
+    );
+  });
+
   var play = (audioBuffer) => {
     var source = audioCtx.createBufferSource();
     source.buffer = audioBuffer;
@@ -62,6 +83,11 @@ function Audio() {
     bus.on('buy', () => { play(buySound); });
     bus.on('mineral', () => { play(mineralSound); });
     bus.on('hit', () => { play(collisionSound); });
+    bus.on('lane', () => { play(laneSound); });
+    bus.on('hop', () => { play(hopSound); });
+    bus.on('projectile', (t) => {
+      if (t==1) {play(missileSound);}
+    });
   };
 }
 

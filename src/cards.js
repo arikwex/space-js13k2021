@@ -204,7 +204,7 @@ const cards = [
 {
   // Move to a new random channel
   color: [255, 70, 255],
-  title: ['Lane', 'Hopper'],
+  title: ['Quantum', 'Hopper'],
   cost: 1,
   price: 5,
   glyph: function (ctx, cs) {

@@ -1,7 +1,7 @@
 import cards from './cards.js';
 
 export default (() => {
-  var minerals = 1110;
+  var minerals = 0;
   var level = 0;
   var handSize = 3;
   var maxEnergy = 5;
@@ -10,12 +10,13 @@ export default (() => {
 
   var a = {
     reset: () => {
-      minerals = 1110;
+      minerals = 0;
       level = 0;
       handSize = 3;
       maxEnergy = 5;
       maxShield = 3;
       deck = [
+        cards[8],cards[8],cards[8],
         cards[0],cards[0],cards[0],
         cards[1],cards[1],cards[1],
         cards[2],cards[2],cards[2],
