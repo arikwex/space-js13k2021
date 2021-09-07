@@ -55,7 +55,7 @@ export function transition(s) {
     if (scene == 1) { gameobjects.add(new Intro()); audio.music(); }
 
     // [SCENE = 2] GAME
-    if (scene == 2) { gameobjects.add(new Engine()); }
+    if (scene == 2) { gameobjects.add(new Engine()); audio.bgRocket(); }
 
     // [SCENE = 3] PLANET EVENT
     if (scene == 3) { gameobjects.add(new PlanetEvent()); audio.music(); }

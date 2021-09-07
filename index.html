@@ -630,6 +630,7 @@ function Audio() {
   var hyperSound;
   var healSound;
   var musicBuffer;
+  var rocketBuffer;
 
   var sin = (i) => Math.min(Math.max(Math.sin(i), -1), 1);
   var saw = (i) => ((i % 6.28)-3.14)/6.28;
@@ -763,6 +764,10 @@ function Audio() {
         note(i, 0, d * 42, d * 1.5);
       return acc;
     }, false);
+
+    rocketBuffer = generate(3, (i) => {
+      return 0.01 * (saw(i/300)*sqr(i/130) + 1);
+    }, false);
   };
 
   var play = (audioBuffer) => {
@@ -798,6 +803,14 @@ function Audio() {
     if (audioCtx == null) { this.init(); }
     musicSource = audioCtx.createBufferSource();
     musicSource.buffer = musicBuffer;
+    musicSource.loop = true;
+    musicSource.connect(audioCtx.destination);
+    musicSource.start();
+  };
+  this.bgRocket = () => {
+    if (audioCtx == null) { this.init(); }
+    musicSource = audioCtx.createBufferSource();
+    musicSource.buffer = rocketBuffer;
     musicSource.loop = true;
     musicSource.connect(audioCtx.destination);
     musicSource.start();
@@ -2409,7 +2422,7 @@ function GameOver() {
 
   // Game over :(
   add(new Text('Game Over', ()=>width()/2, ()=>height()*0.5, '#f55', 1, 'center'));
-  add(new Text(`Exploded near planet ${planets[persist.getLevel()]}`, ()=>width()/2, ()=>height()*0.6, '#f55', 0.4, 'center'));
+  add(new Text(`Exploded approaching planet ${planets[persist.getLevel()]}`, ()=>width()/2, ()=>height()*0.6, '#f55', 0.4, 'center'));
 
   // Push to play again
   add(new Text('[ Press to retry ]', ()=>width()/2, ()=>height()*0.7, '#777', 0.5, 'center'));
@@ -2476,7 +2489,7 @@ function transition(s) {
     if (scene == 1) { add(new Intro()); audio.music(); }
 
     // [SCENE = 2] GAME
-    if (scene == 2) { add(new Engine()); }
+    if (scene == 2) { add(new Engine()); audio.bgRocket(); }
 
     // [SCENE = 3] PLANET EVENT
     if (scene == 3) { add(new PlanetEvent()); audio.music(); }

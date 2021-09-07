@@ -14,7 +14,7 @@ export default function GameOver() {
 
   // Game over :(
   gameobjects.add(new Text('Game Over', ()=>canvas.width()/2, ()=>canvas.height()*0.5, '#f55', 1, 'center'));
-  gameobjects.add(new Text(`Exploded near planet ${utils.planets[persist.getLevel()]}`, ()=>canvas.width()/2, ()=>canvas.height()*0.6, '#f55', 0.4, 'center'));
+  gameobjects.add(new Text(`Exploded approaching planet ${utils.planets[persist.getLevel()]}`, ()=>canvas.width()/2, ()=>canvas.height()*0.6, '#f55', 0.4, 'center'));
 
   // Push to play again
   gameobjects.add(new Text('[ Press to retry ]', ()=>canvas.width()/2, ()=>canvas.height()*0.7, '#777', 0.5, 'center'));

@@ -19,6 +19,7 @@ function Audio() {
   var hyperSound
   var healSound;
   var musicBuffer;
+  var rocketBuffer;
 
   var sin = (i) => Math.min(Math.max(Math.sin(i), -1), 1)
   var saw = (i) => ((i % 6.28)-3.14)/6.28;
@@ -153,6 +154,10 @@ function Audio() {
         note(i, 0, d * 42, d * 1.5);
       return acc;
     }, false);
+
+    rocketBuffer = generate(3, (i) => {
+      return 0.01 * (saw(i/300)*sqr(i/130) + 1);
+    }, false);
   }
 
   var play = (audioBuffer) => {
@@ -188,6 +193,14 @@ function Audio() {
     if (audioCtx == null) { this.init(); }
     musicSource = audioCtx.createBufferSource();
     musicSource.buffer = musicBuffer;
+    musicSource.loop = true;
+    musicSource.connect(audioCtx.destination);
+    musicSource.start();
+  };
+  this.bgRocket = () => {
+    if (audioCtx == null) { this.init(); }
+    musicSource = audioCtx.createBufferSource();
+    musicSource.buffer = rocketBuffer;
     musicSource.loop = true;
     musicSource.connect(audioCtx.destination);
     musicSource.start();
