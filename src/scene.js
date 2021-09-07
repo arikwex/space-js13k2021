@@ -4,6 +4,7 @@ import * as animations from './animations.js';
 import * as gfx from './gfx.js';
 import StartButton from './startbutton.js';
 import bus from './bus.js';
+import audio from './audio.js';
 import Steam from './steam.js';
 
 // Scenes
@@ -22,10 +23,11 @@ export function goto(s) { bus.emit('scene', s); }
 
 // Go to scene number
 export function transition(s) {
+  bus.emit('txn');
   // When transition animation done, swap scene and perform fade in
   bus.on('txn-done', () => {
     bus.emit('scene', s);
-    gameobjects.add(new animations.transition(1.2, false));
+    gameobjects.add(new animations.transition(0.9, false));
     for (let i = 0; i < canvas.width(); i+=canvas.width()*0.01) {
       gameobjects.add(new Steam(i,canvas.height()/2));
     }
@@ -42,6 +44,7 @@ export function transition(s) {
     scene = sceneNum;
     bus.clear();
     bus.on('scene', sceneConfig);
+    audio.setup();
     gameobjects.clear();
 
     // [SCENE = 0] MAIN MENU

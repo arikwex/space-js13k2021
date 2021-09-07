@@ -13,7 +13,7 @@ export function transition(duration, fadeOut) {
   var anim = 0;
   this.update = (dT) => {
     anim += dT / duration;
-    if (anim > 1) {
+    if (anim > 1 && fadeOut) {
       this.destroyed = true;
       bus.emit('txn-done');
     }

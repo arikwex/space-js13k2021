@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "onchange -i 'src/**/*.js' -- npm run build",
+    "dev:fast": "onchange -i 'src/**/*.js' -- npm run build:fast",
     "build": "npm run compile && npm run package",
+    "build:fast": "npm run compile && cat dist/bundle.js > dist/bundle.min.js && npm run html",
     "compile": "rollup src/main.js --format es --no-strict --file dist/bundle.js",
     "package": "npm run minify && npm run roadroller && npm run html && npm run zip && npm run status",
     "minify": "uglifyjs --compress --mangle -o dist/bundle.min.js -- dist/bundle.js",
