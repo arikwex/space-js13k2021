@@ -40,7 +40,7 @@ function Mineral(engine, tick, slot, type) {
       this.destroyed = true;
       bus.off('mine', mineFn);
     }
-    if (engine.closeToShip(this.x, this.y, 1)) {
+    if (engine.closeToShip(this.x, this.y, 1.4)) {
       this.destroyed = true;
       bus.off('mine', mineFn);
       bus.emit('mineral', value);

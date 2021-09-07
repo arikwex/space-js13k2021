@@ -33,7 +33,7 @@ export default function Engine() {
     var cs = getCardScale(w, h);
     var x = getCardPosX(slot, cs, w);
     var y = getCardPosY(h);
-    gameobjects.add(new PullCard(x, y, pulledCard, cs, slot));
+    gameobjects.add(new PullCard(this, x, y, pulledCard, cs, slot));
 
     // reshuffle deck
     if (deck.length == 0) {
@@ -231,6 +231,8 @@ export default function Engine() {
       }
     }
   };
+
+  this.hasEnergy = (card) => energy >= card.cost;
 
   this.laneY = (slot) => {
     var h = canvas.height();
