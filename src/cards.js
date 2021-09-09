@@ -59,11 +59,11 @@ const cards = [
   title: ['Kepler', 'Missile'],
   cost: 2,
   price: 10,
-  glyph: function (ctx, cs) {
+  glyph: function (ctx, cs, ls = 0.05) {
     ctx.save();
     ctx.translate(cs/20, 0);
     ctx.rotate(0.6);
-    ctx.lineWidth = cs * 0.05;
+    ctx.lineWidth = cs * ls;
     ctx.beginPath();
     ctx.moveTo(-cs/18, -cs/6);
     ctx.lineTo(0, -cs/4);
