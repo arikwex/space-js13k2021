@@ -206,7 +206,9 @@ function Audio() {
     musicSource.start();
   };
   this.stopMusic = () => {
-    if (musicSource != null) { musicSource.stop(); }
+    try {
+      if (musicSource != null) { musicSource.stop(); }
+    } catch (e) {}
   }
 }
 
