@@ -1,4 +1,5 @@
 import bus from './bus.js';
+import { requestAd } from './sdk.js';
 
 const cards = [
 {
@@ -392,6 +393,30 @@ const cards = [
     ctx.restore();
   },
   use: () => { bus.emit('persist-max-hand'); }
+},
+{
+  // Ad Break Card!
+  color: [70, 150, 255],
+  title: ['CyberAd', 'Hologram'],
+  cost: 0,
+  price: -15,
+  useNow: true,
+  glyph: function (ctx, cs) {
+    ctx.save();
+    ctx.lineWidth = cs * 0.05;
+    ctx.lineCap='round';
+    ctx.translate(0,cs*0.1);
+    ctx.strokeRect(-cs*0.35,-cs*0.35,cs*0.7,cs*0.5);
+    ctx.strokeRect(-cs*0.35,-cs*0.41,cs*0.7,cs*0.62);
+    ctx.beginPath();
+    ctx.moveTo(-cs*0.15, -cs*0.25);
+    ctx.lineTo(-cs*0.15, cs*0.05);
+    ctx.lineTo(cs*0.15, -cs*0.1);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.restore();
+  },
+  use: () => { requestAd(); }
 },
 ];
 export default cards;

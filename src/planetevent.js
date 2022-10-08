@@ -8,6 +8,7 @@ import Text from './text.js';
 import PlayedCard from './playedcard.js';
 import cards from './cards.js';
 import persist from './persist.js';
+import audio from './audio.js';
 
 export default function PlanetEvent() {
   // Planet label
@@ -27,21 +28,28 @@ export default function PlanetEvent() {
   bus.on('persist-max-energy', () => { persist.setMaxEnergy(persist.getMaxEnergy() + 1); });
   bus.on('persist-max-hand', () => { persist.setHandSize(persist.getHandSize() + 1); });
 
+  let canBuy = true;
+  bus.on('ad-start', () => { audio.stopMusic(); canBuy = false; });
+  bus.on('ad-end', () => { audio.music();  canBuy = true; });
+
   // Handlers
   onTapCard = ({x, y}) => {
+    if (!canBuy) {
+      return;
+    }
     var w = canvas.width();
     var h = canvas.height();
     var m = persist.getMinerals();
     var cs = Math.min(Math.max(h*0.1, w*0.17), h*0.18);
     for (let i = 0; i < items.length; i++) {
-      var bx = w/2 + (i - (items.length - 1)/2) * w * 0.3;
+      var bx = w/2 + (i - (items.length - 1)/2) * (cs + w * 0.12);
       if (items[i] != null && m >= items[i].price) {
         if (x > bx-cs/2 && x < bx+cs/2 && y > h*0.4-cs*3/4 && y < h*0.4+cs*3/4) {
           gameobjects.add(new PlayedCard(bx, h*0.35, items[i], cs));
           persist.addMineral(-items[i].price);
           bus.emit('buy');
           // Templar does not add cards to deck
-          if (evtType == 4) {
+          if (evtType == 4 || items[i].useNow) {
             items[i].use();
           } else {
             // All other shops add cards to deck
@@ -79,8 +87,7 @@ export default function PlanetEvent() {
       'Hey hey, don\'t touch the merchandise! You might hurt yourself...'
     ]);
     var selection = [cards[3], cards[4], cards[5], cards[6], cards[7]];
-    var numCardsInShop = parseInt(Math.random() * 2) + 2;
-    for (let i = 0; i < numCardsInShop; i++) {
+    for (let i = 0; i < 2; i++) {
       items.push(selection[parseInt(Math.random() * selection.length)]);
     }
     bus.on('tap', onTapCard);
@@ -97,8 +104,7 @@ export default function PlanetEvent() {
       'Wrrrrr - Do you call that piece of scrap metal a ship?',
     ]);
     var selection = [cards[8], cards[9], cards[10], cards[11], cards[12]];
-    var numCardsInShop = parseInt(Math.random() * 2) + 2;
-    for (let i = 0; i < numCardsInShop; i++) {
+    for (let i = 0; i < 2; i++) {
       items.push(selection[parseInt(Math.random() * selection.length)]);
     }
     bus.on('tap', onTapCard);
@@ -115,8 +121,7 @@ export default function PlanetEvent() {
       'Got this stuff from the Gateway District... You\'re not a cop right?',
     ]);
     var selection = [cards[3], cards[4], cards[8], cards[9]];
-    var numCardsInShop = parseInt(Math.random() * 2) + 2;
-    for (let i = 0; i < numCardsInShop; i++) {
+    for (let i = 0; i < 2; i++) {
       items.push(selection[parseInt(Math.random() * selection.length)]);
     }
     bus.on('tap', onTapCard);
@@ -133,8 +138,7 @@ export default function PlanetEvent() {
       'This lot isn\'t my normal sssset of ssssuplies, but itsss much sssafer than the cccytox trade.',
     ]);
     var selection = [cards[5], cards[6], cards[10], cards[11]];
-    var numCardsInShop = parseInt(Math.random() * 2) + 2;
-    for (let i = 0; i < numCardsInShop; i++) {
+    for (let i = 0; i < 2; i++) {
       items.push(selection[parseInt(Math.random() * selection.length)]);
     }
     bus.on('tap', onTapCard);
@@ -159,16 +163,24 @@ export default function PlanetEvent() {
     bus.on('tap', onTapCard);
   }
 
-  this.drawCost = (ctx, txt, x, y, s, canAfford) => {
-    ctx.fillStyle='#f3f';
+  items.push(cards[16]);
+
+  this.drawCost = (ctx, txt, x, y, s, canAfford, flip = false) => {
     ctx.font=`${s*0.25}px monospace`;
     ctx.textAlign='left';
     ctx.textBaseline='middle';
     var tw = ctx.measureText(txt).width;
     var mw = s*0.061;
     var cx = (tw + mw*2)/2;
-    ctx.fillText(txt, x+mw*3-cx, y+s);
-    gfx.drawMineral(ctx,x+mw/2-cx,y+s,0.785,s*0.08);
+    if (flip) {
+      ctx.fillStyle='#fff';
+      ctx.fillText(txt, x-mw*1-cx, y+s);
+      gfx.drawMineral(ctx,x-mw*0+cx,y+s-mw*0.3,0.785,s*0.08);
+    } else {
+      ctx.fillStyle='#f3f';
+      gfx.drawMineral(ctx,x+mw/2-cx,y+s,0.785,s*0.08);
+      ctx.fillText(txt, x+mw*3-cx, y+s);
+    }
     // Cross-out price line
     if (!canAfford) {
       ctx.save();
@@ -223,7 +235,11 @@ export default function PlanetEvent() {
       if (items[i] != null) {
         var bx = w/2 + (i - (items.length - 1)/2) * (cs + w * 0.12);
         gfx.drawCard(ctx, bx, h*0.35, cs, items[i], false,1);
-        this.drawCost(ctx, `${items[i].price}`, bx, h*0.35, cs, m >= items[i].price);
+        if (items[i].price >= 0) {
+          this.drawCost(ctx, `${items[i].price}`, bx, h*0.35, cs, m >= items[i].price);
+        } else {
+          this.drawCost(ctx, `Earn ${-items[i].price}`, bx, h*0.35, cs, m >= items[i].price, true);
+        }
       }
     }
   }

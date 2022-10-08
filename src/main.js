@@ -1,10 +1,13 @@
 import * as scene from './scene.js';
+import * as sdk from './sdk.js';
 import * as input from './input.js';
 import * as gameobjects from './gameobjects.js';
 import * as canvas from './canvas.js';
 import cards from './cards.js';
 
 scene.init();
+input.init();
+sdk.init();
 
 // Set up the favicon
 (() => {
@@ -28,6 +31,7 @@ scene.init();
 
 // Wrap in closure to allow variable minification.
 (() => {
+
   // Game loop
   var lastTime = Date.now();
   var removeQueue = [];

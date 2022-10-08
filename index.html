@@ -1,4 +1,4 @@
-<html><title>SHUTTLEDECK</title><link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" sizes="64x64"/><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"><style>canvas{width:100%;height:100%;}body{margin:0;background:#000;}</style><canvas><script>(() => {
+<html><title>SHUTTLEDECK</title><link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" sizes="64x64"/><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"><style>canvas{width:100%;height:100%;}body{margin:0;background:#000;}</style><canvas></canvas><script src="https://sdk.crazygames.com/crazygames-sdk-v1.js"></script><script>(() => {
   // src/canvas.js
   var canvas = document.getElementsByTagName("canvas")[0];
   var ctx = canvas.getContext("2d");
@@ -526,8 +526,10 @@
 
   // src/startbutton.js
   function StartButton(txt = "Liftoff") {
-    var hovering = false;
     var fn = ({ x, y }) => {
+      if (!canUse) {
+        return;
+      }
       var w2 = width();
       var h2 = height();
       var uiScale = Math.max(w2 * 0.08, h2 * 0.08);
@@ -537,20 +539,33 @@
       }
     };
     bus_default.on("tap", fn);
+    let canUse = true;
+    bus_default.on("ad-start", () => {
+      canUse = false;
+    });
+    bus_default.on("ad-end", () => {
+      canUse = true;
+    });
     this.render = (ctx2) => {
       var w2 = width();
       var h2 = height();
       var uiScale = Math.max(w2 * 0.08, h2 * 0.08);
-      ctx2.save();
-      ctx2.translate(w2 * 0.97 - uiScale, w2 * 0.02 + uiScale * 0.4);
-      var p = Date.now() % 500 / 500;
-      var s = (1 - (1 - p) * (1 - p)) * 0.4 + 0.8;
-      ctx2.scale(s, s * 1.1);
-      ctx2.strokeStyle = "#0a0";
-      ctx2.lineWidth = uiScale * 0.1 * (1 - p);
-      ctx2.strokeRect(-uiScale, -uiScale * 0.4, uiScale * 2, uiScale * 0.8);
-      ctx2.restore();
-      ctx2.fillStyle = "#0a0";
+      if (canUse) {
+        ctx2.save();
+        ctx2.translate(w2 * 0.97 - uiScale, w2 * 0.02 + uiScale * 0.4);
+        var p = Date.now() % 500 / 500;
+        var s = (1 - (1 - p) * (1 - p)) * 0.4 + 0.8;
+        ctx2.scale(s, s * 1.1);
+        ctx2.strokeStyle = "#0a0";
+        ctx2.lineWidth = uiScale * 0.1 * (1 - p);
+        ctx2.strokeRect(-uiScale, -uiScale * 0.4, uiScale * 2, uiScale * 0.8);
+        ctx2.restore();
+      }
+      if (canUse) {
+        ctx2.fillStyle = "#0a0";
+      } else {
+        ctx2.fillStyle = "#500";
+      }
       ctx2.fillRect(w2 * 0.97, w2 * 0.02, -uiScale * 2, uiScale * 0.8);
       ctx2.fillStyle = "#fff";
       ctx2.font = `${uiScale * 0.35}px monospace`;
@@ -819,6 +834,21 @@
     };
     bus_default.on("tap", fn);
   }
+
+  // src/sdk.js
+  var crazysdk = window.CrazyGames.CrazySDK.getInstance();
+  function init() {
+    crazysdk.init();
+  }
+  function requestAd() {
+    bus_default.emit("ad-start");
+    setTimeout(() => {
+      crazysdk.requestAd("rewarded");
+    }, 200);
+  }
+  crazysdk.addEventListener("adStarted", () => bus_default.emit("ad-start"));
+  crazysdk.addEventListener("adFinished", () => bus_default.emit("ad-end"));
+  crazysdk.addEventListener("adError", () => bus_default.emit("ad-end"));
 
   // src/cards.js
   var cards = [
@@ -1231,6 +1261,31 @@
       },
       use: () => {
         bus_default.emit("persist-max-hand");
+      }
+    },
+    {
+      color: [70, 150, 255],
+      title: ["CyberAd", "Hologram"],
+      cost: 0,
+      price: -15,
+      useNow: true,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        ctx2.translate(0, cs * 0.1);
+        ctx2.strokeRect(-cs * 0.35, -cs * 0.35, cs * 0.7, cs * 0.5);
+        ctx2.strokeRect(-cs * 0.35, -cs * 0.41, cs * 0.7, cs * 0.62);
+        ctx2.beginPath();
+        ctx2.moveTo(-cs * 0.15, -cs * 0.25);
+        ctx2.lineTo(-cs * 0.15, cs * 0.05);
+        ctx2.lineTo(cs * 0.15, -cs * 0.1);
+        ctx2.closePath();
+        ctx2.stroke();
+        ctx2.restore();
+      },
+      use: () => {
+        requestAd();
       }
     }
   ];
@@ -2092,19 +2147,31 @@
     bus_default.on("persist-max-hand", () => {
       persist_default.setHandSize(persist_default.getHandSize() + 1);
     });
+    let canBuy = true;
+    bus_default.on("ad-start", () => {
+      audio_default.stopMusic();
+      canBuy = false;
+    });
+    bus_default.on("ad-end", () => {
+      audio_default.music();
+      canBuy = true;
+    });
     onTapCard = ({ x, y }) => {
+      if (!canBuy) {
+        return;
+      }
       var w2 = width();
       var h2 = height();
       var m = persist_default.getMinerals();
       var cs = Math.min(Math.max(h2 * 0.1, w2 * 0.17), h2 * 0.18);
       for (let i = 0; i < items.length; i++) {
-        var bx = w2 / 2 + (i - (items.length - 1) / 2) * w2 * 0.3;
+        var bx = w2 / 2 + (i - (items.length - 1) / 2) * (cs + w2 * 0.12);
         if (items[i] != null && m >= items[i].price) {
           if (x > bx - cs / 2 && x < bx + cs / 2 && y > h2 * 0.4 - cs * 3 / 4 && y < h2 * 0.4 + cs * 3 / 4) {
             add(new playedcard_default(bx, h2 * 0.35, items[i], cs));
             persist_default.addMineral(-items[i].price);
             bus_default.emit("buy");
-            if (evtType == 4) {
+            if (evtType == 4 || items[i].useNow) {
               items[i].use();
             } else {
               persist_default.addToDeck(items[i]);
@@ -2133,8 +2200,7 @@
         "Hey hey, don't touch the merchandise! You might hurt yourself..."
       ]);
       var selection = [cards_default[3], cards_default[4], cards_default[5], cards_default[6], cards_default[7]];
-      var numCardsInShop = parseInt(Math.random() * 2) + 2;
-      for (let i = 0; i < numCardsInShop; i++) {
+      for (let i = 0; i < 2; i++) {
         items.push(selection[parseInt(Math.random() * selection.length)]);
       }
       bus_default.on("tap", onTapCard);
@@ -2148,8 +2214,7 @@
         "Wrrrrr - Do you call that piece of scrap metal a ship?"
       ]);
       var selection = [cards_default[8], cards_default[9], cards_default[10], cards_default[11], cards_default[12]];
-      var numCardsInShop = parseInt(Math.random() * 2) + 2;
-      for (let i = 0; i < numCardsInShop; i++) {
+      for (let i = 0; i < 2; i++) {
         items.push(selection[parseInt(Math.random() * selection.length)]);
       }
       bus_default.on("tap", onTapCard);
@@ -2163,8 +2228,7 @@
         "Got this stuff from the Gateway District... You're not a cop right?"
       ]);
       var selection = [cards_default[3], cards_default[4], cards_default[8], cards_default[9]];
-      var numCardsInShop = parseInt(Math.random() * 2) + 2;
-      for (let i = 0; i < numCardsInShop; i++) {
+      for (let i = 0; i < 2; i++) {
         items.push(selection[parseInt(Math.random() * selection.length)]);
       }
       bus_default.on("tap", onTapCard);
@@ -2178,8 +2242,7 @@
         "This lot isn't my normal sssset of ssssuplies, but itsss much sssafer than the cccytox trade."
       ]);
       var selection = [cards_default[5], cards_default[6], cards_default[10], cards_default[11]];
-      var numCardsInShop = parseInt(Math.random() * 2) + 2;
-      for (let i = 0; i < numCardsInShop; i++) {
+      for (let i = 0; i < 2; i++) {
         items.push(selection[parseInt(Math.random() * selection.length)]);
       }
       bus_default.on("tap", onTapCard);
@@ -2200,16 +2263,23 @@
       }
       bus_default.on("tap", onTapCard);
     }
-    this.drawCost = (ctx2, txt, x, y, s, canAfford) => {
-      ctx2.fillStyle = "#f3f";
+    items.push(cards_default[16]);
+    this.drawCost = (ctx2, txt, x, y, s, canAfford, flip = false) => {
       ctx2.font = `${s * 0.25}px monospace`;
       ctx2.textAlign = "left";
       ctx2.textBaseline = "middle";
       var tw = ctx2.measureText(txt).width;
       var mw = s * 0.061;
       var cx = (tw + mw * 2) / 2;
-      ctx2.fillText(txt, x + mw * 3 - cx, y + s);
-      drawMineral(ctx2, x + mw / 2 - cx, y + s, 0.785, s * 0.08);
+      if (flip) {
+        ctx2.fillStyle = "#fff";
+        ctx2.fillText(txt, x - mw * 1 - cx, y + s);
+        drawMineral(ctx2, x - mw * 0 + cx, y + s - mw * 0.3, 0.785, s * 0.08);
+      } else {
+        ctx2.fillStyle = "#f3f";
+        drawMineral(ctx2, x + mw / 2 - cx, y + s, 0.785, s * 0.08);
+        ctx2.fillText(txt, x + mw * 3 - cx, y + s);
+      }
       if (!canAfford) {
         ctx2.save();
         ctx2.fillStyle = "rgba(255,0,0,0.7)";
@@ -2252,7 +2322,11 @@
         if (items[i] != null) {
           var bx = w2 / 2 + (i - (items.length - 1) / 2) * (cs + w2 * 0.12);
           drawCard(ctx2, bx, h2 * 0.35, cs, items[i], false, 1);
-          this.drawCost(ctx2, `${items[i].price}`, bx, h2 * 0.35, cs, m >= items[i].price);
+          if (items[i].price >= 0) {
+            this.drawCost(ctx2, `${items[i].price}`, bx, h2 * 0.35, cs, m >= items[i].price);
+          } else {
+            this.drawCost(ctx2, `Earn ${-items[i].price}`, bx, h2 * 0.35, cs, m >= items[i].price, true);
+          }
         }
       }
     };
@@ -2321,8 +2395,8 @@
   }
 
   // src/scene.js
-  function init() {
-    bus_default.emit("scene", 0);
+  function init2() {
+    bus_default.emit("scene", 3);
   }
   function transition2(s) {
     bus_default.emit("txn");
@@ -2374,29 +2448,33 @@
   })();
 
   // src/input.js
-  isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  window.addEventListener("touchstart", (evt) => {
-    evt.stopPropagation();
-    bus_default.emit("tap", { x: evt.touches[0].clientX, y: evt.touches[0].clientY });
-  });
-  window.addEventListener("mousedown", (evt) => {
-    evt.preventDefault();
-    evt.stopPropagation();
-    if (!isMobile()) {
-      bus_default.emit("tap", { x: evt.x, y: evt.y });
-    }
-  });
-  window.addEventListener("mousemove", (evt) => {
-    evt.preventDefault();
-    evt.stopPropagation();
-    if (isMobile()) {
-      bus_default.emit("move", { x: -1, y: -1 });
-    } else {
-      bus_default.emit("move", { x: evt.x, y: evt.y });
-    }
-  });
+  function init3() {
+    const isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    window.addEventListener("touchstart", (evt) => {
+      evt.stopPropagation();
+      bus_default.emit("tap", { x: evt.touches[0].clientX, y: evt.touches[0].clientY });
+    });
+    window.addEventListener("mousedown", (evt) => {
+      evt.preventDefault();
+      evt.stopPropagation();
+      if (!isMobile()) {
+        bus_default.emit("tap", { x: evt.x, y: evt.y });
+      }
+    });
+    window.addEventListener("mousemove", (evt) => {
+      evt.preventDefault();
+      evt.stopPropagation();
+      if (isMobile()) {
+        bus_default.emit("move", { x: -1, y: -1 });
+      } else {
+        bus_default.emit("move", { x: evt.x, y: evt.y });
+      }
+    });
+  }
 
   // src/main.js
+  init2();
+  init3();
   init();
   (() => {
     var canvas2 = document.createElement("canvas");
