@@ -23,17 +23,21 @@ export default function PlanetEvent() {
     bus.emit('transition-scene', 2);
   });
 
+  bus.on('persist-max-shield', () => { persist.setMaxShield(persist.getMaxShield() + 1); });
+  bus.on('persist-max-energy', () => { persist.setMaxEnergy(persist.getMaxEnergy() + 1); });
+  bus.on('persist-max-hand', () => { persist.setHandSize(persist.getHandSize() + 1); });
+
   // Handlers
   onTapCard = ({x, y}) => {
     var w = canvas.width();
     var h = canvas.height();
     var m = persist.getMinerals();
-    var cs = Math.min(h*0.2, w*0.25);
+    var cs = Math.min(Math.max(h*0.1, w*0.17), h*0.18);
     for (let i = 0; i < items.length; i++) {
       var bx = w/2 + (i - (items.length - 1)/2) * w * 0.3;
       if (items[i] != null && m >= items[i].price) {
         if (x > bx-cs/2 && x < bx+cs/2 && y > h*0.4-cs*3/4 && y < h*0.4+cs*3/4) {
-          gameobjects.add(new PlayedCard(bx, h*0.4, items[i], cs));
+          gameobjects.add(new PlayedCard(bx, h*0.35, items[i], cs));
           persist.addMineral(-items[i].price);
           bus.emit('buy');
           // Templar does not add cards to deck

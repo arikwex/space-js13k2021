@@ -151,10 +151,6 @@ export default function Engine() {
     dashSpeed = 10;
   });
 
-  bus.on('persist-max-shield', () => { persist.setMaxShield(persist.getMaxShield() + 1); });
-  bus.on('persist-max-energy', () => { persist.setMaxEnergy(persist.getMaxEnergy() + 1); });
-  bus.on('persist-max-hand', () => { persist.setHandSize(persist.getHandSize() + 1); });
-
   bus.on('heal', () => {
     shield = Math.min(shield + 1, maxShield);
     gameobjects.add(new Poof(this, this.getShipX(), this.getShipY(), [0, 255, 0], 1, 0.5));

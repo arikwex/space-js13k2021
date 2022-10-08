@@ -18,7 +18,7 @@ export default function MainMenu() {
   gameobjects.add(pushToStart);
 
   // By me :)
-  gameobjects.add(new Text('by Ariel Wexler', ()=>canvas.width()/2, ()=>canvas.height()*0.8, '#f3f', 0.35, 'center'));
+  gameobjects.add(new Text('A space journey by Ariel', ()=>canvas.width()/2, ()=>canvas.height()*0.8, '#4af', 0.35, 'center'));
 
   // Touch anywhere to go to intro
   var fn = () => {

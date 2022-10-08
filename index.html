@@ -812,7 +812,7 @@
       pushToStart.size = x;
     }, 0.45, 0.55, 1)];
     add(pushToStart);
-    add(new text_default("by Ariel Wexler", () => width() / 2, () => height() * 0.8, "#f3f", 0.35, "center"));
+    add(new text_default("A space journey by Ariel", () => width() / 2, () => height() * 0.8, "#4af", 0.35, "center"));
     var fn = () => {
       bus_default.emit("transition-scene", 1);
       bus_default.off("tap", fn);
@@ -1733,15 +1733,6 @@
       dashing = 0.4;
       dashSpeed = 10;
     });
-    bus_default.on("persist-max-shield", () => {
-      persist_default.setMaxShield(persist_default.getMaxShield() + 1);
-    });
-    bus_default.on("persist-max-energy", () => {
-      persist_default.setMaxEnergy(persist_default.getMaxEnergy() + 1);
-    });
-    bus_default.on("persist-max-hand", () => {
-      persist_default.setHandSize(persist_default.getHandSize() + 1);
-    });
     bus_default.on("heal", () => {
       shield = Math.min(shield + 1, maxShield);
       add(new poof_default(this, this.getShipX(), this.getShipY(), [0, 255, 0], 1, 0.5));
@@ -2092,16 +2083,25 @@
       persist_default.setLevel(persist_default.getLevel() + 1);
       bus_default.emit("transition-scene", 2);
     });
+    bus_default.on("persist-max-shield", () => {
+      persist_default.setMaxShield(persist_default.getMaxShield() + 1);
+    });
+    bus_default.on("persist-max-energy", () => {
+      persist_default.setMaxEnergy(persist_default.getMaxEnergy() + 1);
+    });
+    bus_default.on("persist-max-hand", () => {
+      persist_default.setHandSize(persist_default.getHandSize() + 1);
+    });
     onTapCard = ({ x, y }) => {
       var w2 = width();
       var h2 = height();
       var m = persist_default.getMinerals();
-      var cs = Math.min(h2 * 0.2, w2 * 0.25);
+      var cs = Math.min(Math.max(h2 * 0.1, w2 * 0.17), h2 * 0.18);
       for (let i = 0; i < items.length; i++) {
         var bx = w2 / 2 + (i - (items.length - 1) / 2) * w2 * 0.3;
         if (items[i] != null && m >= items[i].price) {
           if (x > bx - cs / 2 && x < bx + cs / 2 && y > h2 * 0.4 - cs * 3 / 4 && y < h2 * 0.4 + cs * 3 / 4) {
-            add(new playedcard_default(bx, h2 * 0.4, items[i], cs));
+            add(new playedcard_default(bx, h2 * 0.35, items[i], cs));
             persist_default.addMineral(-items[i].price);
             bus_default.emit("buy");
             if (evtType == 4) {
