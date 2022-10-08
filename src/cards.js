@@ -414,7 +414,7 @@ const cards = [
   cost: 0,
   price: -15,
   useNow: true,
-  description: 'Uplinking to CYBERAD HOLOGRAM... Minerals have been added to your account!',
+  description: 'Uplinking to CYBER-AD HOLOGRAM... Minerals have been added to your account!',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;

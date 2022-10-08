@@ -818,23 +818,6 @@
   }
   var text_default = Text;
 
-  // src/mainmenu.js
-  function MainMenu() {
-    this.render = (ctx2) => drawStars(ctx2, -Date.now() * 0.03, 0, 3, 0);
-    add(new text_default("SHUTTLEDECK", () => width() / 2, () => height() * 0.4, "#fff", 1, "center"));
-    var pushToStart = new text_default("[ Press to start ]", () => width() / 2, () => height() * 0.6, "#777", 0.5, "center");
-    pushToStart.ecs = [pulse((x) => {
-      pushToStart.size = x;
-    }, 0.45, 0.55, 1)];
-    add(pushToStart);
-    add(new text_default("A space journey by Ariel", () => width() / 2, () => height() * 0.8, "#4af", 0.35, "center"));
-    var fn = () => {
-      bus_default.emit("transition-scene", 1);
-      bus_default.off("tap", fn);
-    };
-    bus_default.on("tap", fn);
-  }
-
   // src/sdk.js
   var crazysdk = window.CrazyGames.CrazySDK.getInstance();
   function init() {
@@ -1282,7 +1265,7 @@
       cost: 0,
       price: -15,
       useNow: true,
-      description: "Uplinking to CYBERAD HOLOGRAM... Minerals have been added to your account!",
+      description: "Uplinking to CYBER-AD HOLOGRAM... Minerals have been added to your account!",
       glyph: function(ctx2, cs) {
         ctx2.save();
         ctx2.lineWidth = cs * 0.05;
@@ -1304,6 +1287,32 @@
     }
   ];
   var cards_default = cards;
+
+  // src/mainmenu.js
+  function MainMenu() {
+    this.render = (ctx2) => drawStars(ctx2, -Date.now() * 0.03, 0, 3, 0);
+    add(new text_default("SHUTTLEDECK", () => width() / 2, () => height() * 0.5, "#fff", 1, "center"));
+    var pushToStart = new text_default("[ Press to start ]", () => width() / 2, () => height() * 0.63, "#777", 0.5, "center");
+    pushToStart.ecs = [pulse((x) => {
+      pushToStart.size = x;
+    }, 0.45, 0.55, 1)];
+    add(pushToStart);
+    add(new text_default("A space journey by Ariel", () => width() / 2, () => height() * 0.8, "#f82", 0.35, "center"));
+    add({
+      render: (ctx2) => {
+        ctx2.save();
+        ctx2.strokeStyle = "#f82";
+        ctx2.translate(width() / 2, height() * 0.3);
+        cards_default[3].glyph(ctx2, height() * 0.2, 0.05);
+        ctx2.restore();
+      }
+    });
+    var fn = () => {
+      bus_default.emit("transition-scene", 1);
+      bus_default.off("tap", fn);
+    };
+    bus_default.on("tap", fn);
+  }
 
   // src/persist.js
   var persist_default = (() => {
@@ -2411,7 +2420,7 @@
 
   // src/scene.js
   function init2() {
-    bus_default.emit("scene", 3);
+    bus_default.emit("scene", 0);
   }
   function transition2(s) {
     bus_default.emit("txn");
