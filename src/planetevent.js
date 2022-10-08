@@ -1,7 +1,6 @@
 import * as canvas from './canvas.js';
 import * as gameobjects from './gameobjects.js';
 import * as gfx from './gfx.js';
-import * as scene from './scene.js';
 import * as utils from './utils.js';
 import bus from './bus.js';
 import StartButton from './startbutton.js';
@@ -21,7 +20,7 @@ export default function PlanetEvent() {
   bus.on('start', () => {
     // Increment level
     persist.setLevel(persist.getLevel() + 1);
-    scene.transition(2);
+    bus.emit('transition-scene', 2);
   });
 
   // Handlers

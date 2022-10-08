@@ -1,5 +1,4 @@
 import bus from './bus.js';
-import persist from './persist.js';
 
 const cards = [
 {
@@ -350,7 +349,7 @@ const cards = [
     ctx.stroke();
     ctx.restore();
   },
-  use: () => { persist.setMaxShield(persist.getMaxShield() + 1) }
+  use: () => { bus.emit('persist-max-shield'); }
 },
 {
   // Increase max energy
@@ -375,7 +374,7 @@ const cards = [
     ctx.stroke();
     ctx.restore();
   },
-  use: () => { persist.setMaxEnergy(persist.getMaxEnergy() + 1) }
+  use: () => { bus.emit('persist-max-energy'); }
 },
 {
   // Increase max hand size
@@ -392,7 +391,7 @@ const cards = [
     ctx.strokeRect(-cs*0.1,-cs*0.4,cs*0.2,cs*0.3);
     ctx.restore();
   },
-  use: () => { persist.setHandSize(persist.getHandSize() + 1) }
+  use: () => { bus.emit('persist-max-hand'); }
 },
 ];
 export default cards;

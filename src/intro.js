@@ -1,7 +1,6 @@
 import * as canvas from './canvas.js';
 import * as gameobjects from './gameobjects.js';
 import * as gfx from './gfx.js';
-import * as scene from './scene.js';
 import bus from './bus.js';
 import StartButton from './startbutton.js';
 import Text from './text.js';
@@ -12,7 +11,7 @@ export default function Intro() {
   gameobjects.add(new StartButton());
   bus.on('start', () => {
     persist.reset();
-    scene.transition(2);
+    bus.emit('transition-scene', 2);
   });
 
   this.render = (ctx) => {

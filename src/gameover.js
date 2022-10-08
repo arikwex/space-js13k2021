@@ -1,7 +1,6 @@
 import * as canvas from './canvas.js';
 import * as gameobjects from './gameobjects.js';
 import * as gfx from './gfx.js';
-import * as scene from './scene.js';
 import * as utils from './utils.js';
 import persist from './persist.js';
 import bus from './bus.js';
@@ -21,7 +20,7 @@ export default function GameOver() {
   // Push to play again
   gameobjects.add(new Text('[ Press to retry ]', ()=>canvas.width()/2, ()=>canvas.height()*0.8, '#777', 0.5, 'center'));
   var fn = () => {
-    scene.transition(1);
+    bus.emit('transition-scene', 1);
     bus.off('tap', fn);
   };
   bus.on('tap', fn);

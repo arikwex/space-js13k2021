@@ -1,10 +1,8 @@
 import * as gameobjects from './gameobjects.js';
 import * as canvas from './canvas.js';
 import * as gfx from './gfx.js';
-import * as scene from './scene.js';
 import persist from './persist.js';
 import bus from './bus.js';
-import cards from './cards.js';
 import PlayedCard from './playedcard.js';
 import PullCard from './pullcard.js';
 import Asteroid from './asteroid.js';
@@ -153,6 +151,10 @@ export default function Engine() {
     dashSpeed = 10;
   });
 
+  bus.on('persist-max-shield', () => { persist.setMaxShield(persist.getMaxShield() + 1); });
+  bus.on('persist-max-energy', () => { persist.setMaxEnergy(persist.getMaxEnergy() + 1); });
+  bus.on('persist-max-hand', () => { persist.setHandSize(persist.getHandSize() + 1); });
+
   bus.on('heal', () => {
     shield = Math.min(shield + 1, maxShield);
     gameobjects.add(new Poof(this, this.getShipX(), this.getShipY(), [0, 255, 0], 1, 0.5));
@@ -195,7 +197,7 @@ export default function Engine() {
   bus.on('hit', (dmg) => {
     shield -= dmg;
     if (shield <= 0) {
-      scene.transition(4);
+      bus.emit('transition-scene', 4);
     }
     bus.emit('poof', {x: this.getShipX(), y: this.getShipY(), color: [255,255,255], size: 1, t: 0.5});
   });
@@ -312,10 +314,10 @@ export default function Engine() {
         // 13'th zero indexed planet ==> Korva-6
         if (currLevel == 13) {
           // Victory!
-          scene.transition(5);
+          bus.emit('transition-scene', 5);
         } else {
           // Planet Event
-          scene.transition(3);
+          bus.emit('transition-scene', 3);
         }
       }
     }

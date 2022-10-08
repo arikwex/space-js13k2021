@@ -44,6 +44,7 @@ export function transition(s) {
     scene = sceneNum;
     bus.clear();
     bus.on('scene', sceneConfig);
+    bus.on('transition-scene', transition);
     audio.stopMusic();
     audio.setup();
     gameobjects.clear();
