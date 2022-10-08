@@ -5,8 +5,8 @@ function StartButton(txt = 'Liftoff') {
   var hovering = false;
 
   var fn = ({x, y}) => {
-    var w = canvas.width();
-    var uiScale = w * 0.18;
+    var w = canvas.width(); var h= canvas.height();
+    var uiScale = Math.max(w * 0.08, h * 0.08);
     if (x > w*0.97 - uiScale*2 && x < w*0.97 && y > 0 && y < w*0.02+uiScale*0.8) {
       bus.emit('start');
       bus.off('tap', fn);
@@ -16,8 +16,8 @@ function StartButton(txt = 'Liftoff') {
   bus.on('tap', fn);
 
   this.render = (ctx) => {
-    var w = canvas.width();
-    var uiScale = w * 0.18;
+    var w = canvas.width(); var h= canvas.height();
+    var uiScale = Math.max(w * 0.08, h * 0.08);
 
     ctx.save();
     ctx.translate(w * 0.97-uiScale,w*0.02+uiScale*0.4);

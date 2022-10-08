@@ -1,1 +1,2449 @@
-<html><title>SHUTTLEDECK</title><link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" sizes="64x64"/><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"><style>canvas{width:100%;height:100%;}body{margin:0;background:#000;}</style><canvas><script>(()=>{var H,$,e=document.getElementsByTagName("canvas")[0],i=e.getContext("2d");function t(){e.width=+window.innerWidth,e.height=+window.innerHeight,H=e.width,$=e.height}i.imageSmoothingEnabled=!0,i.lineCap="round",i.lineJoin="round",t(),window.addEventListener("resize",t);var c=[];function p(e){c.push(e)}var j=b=new function(){var i={};return{clear:()=>i={},on:(e,t)=>(i[e]||(i[e]=[])).push(t),off:(e,t)=>i[e]=(i[e]||[]).filter(e=>e!=t),emit:(e,t)=>(i[e]||[]).forEach(e=>e(t))}};function l(t,n){var a=0;this.update=e=>{1<(a+=e/t)&&n&&(this.destroyed=!0,j.emit("txn-done"))},this.render=e=>{var t=H,i=$,l=0,l=n?Math.max(1-a*a,0):Math.pow(1.3*Math.max(a-.3,0),2);e.save(),e.fillStyle="#443",e.translate(0,.6*-i*l),e.fillRect(0,0,t,i/2),e.strokeStyle="#b94",e.fillStyle="#b94",e.lineWidth=.03*t,e.fillRect(0,i/2,t,.05*i),e.strokeRect(.25*t,.2*i,.5*t,.2*i),e.textAlign="center",e.textBaseline="middle",e.font=.06*t+"px monospace",e.fillText("SHUTTLEDECK",.5*t,.3*i),e.restore(),e.save(),e.fillStyle="#443",e.translate(0,.6*i*l),e.fillRect(0,i/2,t,i/2),e.fillStyle="#b94",e.fillRect(0,.55*i,t,.05*-i),e.restore()}}function K(t,i,l,n,a){var o=H,r=$,s=Math.sqrt(o*r)/10;t.beginPath(),t.strokeStyle="#aaa",t.fillStyle="#ddd",t.lineWidth=.5;for(let e=0;e<s;e++){var h=1+5*(.5*Math.sin(e*e*1217+e*e*e*983)+.5),f=(1234918*e*e+e*e*e*e*2291722+i*h)%(o+100)-50,c=(3000182*e*e*e*e+e*e*e*e*e*500291+l*h)%(r+100)-50;t.moveTo(f,c),t.lineTo(f+n*h,c+a*h),t.fillRect(f-1,c-1,2,2)}t.stroke()}function G(t,e,i,l,n,a,o){t.save(),a&&(l*=1.04);var r=`rgba(${n.color[0]},${n.color[1]},${n.color[2]},${o})`,s=l/2,h=1.5*s,f=(t.translate(e,i),t.fillStyle=a?`rgb(80,80,80,${.7*o})`:`rgb(50,50,50,${.7*o})`,t.fillRect(-s,-h,2*s,2*h),t.save(),t.beginPath(),t.rect(-s,-h,2*s,2*h),t.clip(),t.fillStyle=`rgba(220,230,250,${.3*o})`,t.rotate(-.3),t.translate(l/2,Date.now()%2e3/1e3*(5*l)-1.2*l),t.fillRect(2*-l,0,4*l,.2*l),t.fillRect(2*-l,.2*-l,4*l,.05*l),t.restore(),t.beginPath(),t.lineWidth=l/20,t.lineJoin="round",t.strokeStyle=r,t.moveTo(-s,-h),t.lineTo(s,-h),t.lineTo(s,h),t.lineTo(-s,h),t.closePath(),t.stroke(),t.save(),t.translate(0,.15*-l),n.glyph(t,l),t.translate(0,.52*-l),t.fillStyle=`rgba(255,255,51,${o})`,.12*l);for(let e=0;e<n.cost;e++)t.fillRect((e-(n.cost-1)/2)*f*1.1-.45*f,0,.9*f,.9*f);t.restore(),t.fillStyle=r,t.textBaseline="middle",t.font=l/6+"px monospace",t.textAlign="center";var c=n.title;for(let e=0;e<c.length;e++)t.fillText(c[e],0,.65*h+(e-(c.length-1)/2)*h*.2);t.restore()}function O(e,t,i,l,n){e.save(),e.translate(t,i),e.fillStyle="#f3f",e.rotate(l),e.fillRect(-n,-n,2*n,2*n),n*=.6,e.fillStyle="#fbf",e.fillRect(-n,-n,2*n,2*n),e.restore()}function q(e,t,i,l,n){e.fillStyle="#333",e.beginPath(),e.arc(t,i,l,0,6.28),e.fill(),n&&(e.fillStyle="#3ff",e.beginPath(),e.arc(t,i,.65*l,0,6.28),e.fill())}function N(e,t,i,l,n){e.fillStyle="#333",e.fillRect(t,i,.8*l,l),n&&(e.fillStyle="#ff3",e.fillRect(t+.175*l,i+.175*l,.45*l,.65*l))}function U(e,t,i,l){e.save(),e.strokeStyle="#ccc",e.fillStyle="#222",e.lineWidth=.1*l;var n=.5*l;e.translate(t-n,i+n),e.fillRect(-l,1.5*-l,2*l,3*l),e.strokeRect(-l,1.5*-l,2*l,3*l),e.translate(n,-n),e.fillRect(-l,1.5*-l,2*l,3*l),e.strokeRect(-l,1.5*-l,2*l,3*l),e.translate(n,-n),e.fillRect(-l,1.5*-l,2*l,3*l),e.strokeRect(-l,1.5*-l,2*l,3*l),e.restore()}function y(e){var t=H,i=$,t=Math.min(.075*i,.1*t);e.save(),e.translate(1.2*t,i+Math.sin(.003*Date.now())*t*.1),e.fillStyle="#bbb",e.beginPath(),e.arc(.1*-t,.1*t,1.4*t,0,6.29),e.fill(),e.fillStyle="#eee",e.beginPath(),e.arc(0,1.9*-t,t,0,6.29),e.fill(),e.fillStyle="#3af",e.fillRect(.1*-t,2.1*-t,t,.4*t),e.restore()}function D(e,t="#3b5"){var i=H,l=$,n=Math.min(.075*l,.1*i);e.save(),e.translate(i-1.2*n,l+Math.sin(.0021*Date.now()+3)*n*.1),e.fillStyle=t,e.fillRect(.5*-n,1.5*-n,1.4*n,2*n),e.fillStyle="#666",e.fillRect(.2*-n,1.5*-n,.1*n,2*n),e.fillRect(.35*-n,.8*-n,.1*n,.1*n),e.fillRect(.35*-n,.6*-n,.1*n,.1*n),e.fillStyle="#fdb",e.beginPath(),e.arc(0,1.8*-n,n,0,6.29),e.fill(),e.fillStyle="#333",e.fillRect(-n,1.95*-n,1.6*n,.1*n),e.fillStyle=t,e.beginPath(),e.arc(.8*-n,1.8*-n,.3*n,0,6.29),e.fill(),e.beginPath(),e.arc(.1*-n,1.8*-n,.3*n,0,6.29),e.fill(),e.restore()}function E(e){var t=H,i=$,l=Math.min(.075*i,.1*t);e.save(),e.translate(t-1.2*l,i+Math.sin(.0021*Date.now()+3)*l*.1),e.fillStyle="#d72",e.beginPath(),e.ellipse(.1*l,.1*l,+l,1.4*l,0,0,6.29),e.fill(),e.fillStyle="#f94",e.beginPath(),e.arc(0,1.9*-l,l,0,6.29),e.fill(),e.fillRect(.8*-l,2.3*-l,.4*l,-l),e.fillRect(.4*l,2.4*-l,.4*l,-l),e.fillStyle="#fff",e.beginPath(),e.ellipse(.3*-l,2*-l,.5*l,.3*l,0,0,6.29),e.fill(),e.fillStyle="#222",e.beginPath(),e.arc(.4*-l,2*-l,.2*l,0,6.29),e.fill(),e.restore()}function I(e){var t=H,i=$,l=Math.min(.075*i,.1*t);e.save(),e.translate(t-1.2*l,i+Math.sin(.0021*Date.now()+3)*l*.1),e.fillStyle="#77b",e.fillRect(1.1*-l,1.5*-l,2.2*l,2*l),e.fillStyle="#669",e.fillRect(.9*l,1.5*-l,.2*l,2*l),e.fillStyle="#338",e.fillRect(.5*l,2.7*-l,.3*l,1.25*l),e.fillRect(.2*-l,2.7*-l,.1*l,.8*-l),e.fillStyle="#55a",e.fillRect(.8*-l,2.7*-l,1.3*l,1.25*l),e.fillStyle="#ff4",e.fillRect(.25*-l,3.4*-l,.2*l,.2*-l),e.fillRect(.7*-l,2.5*-l,.4*l,.2*l),e.fillRect(.2*-l,2.5*-l,.4*l,.2*l),e.restore()}function z(e){var t=H,i=$,l=Math.min(.075*i,.1*t);e.save(),e.translate(t-1.2*l,i+Math.sin(.0021*Date.now()+3)*l*.1),e.fillStyle="#b31",e.beginPath(),e.ellipse(.4*l,.1*l,.8*l,1.8*l,0,0,6.29),e.fill(),e.fillStyle="#d74",e.beginPath(),e.arc(0,1.6*-l,.6*l,0,6.29),e.fill(),e.strokeStyle="#d74",e.beginPath(),e.lineWidth=.1*l,e.moveTo(.4*-l,2*-l),e.lineTo(.7*-l,3*-l),e.moveTo(.1*-l,2*-l),e.lineTo(.1*-l,3.2*-l),e.moveTo(.2*l,2*-l),e.lineTo(.4*l,3*-l),e.stroke(),e.fillStyle="#eee",e.beginPath(),e.arc(.7*-l,3*-l,.2*l,0,6.29),e.fill(),e.beginPath(),e.arc(.1*-l,3.2*-l,.2*l,0,6.29),e.fill(),e.beginPath(),e.arc(.4*l,3*-l,.2*l,0,6.29),e.fill(),e.fillStyle="#611",e.beginPath(),e.arc(.78*-l,3*-l,.1*l,0,6.29),e.fill(),e.beginPath(),e.arc(.18*-l,3.2*-l,.1*l,0,6.29),e.fill(),e.beginPath(),e.arc(.32*l,3*-l,.1*l,0,6.29),e.fill(),e.restore()}function B(e){var t=H,i=$,l=Math.min(.075*i,.1*t);e.save(),e.translate(t-1.2*l,i+Math.sin(.0021*Date.now()+3)*l*.1),e.fillStyle="#343",e.beginPath(),e.arc(.2*l,0,.6*l,0,6.29),e.fill(),e.fillStyle="#353",e.beginPath(),e.arc(.5*l,.7*-l,.6*l,0,6.29),e.fill(),e.fillStyle="#363",e.beginPath(),e.arc(.4*l,1.4*-l,.6*l,0,6.29),e.fill(),e.fillStyle="#474",e.beginPath(),e.arc(0,1.9*-l,.8*l,0,6.29),e.fill(),e.fillStyle="#3f3",e.beginPath(),e.arc(.6*-l,2.1*-l,.07*l,0,6.29),e.fill(),e.beginPath(),e.arc(.4*-l,2.08*-l,.07*l,0,6.29),e.fill(),e.beginPath(),e.arc(.65*-l,1.9*-l,.07*l,0,6.29),e.fill(),e.beginPath(),e.arc(.45*-l,1.88*-l,.07*l,0,6.29),e.fill(),e.beginPath(),e.arc(.62*-l,1.7*-l,.07*l,0,6.29),e.fill(),e.beginPath(),e.arc(.42*-l,1.68*-l,.07*l,0,6.29),e.fill(),e.restore()}function Y(e){var t=H,i=$,l=Math.min(.075*i,.1*t);e.save(),e.translate(t-1.2*l,i+Math.sin(.0021*Date.now()+3)*l*.1-.5*l),e.fillStyle="#46c",e.beginPath(),e.arc(.2*-l,1.5*-l,.4*l,0,6.29),e.fill(),e.beginPath(),e.arc(.2*l,1.4*-l,.3*l,0,6.29),e.fill(),e.fillStyle="rgba(100,100,255,0.3)",e.beginPath(),e.arc(0,.95*-l,1.1*l,-3.14,0),e.fill(),e.fillStyle="#db3",e.fillRect(1.2*-l,-l,2.4*l,.3*l),e.fillRect(.6*-l,.55*-l,1.2*l,.2*l),e.fillRect(.3*-l,.2*-l,.6*l,.1*l),e.restore()}var A=(t,i,l)=>{var n,a,o="",r=[];for(let e=0;e<i.length;e++)o+=i[e],t.measureText(o).width>l&&(n=o.lastIndexOf(" "),a=o.substring(0,n),r.push(a.trim()),o=o.substring(n));return 0<o.trim().length&&r.push(o.trim()),r},X=(e,t,i,l,n)=>{var a=L[t];return a&&a.w==i&&a.h==l?a.lines:(a=A(e,t,n),L[t]={w:i,h:l,lines:a},a)},L={};function m(t,e,i){var l=H,n=$,a=Math.min(.075*n,.1*l),o=Math.max(.09*l,.08*n),r=(t.save(),t.fillStyle="#236",t.strokeStyle="#3af",t.lineWidth=.1*a,t.beginPath(),t.moveTo(2.8*a,.75*n),t.lineTo(l-2.8*a,.75*n),t.lineTo(l-2.8*a,n-1.8*a),t.lineTo(l-2.5*a,n-1.6*a),t.lineTo(l-2.8*a,n-1.4*a),t.lineTo(l-2.8*a,n-.2*a),t.lineTo(2.8*a,n-.2*a),t.closePath(),t.fill(),t.stroke(),t.fillStyle="#ff3",t.textAlign="left",t.font=.3*o+"px monospace",t.fillText(e,3*a,.75*n+.25*o),t.fillStyle="#fff",t.textAlign="left",t.font=.25*o+"px monospace",X(t,i,l,n,l-6*a));for(let e=0;e<r.length;e++)t.fillText(r[e],3*a,.75*n+o*(2.1+e)*.3);t.restore()}var n=function(a="Liftoff"){var l=({x:e,y:t})=>{var i=.18*H;.97*H-2*i<e&&e<.97*H&&0<t&&t<.02*H+.8*i&&(j.emit("start"),j.off("tap",l))};j.on("tap",l),this.render=e=>{var t=H,i=.18*t,l=(e.save(),e.translate(.97*t-i,.02*t+.4*i),Date.now()%500/500),n=.4*(1-(1-l)*(1-l))+.8;e.scale(n,1.1*n),e.strokeStyle="#0a0",e.lineWidth=.1*i*(1-l),e.strokeRect(-i,.4*-i,2*i,.8*i),e.restore(),e.fillStyle="#0a0",e.fillRect(.97*t,.02*t,2*-i,.8*i),e.fillStyle="#fff",e.font=.35*i+"px monospace",e.textAlign="center",e.textBaseline="middle",e.fillText(a,.97*t-i,.02*t+.4*i)}};var a=new function(){var r,e,t,i,l,n,a,o,s,h,f,c,d,g,p,y,m=null,u=e=>Math.min(Math.max(Math.sin(e),-1),1),v=e=>(e%6.28-3.14)/6.28,S=e=>Math.min(Math.max(1e3*Math.sin(e),-1),1),x=(e,t,i)=>e<44100*t||44100*i<e?0:1-(e/44100-t)/(i-t),b=(e,t,i,l)=>.01*S(e/(80/Math.pow(2,t/12)))*x(e,i,i+l),T=(e,t)=>.02*Math.random()*x(e,t,t+.06),M=(e,t,i=!0)=>{for(var e=m.createBuffer(1,r*e,r),l=e.getChannelData(0),n=e.length,a=0;a<n;a++){var o=i?1-a/n:1;l[a]=t(44100*a/r)*o}return e},P=(this.init=()=>{m=new(window.AudioContext||window.webkitAudioContext),r=m.sampleRate,e=M(.6,e=>.05*S(e/250)*(u(e/300)+0)),t=M(1,e=>.05*S(e/250)*(u(e/300)+0)+.1*Math.random()*x(e,0,1)),i=M(.7,e=>.07*(v(e/19)*x(e,0,.15)+v(e/11)*x(e,.1,.7))),l=M(.15,e=>.04*u(e/(15-e/2e3))),n=M(.8,e=>.1*Math.random()*x(e,0,.8)*(S(e/200)+1)),a=M(.4,e=>.04*(1+Math.random()/3)*x(e,0,.4)*u(e/50)),o=M(.7,e=>.04*Math.random()*x(e,0,.7)*(S(e/100)+1)),s=M(1.5,e=>.08*(u(e/(30-e/400))*x(e,0,.15)*3+v(e/60)*(S(e/400)+1)/2*x(e,.1,1.5))),h=M(1,e=>.04*u(e/50)*(S(e/800+1)+1)),f=M(.7,e=>.1*(v(e/30)*x(e,0,.1)+v(e/50)*x(e,.1,.2)+v(e/40)*x(e,.2,.3)+v(e/20)*x(e,.3,.4)+v(e/10)*x(e,.4,.5))),c=M(.7,t=>{var i=0;for(let e=0;e<10;e++)i+=u(t/(10+e*e/20))*x(t,e/10,(e+1)/10);return.05*i}),d=M(1.5,t=>{var i=0;for(let e=0;e<13;e++)i=(i+=S(t/(10-e*e/15))*x(t,e/15,(e+1)/15))+S(t/(40-e*e/3))*x(t,e/15+.03,(e+1)/15);return.05*i}),g=M(.6,e=>.04*u(e/(50-e/2e3))*(S(e/700+1)+1)),p=M(.2*48,t=>{var i=0;for(let e=0;e<48;e+=8)i+=T(t,.2*(e+0))+T(t,.2*(e+1))+3*T(t,.2*(e+2))+T(t,.2*(e+3))+T(t,.2*(e+4))+3*T(t,.2*(e+6));return i+=b(t,12,1.6,.2)+b(t,7,2.2,.2)+b(t,10,.2*14,.2*1.5)+b(t,9,3.2,.2*1.5)+b(t,3,3.6,.2*1.5)+b(t,6,6.4,.2)+b(t,3,7,.2)+b(t,5,.2*38,.2*1.5)+b(t,3,8,.2*1.5)+b(t,0,8.4,.2*1.5)},!1),y=M(3,e=>.01*(v(e/300)*S(e/130)+1),!1)},e=>{var t=m.createBufferSource();t.buffer=e,t.connect(m.destination),t.start()}),w=(this.setup=()=>{null==m&&this.init(),j.on("txn",()=>{P(e)}),j.on("txn-done",()=>{P(t)}),j.on("buy",()=>{P(i)}),j.on("mineral",()=>{P(l)}),j.on("mine",()=>{P(l)}),j.on("hit",()=>{P(n)}),j.on("boom",()=>{P(n)}),j.on("lane",()=>{P(a)}),j.on("hop",()=>{P(f)}),j.on("dash",()=>{P(c)}),j.on("hyper",()=>{P(d)}),j.on("heal",()=>{P(g)}),j.on("projectile",e=>{1!=e&&4!=e&&5!=e||P(o),2==e&&P(s),3==e&&P(h)})},null);this.music=()=>{null==m&&this.init(),(w=m.createBufferSource()).buffer=p,w.loop=!0,w.connect(m.destination),w.start()},this.bgRocket=()=>{null==m&&this.init(),(w=m.createBufferSource()).buffer=y,w.loop=!0,w.connect(m.destination),w.start()},this.stopMusic=()=>{try{null!=w&&w.stop()}catch(e){}}};function J(i,l){var n=.4*Math.random()+.2,a=(Math.random()+1)*H*.02,t=(Math.random()-.5)*$*.08*a;this.update=e=>{(n-=e)<0&&(this.destroyed=!1),a+=a*n*e,l+=t*e,t-=t*e*2,i-=(Math.random()-.5)*a*e*5},this.render=e=>{var t=n;e.fillStyle=`rgba(255,255,255,${t})`,e.beginPath(),e.arc(i,l,Math.max(a,1),0,6.29),e.fill()}}var r=function(e,t,i,l="#fff",n="1",a="left"){this.str=e,this.x=t,this.y=i,this.color=l,this.size=n,this.render=e=>{var t=.08*H;e.textAlign=a,e.textBaseline="middle",e.fillStyle=this.color,e.font=this.size*t+"px monospace",e.fillText(this.str,this.x(),this.y())}};function F(){this.render=e=>K(e,.03*-Date.now(),0,3,0),p(new r("SHUTTLEDECK",()=>H/2,()=>.4*$,"#fff",1,"center"));var t,i,l,n,a,o=new r("[ Press to start ]",()=>H/2,()=>.6*$,"#777",.5,"center"),e=(o.ecs=[(t=e=>{o.size=e},i=.45,l=.55,n=1,a=0,e=>{a+=e,t((Math.sin(a/n*6.3)+1)/2*(l-i)+i)})],p(o),p(new r("by Ariel Wexler",()=>H/2,()=>.8*$,"#f3f",.35,"center")),()=>{j.emit("transition-scene",1),j.off("tap",e)});j.on("tap",e)}var o,s,h,f,d,g,u=[{color:[255,51,51],title:["Rho","Channel"],cost:1,price:5,glyph:function(e,t){e.save(),e.lineWidth=.05*t,e.beginPath(),e.arc(0,-t/6,t/7,0,6.29),e.stroke(),e.strokeRect(-t/6,t/10,t/3,0),e.strokeRect(-t/6,t/4,t/3,0),e.restore()},use:()=>{j.emit("lane",0)}},{color:[51,255,51],title:["Gamma","Sector"],cost:1,price:5,glyph:function(e,t){e.save(),e.lineWidth=.05*t,e.beginPath(),e.arc(0,0,t/7,0,6.29),e.stroke(),e.strokeRect(-t/6,-t/4,t/3,0),e.strokeRect(-t/6,t/4,t/3,0),e.restore()},use:()=>{j.emit("lane",1)}},{color:[51,51,255],title:["Beta","Stream"],cost:1,price:5,glyph:function(e,t){e.save(),e.lineWidth=.05*t,e.beginPath(),e.arc(0,t/6,t/7,0,6.29),e.stroke(),e.strokeRect(-t/6,-t/10,t/3,0),e.strokeRect(-t/6,-t/4,t/3,0),e.restore()},use:()=>{j.emit("lane",2)}},{color:[255,160,30],title:["Kepler","Missile"],cost:2,price:10,glyph:function(e,t,i=.05){e.save(),e.translate(t/20,0),e.rotate(.6),e.lineWidth=t*i,e.beginPath(),e.moveTo(-t/18,-t/6),e.lineTo(0,-t/4),e.lineTo(t/18,-t/6),e.lineTo(t/18,t/4),e.lineTo(-t/18,t/4),e.closePath(),e.moveTo(-t/8,t/4),e.lineTo(-t/6,t/4),e.lineTo(-t/8,t/10),e.closePath(),e.moveTo(t/8,t/4),e.lineTo(t/6,t/4),e.lineTo(t/8,t/10),e.closePath(),e.stroke(),e.restore()},use:()=>{j.emit("projectile",1)}},{color:[255,160,30],title:["Sigma","Cannon"],cost:3,price:15,glyph:function(e,t){e.save(),e.translate(t/12,t/15),e.rotate(.6),e.lineWidth=.05*t,e.lineCap="round",e.beginPath(),e.moveTo(-t/4,-t/4),e.lineTo(-t/14,-t/4),e.lineTo(-t/14,-t/10),e.lineTo(t/10,-t/10),e.lineTo(t/10,t/4),e.lineTo(-t/4,t/4),e.closePath(),e.moveTo(-t/6,0),e.lineTo(0,0),e.lineTo(-t/12,t/12),e.lineTo(0,t/6),e.lineTo(-t/6,t/6),e.stroke(),e.restore()},use:()=>{j.emit("projectile",2)}},{color:[255,160,30],title:["Pulse","Breaker"],cost:3,price:15,glyph:function(e,t){e.save(),e.translate(-t/30,0),e.lineWidth=.05*t,e.lineCap="round",e.beginPath(),e.arc(0,0,t/16,0,6.29),e.stroke(),e.beginPath(),e.arc(0,0,t/5,-1,1),e.stroke(),e.beginPath(),e.arc(0,0,t/3,-.8,.8),e.stroke(),e.rotate(.5),e.strokeRect(-t/8,-t/30,-t/8,t/15),e.rotate(-1),e.strokeRect(-t/8,-t/30,-t/8,t/15),e.restore()},use:()=>{j.emit("projectile",3)}},{color:[255,160,30],title:["Crazy","Rockets"],cost:2,price:10,glyph:function(t,i){t.save(),t.lineWidth=.05*i,t.lineCap="round";for(let e=0;e<2;e++)t.beginPath(),t.moveTo(-i/4,i/8),t.lineTo(-i/6,-i/8),t.lineTo(i/14,i/20),t.lineTo(i/8,-i/6),t.stroke(),t.beginPath(),t.moveTo(i/8+i/12,-i/6),t.lineTo(i/8-i/12,-i/6),t.lineTo(i/8,-i/6-i/8),t.closePath(),t.stroke(),t.translate(i/16,i/5),t.rotate(.2);t.restore()},use:()=>{j.emit("projectile",4)}},{color:[255,160,30],title:["Tactical","Nuke"],cost:4,price:20,glyph:function(t,i){t.save(),t.lineWidth=.05*i,t.lineCap="round",t.beginPath(),t.arc(0,0,i/3,0,6.29),t.stroke(),t.beginPath(),t.arc(0,0,i/20,0,6.29),t.stroke(),t.rotate(.5);for(let e=0;e<3;e++)t.beginPath(),t.arc(0,0,i/4,-.4,.4,!1),t.arc(0,0,i/8,.4,-.4,!0),t.closePath(),t.stroke(),t.rotate(2.1);t.restore()},use:()=>{j.emit("projectile",5)}},{color:[255,70,255],title:["Quantum","Hopper"],cost:1,price:5,glyph:function(e,t){e.save(),e.lineWidth=.05*t,e.lineCap="round",e.beginPath(),e.arc(0,t/5,t/14,0,6.29),e.stroke(),e.beginPath(),e.arc(0,0,t/14,0,6.29),e.stroke(),e.beginPath(),e.arc(0,-t/5,t/14,0,6.29),e.stroke(),e.restore()},use:()=>{j.emit("hop",2)}},{color:[255,70,255],title:["Shadow","Dash"],cost:2,price:10,glyph:function(e,t){e.save(),e.lineWidth=.05*t,e.lineCap="round",e.translate(-t/20,t/10),e.rotate(.6),e.beginPath(),e.arc(0,0,t/10,0,6.29),e.stroke(),e.beginPath(),e.moveTo(0,-t/6),e.lineTo(0,-t/3),e.moveTo(0,t/6),e.lineTo(0,t/4),e.stroke(),e.beginPath(),e.moveTo(-t/12,-t/3),e.lineTo(t/12,-t/3),e.lineTo(0,-t/2),e.closePath(),e.stroke(),e.restore()},use:()=>{j.emit("dash")}},{color:[255,70,255],title:["Shield","Charger"],cost:3,price:15,glyph:function(e,t){e.save(),e.lineWidth=.05*t,e.lineCap="round",e.beginPath(),e.arc(0,0,t/4,0,6.29),e.stroke(),e.beginPath(),e.moveTo(-t/7,0),e.lineTo(t/7,0),e.moveTo(0,-t/7),e.lineTo(0,t/7),e.stroke(),e.restore()},use:()=>{j.emit("heal")}},{color:[255,70,255],title:["Mineral","Siphon"],cost:3,price:15,glyph:function(t,i){t.save(),t.lineWidth=.05*i,t.lineCap="round";for(let e=0;e<3;e++)t.save(),t.translate((1-(e-1)*(e-1))*i/5,(e-1)*i/5),t.beginPath(),t.moveTo(-i/12,0),t.lineTo(0,-i/10),t.lineTo(i/12,0),t.lineTo(0,i/10),t.closePath(),t.stroke(),t.restore();t.beginPath(),t.moveTo(0,0),t.lineTo(-i/3,0),t.moveTo(-i/8,i/10),t.lineTo(-i/3,0),t.moveTo(-i/8,-i/10),t.lineTo(-i/3,0),t.stroke(),t.restore()},use:()=>{j.emit("mine")}},{color:[255,70,255],title:["Hyper","Drive"],cost:4,price:20,glyph:function(e,t){e.save(),e.lineWidth=.05*t,e.lineCap="round",e.beginPath(),e.moveTo(-t/6,-t/4),e.lineTo(t/6,-t/4),e.lineTo(-t/6,t/4),e.lineTo(t/6,t/4),e.closePath(),e.stroke(),e.restore()},use:()=>{j.emit("hyper")}},{color:[0,255,255],title:["Defense","Blessing"],cost:0,price:25,glyph:function(e,t){e.save(),e.lineWidth=.05*t,e.beginPath(),e.arc(0,0,t/3,0,6.29),e.stroke(),e.beginPath(),e.arc(0,0,t/7,0,6.29),e.stroke(),e.restore()},use:()=>{j.emit("persist-max-shield")}},{color:[255,255,0],title:["Strength","Blessing"],cost:0,price:25,glyph:function(e,t){e.save(),e.lineWidth=.05*t,e.lineCap="round",e.translate(0,-t/10),e.strokeRect(-t/4,-t/6,t/2,.6*t),e.strokeRect(-t/10,-t/4,t/5,-t/8),e.translate(0,t/7),e.beginPath(),e.moveTo(-t/10,-t/6),e.lineTo(t/10,-t/6),e.lineTo(-t/20,0),e.lineTo(t/20,0),e.lineTo(0,t/6),e.stroke(),e.restore()},use:()=>{j.emit("persist-max-energy")}},{color:[200,200,200],title:["Vision","Blessing"],cost:0,price:25,glyph:function(e,t){e.save(),e.lineWidth=.05*t,e.lineCap="round",e.strokeRect(.25*-t,0,.2*t,.3*t),e.strokeRect(.05*t,0,.2*t,.3*t),e.strokeRect(.1*-t,.4*-t,.2*t,.3*t),e.restore()},use:()=>{j.emit("persist-max-hand")}}],Z=(s=o=0,f=5,d=h=3,g=[],(P={reset:()=>{f=5,d=h=3,g=[u[s=o=0],u[0],u[0],u[1],u[1],u[1],u[2],u[2],u[2]]},getMinerals:()=>o,addMineral:e=>o+=e,getLevel:()=>s,setLevel:e=>s=e,getHandSize:()=>h,setHandSize:e=>h=e,getMaxEnergy:()=>f,setMaxEnergy:e=>f=e,getMaxShield:()=>d,setMaxShield:e=>d=e,getDeck:()=>g,addToDeck:e=>g.push(e)}).reset(),P);function Q(){p(new r("Professor Zorn's Lab",()=>.03*H,()=>.05*H,"#fff",.5,"left")),p(new n),j.on("start",()=>{Z.reset(),j.emit("transition-scene",2)}),this.render=e=>{var t,i,l,n,a=.3*$;y(e),D(e),m(e,"Professor Zorn","Hey there Courier, I need your help getting this Xenotransponder to Korva-6. It's only a few planets away."),i=.5*H,l=.4*$,n=a,(t=e).save(),t.translate(i,l),n/=2,t.fillStyle="#333",t.strokeStyle="#666",t.lineWidth=.1*n,t.beginPath(),t.arc(0,0,n,0,6.29),t.fill(),t.stroke(),t.restore(),i=.5*H,l=.4*$,n=a,(t=e).save(),t.translate(i,l),n/=2,t.fillStyle="#ccd",t.fillRect(.07*n,.7*-n,.15*n,.7*n),t.beginPath(),t.arc(.1*n,.54*-n,.24*n,0,6.29),t.fill(),t.fillStyle="#b94",t.fillRect(.6*-n,.1*-n,1.2*n,.7*n),t.fillRect(.3*n,.3*-n,.4*n,.5*n),t.fillStyle="#aaa",t.textAlign="center",t.textBaseline="bottom",t.font=.2*n+"px monospace",t.fillText("Xenotransponder",0,1.4*n),t.restore()}}var V=function(t,i,l,n){var a=0;this.update=e=>{i-=500*(.5-a)*e,n+=3*n*(.5-a)*e,.5<(a+=1.2*e)&&(this.destroyed=!0)},this.render=e=>{G(e,t,i,n,l,!1,2*(.5-a))}};var _=function(l,n,a,o,r,t){var s=-.5;this.update=e=>{1<(s+=3*e)&&(this.destroyed=!0,j.emit("place",{slot:t,card:o}))},this.render=e=>{var t=.15,i=(l.hasEnergy(o)&&(t=1),Math.min(Math.max(s,0),1));G(e,n*i*i+H/2*(1-i*i),a*i*i+$*(1-i*i),r*i,o,!1,i*t)}};var ee=function(l,t,i){var n=100*Math.random();this.x=0,this.y=0,this.obstacle=!0,this.update=e=>{n+=.1*e,this.x=l.laneX(t),this.y=l.laneY(i),l.getTick()>t+6&&(this.destroyed=!0),l.closeToShip(l.laneX(t),l.laneY(i),2)&&(this.destroyed=!0,j.emit("hit",1))},this.render=t=>{t.save(),t.translate(this.x,this.y);var i=+l.laneScale();t.fillStyle="#963";for(let e=0;e<8;e++)t.beginPath(),t.arc((e+.7)*i*.3+Math.sin(3*n+e*e*4)*i*.6,Math.sin(5*n+e*e*4)*i*.7,.6*i/(+e+1),0,6.29),t.fill();t.beginPath(),t.arc(0,0,i,0,6.29),t.fill(),t.restore()}};var te=function(a,o,r,e){var s=100*Math.random(),h=(this.x=0,this.y=0,!1),f=0,c=1,d=(.6<Math.random()&&(c=3,.6<Math.random()&&(c=7)),()=>{h=!0,j.emit("poof",{x:this.x,y:this.y,color:[255,130,255],size:.6,t:.3}),j.off("mine",d)});j.on("mine",d),this.update=e=>{var t,i,l,n;s+=+e,h?(t=a.getShipX()-this.x,i=a.getShipY()-this.y,l=Math.sqrt(t*t+i*i),n=H*f,f+=e,this.x+=t/l*n*e,this.y+=i/l*n*e):(this.x=a.laneX(o),this.y=a.laneY(r)),a.getTick()>o+6&&!h&&(this.destroyed=!0,j.off("mine",d)),a.closeToShip(this.x,this.y,1.4)&&(this.destroyed=!0,j.off("mine",d),j.emit("mineral",c))},this.render=t=>{var i=a.laneScale();if(1==c)O(t,this.x,this.y,s,.4*i);else if(3==c)O(t,this.x-i/3,this.y,s,.3*i),O(t,this.x+i/3,this.y-i/2,s,.3*i),O(t,this.x+i/3,this.y+i/2,s,.3*i);else if(7==c){for(let e=0;e<6;e++)O(t,this.x+Math.sin(1.04*e)*i*.8,this.y+Math.cos(1.04*e)*i*.8,s,.25*i);O(t,this.x,this.y,s,.3*i)}}};var v=function(s,e,t,i,h){var f=0,l=(this.x=e,this.y=t,[]);this.update=e=>{var t,i,l,n;if(f+=+e,5==h){if(this.x+=e*H*(1-f/.35),.35<f){c.forEach(e=>{e.obstacle&&(e.destroyed=!0,j.emit("poof",{x:e.x,y:e.y,color:[255,50,50],size:1,t:.5}))});var a=H,o=$,r=Math.sqrt(a*o)/20;for(let e=0;e<r;e++)j.emit("poof",{x:Math.random()*a,y:Math.random()*o,color:[255,244,50],size:+Math.random()+1,t:.4*Math.random()+.4});j.emit("boom"),this.destroyed=!0}}else 2!=h?(4!=h?this.x+=e*H/2:(t=.4*Math.sin(Date.now()/30),this.homing&&!this.homing.destroyed&&(t+=Math.atan2(this.homing.y-this.y,this.homing.x-this.x)),this.y+=e*H*.8*Math.sin(t),this.x+=e*H*.8*Math.cos(t)),4<f&&(this.destroyed=!0),s.collideTargets(this.x,this.y,1.5)&&(this.destroyed=!0,j.emit("boom"),1==h&&j.emit("poof",{x:this.x,y:this.y,color:[255,200,100],size:1,t:.5}),3==h&&j.emit("poof",{x:this.x,y:this.y,color:[100,255,100],size:1,t:.5}),4==h&&j.emit("poof",{x:this.x,y:this.y,color:[255,200,140],size:.6,t:.5}))):(i=s.laneScale(),l=s.getShipY(),n=s.getShipX(),c.forEach(e=>{var t;e.obstacle&&(t=l-e.y)*t<i*i&&e.x>n&&!e.destroyed&&(e.destroyed=!0,j.emit("poof",{x:e.x,y:l,color:[50,130,255],size:.7,t:.5}))}),1<f&&(this.destroyed=!0))},this.render=t=>{t.save();var e=s.laneScale();if(1==h&&(t.fillStyle="#fff",t.translate(this.x,this.y),t.fillRect(.2*-e,.2*-e,1.2*e,.4*e),t.fillRect(.4*-e,.35*-e,.4*e,.2*e),t.fillRect(.4*-e,.15*e,.4*e,.2*e),t.fillStyle="#fa3",0<Math.sin(Date.now()/14)&&t.fillRect(.3*-e,.05*-e,.8*-e,.1*e)),2==h&&(t.translate(s.getShipX(),s.getShipY()),t.fillStyle="#338",t.fillRect(.8*e,.3*-e,.6*e,.6*e),t.fillRect(.9*e,.2*-e,H,.4*e),t.fillStyle="#3af",0<Math.sin(Date.now()/14)&&(t.fillRect(e,.1*-e,H,.2*e),t.fillRect(.9*e,.2*-e,.4*e,.4*e))),3==h&&(t.fillStyle="#383",t.translate(this.x,this.y),t.beginPath(),t.arc(0,0,.6*e,0,6.29),t.fill(),0<Math.sin(Date.now()/14)&&(t.fillStyle="#8f8",t.beginPath(),t.arc(0,0,.4*e,0,6.29),t.fill())),4==h){t.fillStyle="#fa4",t.beginPath(),t.arc(this.x,this.y,.3*e,0,6.29),t.fill(),l.unshift({x:this.x,y:this.y}),14<l.length&&l.pop(),t.lineWidth=.1*e,t.strokeStyle="#fa4",t.beginPath(),t.moveTo(this.x,this.y);for(let e=0;e<l.length;e++)t.lineTo(l[e].x,l[e].y);t.stroke()}5==h&&(t.fillStyle="#ff0",t.translate(this.x,this.y),t.beginPath(),t.arc(0,0,.4*e,0,6.29),t.fill(),t.fillStyle="#333",t.fillRect(.2*-e,.2*-e,.4*e,.4*e)),t.restore()}};var S=function(n,a,o,r,s,h){var f=0;this.update=e=>{h<(f+=+e)&&(this.destroyed=!0)},this.render=e=>{e.save();var t=n.laneScale(),i=(e.translate(a,o),e.beginPath(),1-f/h),l=.5+1.5*(1-Math.exp(-f/h*3));e.fillStyle=`rgba(${r[0]},${r[1]},${r[2]},${i})`,e.arc(0,0,s*t*l,0,6.29),e.fill(),e.restore()}};function ie(){var l=Z.getLevel(),a=e=>e.sort(()=>Math.random()-.5),n=e=>{var t=parseInt(Math.random()*M.length),i=M[t],t=(M.splice(t,1),H),l=$,n=x(t,l),t=b(e,n,t),l=T(l);p(new _(this,t,l,i,n,e)),0==M.length&&(a(M=o),o=[])},x=(e,t)=>Math.min(e*(.95/(1+r)),.185*t),b=(e,t,i)=>.5*i+(e-(r-1)/2)*t*1.17,T=e=>.735*e,M=Z.getDeck().map(e=>Object.assign({},e)),o=[],r=(a(M),Z.getHandSize()),P=[];for(let e=0;e<r;e++)n(e);var w=-1,s=1,k=1,R=0,C=0,W=0,D=Z.getMaxShield(),E=D,I=Z.getMaxEnergy(),z=I,B=0,Y=20+2*l,A=0,X=0,L=0;const h=e=>{var t=H,i=$,l=e.x,n=e.y,a=-1,o=P.length,r=Math.min(t*(.95/(1+o)),.185*i);for(let e=0;e<o;e++){var s=.5*t+(e-(o-1)/2)*r*1.17,h=.735*i;s-r/2<l&&l<s+r/2&&h-3*r/4<n&&n<h+3*r/4&&(a=e)}return a};j.on("tap",e=>{var t,i,l,e=h(e);0<=e&&null!=P[e]&&(cost=P[e].cost,z>=cost&&(z-=cost,P[e].use(),t=x(l=H,i=$),l=b(e,t,l),i=T(i),p(new V(l,i,P[e],t)),l=e,o.push(P[l]),P[l]=null,n(e)))}),j.on("move",e=>{w=h(e)}),j.on("lane",e=>{s=e}),j.on("hop",()=>{for(var t=s;t==s;)t=parseInt(3*Math.random());var i=this.getShipX(),l=this.laneScale();for(let e=0;e<3;e++){sz=.3;var n=[255,0,255];e==t&&(sz=1,n=[100,255,100]),p(new S(this,i+2*l,this.laneY(e),n,sz,.7))}s=t}),j.on("dash",()=>{C=.5,W=2}),j.on("hyper",()=>{C=.4,W=10}),j.on("persist-max-shield",()=>{Z.setMaxShield(Z.getMaxShield()+1)}),j.on("persist-max-energy",()=>{Z.setMaxEnergy(Z.getMaxEnergy()+1)}),j.on("persist-max-hand",()=>{Z.setHandSize(Z.getHandSize()+1)}),j.on("heal",()=>{E=Math.min(E+1,D),p(new S(this,this.getShipX(),this.getShipY(),[0,255,0],1,.5))}),j.on("poof",({x:e,y:t,color:i,size:l,t:n})=>{p(new S(this,e,t,i,l,n))}),j.on("projectile",e=>{var t,i,l,n;1!=e&&2!=e&&5!=e||p(new v(this,this.getShipX(),this.getShipY(),s,e)),3==e&&(p(new v(this,this.getShipX(),this.laneY(0),0,e)),p(new v(this,this.getShipX(),this.laneY(1),1,e)),p(new v(this,this.getShipX(),this.laneY(2),2,e))),4==e&&(t=this.laneScale(),i=new v(this,this.getShipX(),this.getShipY()-t/2,s,e),e=new v(this,this.getShipX(),this.getShipY()+t/2,s,e),l=c.filter(e=>e.obstacle&&e.x>3*t),n=parseInt(Math.random()*l.length),i.homing=l[n],l.splice(n,1),n=parseInt(Math.random()*l.length),e.homing=l[n],l.splice(n,1),p(i),p(e))}),j.on("place",({slot:e,card:t})=>{P[e]=t}),j.on("hit",e=>{(E-=e)<=0&&j.emit("transition-scene",4),j.emit("poof",{x:this.getShipX(),y:this.getShipY(),color:[255,255,255],size:1,t:.5})}),j.on("mineral",e=>{Z.addMineral(e)});var t=()=>{if(!(Y-7<A||4<W)){var t,i={};for(let e=0;e<.1+.15*l;e++)Math.random()>.7/(1+.04*l)&&(i[t=parseInt(3*Math.random())]||(i[t]=1,p(new ee(this,A,t))));.6<Math.random()&&(i[t=parseInt(3*Math.random())]||p(new te(this,A,t,i[t]=1)))}};this.hasEnergy=e=>z>=e.cost,this.laneY=e=>{return 0==e?.18*$:1==e?.34*$:.5*$},this.laneX=e=>{var t=H,i=50+t/40+this.laneScale();return i+(1-(A+X-e)/5)*(t+i)},this.laneScale=()=>{var e=H,t=$;return.3*Math.min(.16*t,e/8)},this.getTick=()=>A,this.getShipX=()=>{return 50+H/40+this.laneScale()},this.getShipY=()=>{return.18*$+k*$*.16},this.closeToShip=(e,t,i)=>{var l;return!(0<C)&&(l=this.laneScale(),(e=e-this.getShipX())*e+(e=t-this.getShipY())*e<l*l*i)},this.collideTargets=(i,l,n)=>{var a=this.laneScale(),o=!1;return c.forEach(e=>{var t;e.obstacle&&(t=i-e.x)*t+(t=l-e.y)*t<a*a*n&&(o=!0,e.destroyed=!0)}),o},this.update=e=>{1<(L+=e)&&(0<C?(C-=e,X+=e*W,L+=e*W*2):W=0,X+=2*e),1<X&&(X--,A++,t(),Y<A&&(13==l?j.emit("transition-scene",5):j.emit("transition-scene",3))),z<I?1<=(B+=.75*e)&&(--B,z++):B=0,R+=7*(.5*(s-k)-R)*e,k+=5*(s-k)*e},this.render=t=>{var i=H,l=$,n=i/40,e=.16*l,a=.1*l,o=a+e,r=o+e,s=.3*Math.min(e,i/8),h=(K(t,20*-L,0,3+W,0),.3*l),h=(t.fillStyle="#224",t.beginPath(),t.arc(-(A+X)/10*i,.34*l,h,0,6.28),t.fill(),t.beginPath(),t.arc(-(A+X-Y)/10*i+.4*i,.34*l,h,0,6.28),t.fill(),.02*l),h=(t.fillStyle="#446",t.fillRect(15+n,a/2,i-30-2*n,1),t.fillStyle="#446",t.beginPath(),t.arc(15+h,a/2,h,0,6.28),t.fill(),t.fillStyle="#446",t.beginPath(),t.arc(i-15-h,a/2,h,0,6.28),t.fill(),t.fillStyle="#fff",15+n+(A+X)/(Y+1)*(i-30-2*n));t.beginPath(),t.moveTo(h+n/3,a/2),t.lineTo(h-n/3,a/2-n/3),t.lineTo(h-n/3,a/2+n/3),t.closePath(),t.fill(),t.fillStyle="#f33",t.fillRect(15,a,n,e),t.fillStyle="#3f3",t.fillRect(15,o,n,e),t.fillStyle="#33f",t.fillRect(15,r,n,e),t.fillStyle="#f33",t.fillRect(i-15,a,-n,e),t.fillStyle="#3f3",t.fillRect(i-15,o,-n,e),t.fillStyle="#33f",t.fillRect(i-15,r,-n,e),t.fillStyle="rgba(100,100,100,0.4)",t.fillRect(15,a,i-30,1),t.fillRect(15,o,i-30,1),t.fillRect(15,r,i-30,1),t.fillRect(15,r+e,i-30,1),t.save(),t.translate(50+n+s,a+e/2+k*e),t.rotate(R);for(let e=5;0<=e;e--){e<1?t.fillStyle="#fd6":e<3?t.fillStyle="#fa1":t.fillStyle="#a41",t.beginPath();var f=.2*Math.sin(L*(e+1)*20)+.5;t.arc(-s-s*e*.1,Math.sin(40*-L+e)*e*s/30,s*f/(1.5+.3*e),0,6.29),t.fill()}t.translate(Math.sin(30*L)*s/60,Math.sin(35*L)*s/40),t.fillStyle="#fff",t.beginPath(),t.moveTo(s,0),t.lineTo(.65*-s,.8*-s),t.lineTo(.65*-s,.3*-s),t.lineTo(-s,.5*-s),t.lineTo(-s,.5*s),t.lineTo(.65*-s,.3*s),t.lineTo(.65*-s,.8*s),t.closePath(),0<C?(t.lineWidth=.1*s,t.strokeStyle="#fff",t.stroke()):t.fill(),t.fillRect(.4*-s,.4*s,s,.15*s),t.fillRect(.4*-s,.4*-s,s,.15*-s),t.restore();var h=Math.min(.025*l,.035*i),c=l-h,d=(t.textBaseline="bottom",t.font=h+"px monospace",t.textAlign="right",t.fillStyle="#ff3",t.fillText("Energy",i-n,c),t.textAlign="right",t.fillText(z,i-(n+6*h),c),t.textAlign="left",t.fillStyle="#888",t.font=.8*h+"px monospace",t.fillText("/ "+I,i-(n+5.7*h),c),1.2*h);for(let e=0;e<I;e++)N(t,i-(n+e*(.8*d+4)+d),c-2.4*d,d,e<z);t.fillStyle="#333";var o=(.8*d+4)*I,g=(t.fillRect(i-n,c-1.07*d,-o,2),t.fillStyle="#ff3",t.fillRect(i-n,c-1.07*d,-B*o,2),.6*h),p=l-h;t.textBaseline="bottom",t.font=h+"px monospace",t.textAlign="left",t.fillStyle="#3ff",t.fillText("Shield",n,p),t.textAlign="right",t.fillText(E,n+5.3*h,p),t.textAlign="left",t.fillStyle="#888",t.font=.8*h+"px monospace",t.fillText("/ "+D,n+5.6*h,p);for(let e=0;e<D;e++)q(t,n+e*(2.5*g+4)+g,p-4*g,g,e<E);var y,m,u,r=l-h,v=(t.textBaseline="bottom",t.font=h+"px monospace",t.textAlign="center",t.fillStyle="#f3f",t.fillText(Z.getMinerals(),.4*i,r),O(t,.4*i,r-2.1*h,.785,.5*h),t.fillStyle="#aaa",t.fillText(M.length,.6*i,r),U(t,.6*i,r-2.1*h,.4*h),P.length),S=x(i,l);for(let e=0;e<v;e++)null!=P[e]&&(y=b(e,S,i),m=T(l),u=1,z<P[e].cost&&(u=.15),G(t,y,m,S,P[e],w==e,u))}}function x(e){return e[parseInt(Math.random()*e.length)]}var T,M,P,w,k,R,C,le,W=["Tenadu","Nurosto Prime","Worlax","Mektrov Zero","Cytoxia","Broggendor","Voitec","Helion","Earth (Remnants)","Yonzi Mata","Streva Gateway","Lumatorr","Desela","Korva-6"];function ne(){var e=Z.getLevel(),s=(p(new r("Planet "+W[e],()=>.03*H,()=>.05*H,"#fff",.5,"left")),p(new n),j.on("start",()=>{Z.setLevel(Z.getLevel()+1),j.emit("transition-scene",2)}),onTapCard=({x:t,y:i})=>{var l=H,n=$,a=Z.getMinerals(),o=Math.min(.2*n,.25*l);for(let e=0;e<f.length;e++){var r=l/2+(e-(f.length-1)/2)*l*.3;null!=f[e]&&a>=f[e].price&&r-o/2<t&&t<r+o/2&&.4*n-3*o/4<i&&i<.4*n+3*o/4&&(p(new V(r,.4*n,f[e],o)),Z.addMineral(-f[e].price),j.emit("buy"),4==s?f[e].use():Z.addToDeck(f[e]),f[e]=null)}},[]),s=x(0==e?[0,2]:[0,1,2,3,4]),f=[],c="",d=E,g="";if(0==s){var c="Weapon Tech",d=E,g=x(["Stop staring human! Either buy something or leave.","Rockets! Laser beams! What are you looking for? I've got it all.","Hey hey, don't touch the merchandise! You might hurt yourself..."]),t=[u[3],u[4],u[5],u[6],u[7]],i=parseInt(2*Math.random())+2;for(let e=0;e<i;e++)f.push(t[parseInt(Math.random()*t.length)]);j.on("tap",onTapCard)}if(1==s){c="Ship Mechanic",d=I,g=x(["Beep Boop - May I assist you with upgrades for that spacefaring vessel?","Zip Zap - Your shield generator looks a bit flimsy. I can help with that.","Wrrrrr - Do you call that piece of scrap metal a ship?"]);t=[u[8],u[9],u[10],u[11],u[12]],i=parseInt(2*Math.random())+2;for(let e=0;e<i;e++)f.push(t[parseInt(Math.random()*t.length)]);j.on("tap",onTapCard)}if(2==s){c="Street Merchant",d=z,g=x(["Pssst. Yeah you. You look like you could use a pumpjack for that ship.","Only the best mechatronics here. Forged from the finest Worlax Steel.","Got this stuff from the Gateway District... You're not a cop right?"]);t=[u[3],u[4],u[8],u[9]],i=parseInt(2*Math.random())+2;for(let e=0;e<i;e++)f.push(t[parseInt(Math.random()*t.length)]);j.on("tap",onTapCard)}if(3==s){c="Cytox Smuggler",d=B,g=x(["Sssseems like you need ssssome black market tech. Letssss sssee what I've got...","Elzo Mineralsss are in short sssupply these daysss. My pricing hasss to ssslither up.","This lot isn't my normal sssset of ssssuplies, but itsss much sssafer than the cccytox trade."]);t=[u[5],u[6],u[10],u[11]],i=parseInt(2*Math.random())+2;for(let e=0;e<i;e++)f.push(t[parseInt(Math.random()*t.length)]);j.on("tap",onTapCard)}if(4==s){c="Neuro-Templar",d=Y,g=x(["I sense your journey has experienced rough patches. A blessing will surely aid you.","The Great Consciousness has a gift for you, but an exchange of minerals must be made.","Words from The Cortex will pave your road to enlightenment... for a small fee."]);t=[u[13],u[14],u[15]];for(let e=0;e<2;e++){var l=parseInt(Math.random()*t.length);f.push(t[l]),t.splice(l,1)}j.on("tap",onTapCard)}this.drawCost=(e,t,i,l,n,a)=>{e.fillStyle="#f3f",e.font=.25*n+"px monospace",e.textAlign="left",e.textBaseline="middle";var o=.061*n,r=(e.measureText(t).width+2*o)/2;e.fillText(t,i+3*o-r,l+n),O(e,i+o/2-r,l+n,.785,.08*n),a||(e.save(),e.fillStyle="rgba(255,0,0,0.7)",e.translate(i,l+n),e.rotate(.1),e.fillRect(.5*-n,-1,n,3),e.rotate(-.2),e.fillRect(.5*-n,-1,n,3),e.restore())},this.render=t=>{var i,l=H,n=$,a=Z.getMinerals(),e=Z.getHandSize(),o=Z.getMaxEnergy(),r=Z.getMaxShield(),s=(y(t),d(t),m(t,c,g),Math.min(.04*n,.04*l)),h=(t.textAlign="left",t.textBaseline="middle",t.font=s+"px monospace",O(t,s,.75*n,.785,.3*s),t.fillStyle="#f3f",t.fillText(a,1.7*s,.75*n),U(t,s,.75*n-s,.2*s),t.fillStyle="#999",t.fillText(e,1.7*s,.75*n-s),q(t,s,.75*n-2*s,.4*s,!0),t.fillStyle="#3ff",t.fillText(r,1.7*s,.75*n-2*s),N(t,s-.325*s,.75*n-3.45*s,.8*s,!0),t.fillStyle="#ff3",t.fillText(o,1.7*s,.75*n-3*s),Math.min(.2*n,.25*l));for(let e=0;e<f.length;e++)null!=f[e]&&(G(t,i=l/2+(e-(f.length-1)/2)*l*.3,.4*n,h,f[e],!1,1),this.drawCost(t,""+f[e].price,i,.4*n,h,a>=f[e].price))}}function ae(){var o=Z.getLevel(),e=(p(new r("SHUTTLEDECK",()=>H/2,()=>.2*$,"#fff",1,"center")),p(new r("Game Over",()=>H/2,()=>.35*$,"#f55",1,"center")),p(new r("Exploded approaching planet "+W[o],()=>H/2,()=>.6*$,"#f55",.4,"center")),p(new r("[ Press to retry ]",()=>H/2,()=>.8*$,"#777",.5,"center")),()=>{j.emit("transition-scene",1),j.off("tap",e)});j.on("tap",e),this.render=t=>{var i=H,l=$,n=Math.min(.03*l,.03*i);K(t,.03*-Date.now(),0,3,0),t.lineWidth=.2*n,t.strokeStyle="#555",t.beginPath(),t.moveTo(i/2-14*i/36,l/2),t.lineTo(i/2+14*i/36,l/2),t.stroke();for(let e=0;e<W.length+1;e++){var a=(e-7)*i/18+i/2;e<=o?(t.beginPath(),t.arc(a,.5*l,.6*n,0,6.29),t.fillStyle="#fff",t.fill()):(t.beginPath(),t.arc(a,.5*l,.5*n,0,6.29),t.fillStyle="#000",t.strokeStyle="#f55",t.fill(),t.stroke())}}}function oe(){p(new r("Planet Korva-6",()=>.03*H,()=>.05*H,"#fff",.5,"left")),p(new r("Package Delivered!",()=>H/2,()=>$/2,"#5f5",.6,"center")),p(new n("Main Menu")),j.on("start",()=>{j.emit("transition-scene",0)}),this.render=e=>{y(e),D(e,"#f55"),m(e,"Professor Quinn","Is that a Xenotransponder?? My brother Zorn must have sent this. Thank you, Courier!")}}function re(e){j.emit("txn"),j.on("txn-done",()=>{j.emit("scene",e),p(new l(.9,!1));for(let e=0;e<H;e+=.01*H)p(new J(e,$/2))}),c.forEach(e=>{e.update=void 0}),p(new l(.4,!0))}M=e=>{T=e,j.clear(),j.on("scene",M),j.on("transition-scene",re),a.stopMusic(),a.setup(),c=[],0==T&&p(new F),1==T&&(p(new Q),a.music()),2==T&&(p(new ie),a.bgRocket()),3==T&&(p(new ne),a.music()),4==T&&p(new ae),5==T&&p(new oe)},j.on("scene",M),isMobile=()=>/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),window.addEventListener("touchstart",e=>{e.stopPropagation(),j.emit("tap",{x:e.touches[0].clientX,y:e.touches[0].clientY})}),window.addEventListener("mousedown",e=>{e.preventDefault(),e.stopPropagation(),isMobile()||j.emit("tap",{x:e.x,y:e.y})}),window.addEventListener("mousemove",e=>{e.preventDefault(),e.stopPropagation(),isMobile()?j.emit("move",{x:-1,y:-1}):j.emit("move",{x:e.x,y:e.y})}),j.emit("scene",0),(P=document.createElement("canvas")).width=64,P.height=64,document.body.appendChild(P),(w=P.getContext("2d")).fillStyle="#000",w.fillRect(0,0,64,64),w.strokeStyle="#fa3",w.lineWidth=2,w.lineJoin="round",w.lineCap="round",w.strokeRect(0,0,64,64),w.translate(31,29),u[3].glyph(w,82,.05),document.querySelector("link[rel~='icon']").href=P.toDataURL(),document.body.removeChild(P),k=Date.now(),R=[],C=()=>{},(le=()=>{var e=Date.now(),t=.001*(e-k);.3<t&&(t=.3),i.fillStyle="#000",i.fillRect(0,0,H,$),R.length=0,c.forEach(e=>{(e.ecs||[]).forEach(e=>e(t)),(e.update||C)(t),(e.render||C)(i),e.destroyed&&R.push(e)}),R.forEach(e=>{var t;t=e,c=c.filter(e=>e!=t)}),k=e,requestAnimationFrame(le)})()})();</script></html>
+<html><title>SHUTTLEDECK</title><link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" sizes="64x64"/><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"><style>canvas{width:100%;height:100%;}body{margin:0;background:#000;}</style><canvas><script>(() => {
+  // src/canvas.js
+  var canvas = document.getElementsByTagName("canvas")[0];
+  var ctx = canvas.getContext("2d");
+  ctx.imageSmoothingEnabled = true;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  var w;
+  var h;
+  function width() {
+    return w;
+  }
+  function height() {
+    return h;
+  }
+  function resize() {
+    canvas.width = window.innerWidth * 1;
+    canvas.height = window.innerHeight * 1;
+    w = canvas.width;
+    h = canvas.height;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  // src/gameobjects.js
+  var g = [];
+  function get() {
+    return g;
+  }
+  function add(obj) {
+    g.push(obj);
+  }
+  function remove(obj) {
+    g = g.filter((x) => x != obj);
+  }
+  function clear(obj) {
+    g = [];
+  }
+
+  // src/eventemitter.js
+  function eventemitter_default() {
+    var HANDLES = {};
+    return {
+      clear: () => HANDLES = {},
+      on: (e, handler) => (HANDLES[e] || (HANDLES[e] = [])).push(handler),
+      off: (e, handler) => HANDLES[e] = (HANDLES[e] || []).filter((x) => x != handler),
+      emit: (e, data) => (HANDLES[e] || []).forEach((handler) => handler(data))
+    };
+    return;
+  }
+
+  // src/bus.js
+  b = new eventemitter_default();
+  var bus_default = b;
+
+  // src/animations.js
+  function pulse(fn, min, max, period) {
+    var anim = 0;
+    return (dT) => {
+      anim += dT;
+      fn((Math.sin(anim / period * 6.3) + 1) / 2 * (max - min) + min);
+    };
+  }
+  function transition(duration, fadeOut) {
+    var anim = 0;
+    this.update = (dT) => {
+      anim += dT / duration;
+      if (anim > 1 && fadeOut) {
+        this.destroyed = true;
+        bus_default.emit("txn-done");
+      }
+    };
+    this.render = (ctx2) => {
+      var w2 = width();
+      var h2 = height();
+      var tf = 0;
+      if (fadeOut) {
+        tf = Math.max(1 - anim * anim, 0);
+      } else {
+        tf = Math.pow(Math.max(anim - 0.3, 0) * 1.3, 2);
+      }
+      ctx2.save();
+      ctx2.fillStyle = "#443";
+      ctx2.translate(0, -h2 * 0.6 * tf);
+      ctx2.fillRect(0, 0, w2, h2 / 2);
+      ctx2.strokeStyle = "#b94";
+      ctx2.fillStyle = "#b94";
+      ctx2.lineWidth = w2 * 0.03;
+      ctx2.fillRect(0, h2 / 2, w2, h2 * 0.05);
+      ctx2.strokeRect(w2 * 0.25, h2 * 0.2, w2 * 0.5, h2 * 0.2);
+      ctx2.textAlign = "center";
+      ctx2.textBaseline = "middle";
+      ctx2.font = `${w2 * 0.06}px monospace`;
+      ctx2.fillText("SHUTTLEDECK", w2 * 0.5, h2 * 0.3);
+      ctx2.restore();
+      ctx2.save();
+      ctx2.fillStyle = "#443";
+      ctx2.translate(0, h2 * 0.6 * tf);
+      ctx2.fillRect(0, h2 / 2, w2, h2 / 2);
+      ctx2.fillStyle = "#b94";
+      ctx2.fillRect(0, h2 * 0.55, w2, -h2 * 0.05);
+      ctx2.restore();
+    };
+  }
+
+  // src/gfx.js
+  function drawStars(ctx2, x, y, vx, vy) {
+    const w2 = width();
+    const h2 = height();
+    const N = Math.sqrt(w2 * h2) / 10;
+    ctx2.beginPath();
+    ctx2.strokeStyle = "#aaa";
+    ctx2.fillStyle = "#ddd";
+    ctx2.lineWidth = 0.5;
+    for (let i = 0; i < N; i++) {
+      let s = 1 + (Math.sin(i * i * 1217 + i * i * i * 983) * 0.5 + 0.5) * 5;
+      let ax = (1234918 * i * i + i * i * i * i * 2291722 + x * s) % (w2 + 100) - 50;
+      let ay = (3000182 * i * i * i * i + i * i * i * i * i * 500291 + y * s) % (h2 + 100) - 50;
+      ctx2.moveTo(ax, ay);
+      ctx2.lineTo(ax + vx * s, ay + vy * s);
+      ctx2.fillRect(ax - 1, ay - 1, 2, 2);
+    }
+    ctx2.stroke();
+  }
+  function drawCard(ctx2, x, y, cs, card, hovering, opacity) {
+    ctx2.save();
+    if (hovering) {
+      cs *= 1.04;
+    }
+    var netColor = `rgba(${card.color[0]},${card.color[1]},${card.color[2]},${opacity})`;
+    var csw = cs / 2;
+    var csh = csw * 1.5;
+    ctx2.translate(x, y);
+    if (hovering) {
+      ctx2.fillStyle = `rgb(80,80,80,${0.7 * opacity})`;
+    } else {
+      ctx2.fillStyle = `rgb(50,50,50,${0.7 * opacity})`;
+    }
+    ctx2.fillRect(-csw, -csh, csw * 2, csh * 2);
+    ctx2.save();
+    ctx2.beginPath();
+    ctx2.rect(-csw, -csh, csw * 2, csh * 2);
+    ctx2.clip();
+    ctx2.fillStyle = `rgba(220,230,250,${0.3 * opacity})`;
+    ctx2.rotate(-0.3);
+    ctx2.translate(cs / 2, Date.now() % 2e3 / 1e3 * (cs * 5) - cs * 1.2);
+    ctx2.fillRect(-cs * 2, 0, cs * 4, cs * 0.2);
+    ctx2.fillRect(-cs * 2, -cs * 0.2, cs * 4, cs * 0.05);
+    ctx2.restore();
+    ctx2.beginPath();
+    ctx2.lineWidth = cs / 20;
+    ctx2.lineJoin = "round";
+    ctx2.strokeStyle = netColor;
+    ctx2.moveTo(-csw, -csh);
+    ctx2.lineTo(csw, -csh);
+    ctx2.lineTo(csw, csh);
+    ctx2.lineTo(-csw, csh);
+    ctx2.closePath();
+    ctx2.stroke();
+    ctx2.save();
+    ctx2.translate(0, -cs * 0.15);
+    card.glyph(ctx2, cs);
+    ctx2.translate(0, -cs * 0.52);
+    ctx2.fillStyle = `rgba(255,255,51,${opacity})`;
+    var es = cs * 0.12;
+    for (let i = 0; i < card.cost; i++) {
+      ctx2.fillRect((i - (card.cost - 1) / 2) * es * 1.1 - es * 0.45, 0, es * 0.9, es * 0.9);
+    }
+    ctx2.restore();
+    ctx2.fillStyle = netColor;
+    ctx2.textBaseline = "middle";
+    ctx2.font = `${cs / 6}px monospace`;
+    ctx2.textAlign = "center";
+    var lines = card.title;
+    for (let i = 0; i < lines.length; i++) {
+      ctx2.fillText(lines[i], 0, csh * 0.65 + (i - (lines.length - 1) / 2) * csh * 0.2);
+    }
+    ctx2.restore();
+  }
+  function drawMineral(ctx2, x, y, angle, s) {
+    ctx2.save();
+    ctx2.translate(x, y);
+    ctx2.fillStyle = "#f3f";
+    ctx2.rotate(angle);
+    ctx2.fillRect(-s, -s, 2 * s, 2 * s);
+    s *= 0.6;
+    ctx2.fillStyle = "#fbf";
+    ctx2.fillRect(-s, -s, 2 * s, 2 * s);
+    ctx2.restore();
+  }
+  function drawShield(ctx2, x, y, r, isFull) {
+    ctx2.fillStyle = "#333";
+    ctx2.beginPath();
+    ctx2.arc(x, y, r, 0, 6.28);
+    ctx2.fill();
+    if (isFull) {
+      ctx2.fillStyle = "#3ff";
+      ctx2.beginPath();
+      ctx2.arc(x, y, r * 0.65, 0, 6.28);
+      ctx2.fill();
+    }
+  }
+  function drawEnergy(ctx2, x, y, r, isFull) {
+    ctx2.fillStyle = "#333";
+    ctx2.fillRect(x, y, r * 0.8, r);
+    if (isFull) {
+      ctx2.fillStyle = "#ff3";
+      ctx2.fillRect(x + r * 0.175, y + r * 0.175, r * 0.45, r * 0.65);
+    }
+  }
+  function drawDeck(ctx2, x, y, s) {
+    ctx2.save();
+    ctx2.strokeStyle = "#ccc";
+    ctx2.fillStyle = "#222";
+    ctx2.lineWidth = s * 0.1;
+    var step = s * 0.5;
+    ctx2.translate(x - step, y + step);
+    ctx2.fillRect(-s, -s * 1.5, 2 * s, 3 * s);
+    ctx2.strokeRect(-s, -s * 1.5, 2 * s, 3 * s);
+    ctx2.translate(step, -step);
+    ctx2.fillRect(-s, -s * 1.5, 2 * s, 3 * s);
+    ctx2.strokeRect(-s, -s * 1.5, 2 * s, 3 * s);
+    ctx2.translate(step, -step);
+    ctx2.fillRect(-s, -s * 1.5, 2 * s, 3 * s);
+    ctx2.strokeRect(-s, -s * 1.5, 2 * s, 3 * s);
+    ctx2.restore();
+  }
+  function drawCharPlayer(ctx2) {
+    var w2 = width();
+    var h2 = height();
+    var s = Math.min(h2 * 0.075, w2 * 0.1);
+    ctx2.save();
+    ctx2.translate(s * 1.2, h2 + Math.sin(Date.now() * 3e-3) * s * 0.1);
+    ctx2.fillStyle = "#bbb";
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.1, s * 0.1, s * 1.4, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#eee";
+    ctx2.beginPath();
+    ctx2.arc(0, -s * 1.9, s, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#3af";
+    ctx2.fillRect(-s * 0.1, -s * 2.1, s, s * 0.4);
+    ctx2.restore();
+  }
+  function drawCharZoren(ctx2, col = "#3b5") {
+    var w2 = width();
+    var h2 = height();
+    var s = Math.min(h2 * 0.075, w2 * 0.1);
+    ctx2.save();
+    ctx2.translate(w2 - s * 1.2, h2 + Math.sin(Date.now() * 21e-4 + 3) * s * 0.1);
+    ctx2.fillStyle = col;
+    ctx2.fillRect(-s * 0.5, -s * 1.5, s * 1.4, s * 2);
+    ctx2.fillStyle = "#666";
+    ctx2.fillRect(-s * 0.2, -s * 1.5, s * 0.1, s * 2);
+    ctx2.fillRect(-s * 0.35, -s * 0.8, s * 0.1, s * 0.1);
+    ctx2.fillRect(-s * 0.35, -s * 0.6, s * 0.1, s * 0.1);
+    ctx2.fillStyle = "#fdb";
+    ctx2.beginPath();
+    ctx2.arc(0, -s * 1.8, s, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#333";
+    ctx2.fillRect(-s * 1, -s * 1.95, s * 1.6, s * 0.1);
+    ctx2.fillStyle = col;
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.8, -s * 1.8, s * 0.3, 0, 6.29);
+    ctx2.fill();
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.1, -s * 1.8, s * 0.3, 0, 6.29);
+    ctx2.fill();
+    ctx2.restore();
+  }
+  function drawCharWeaponTech(ctx2) {
+    var w2 = width();
+    var h2 = height();
+    var s = Math.min(h2 * 0.075, w2 * 0.1);
+    ctx2.save();
+    ctx2.translate(w2 - s * 1.2, h2 + Math.sin(Date.now() * 21e-4 + 3) * s * 0.1);
+    ctx2.fillStyle = "#d72";
+    ctx2.beginPath();
+    ctx2.ellipse(s * 0.1, s * 0.1, s * 1, s * 1.4, 0, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#f94";
+    ctx2.beginPath();
+    ctx2.arc(0, -s * 1.9, s, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillRect(-s * 0.8, -s * 2.3, s * 0.4, -s);
+    ctx2.fillRect(s * 0.4, -s * 2.4, s * 0.4, -s);
+    ctx2.fillStyle = "#fff";
+    ctx2.beginPath();
+    ctx2.ellipse(-s * 0.3, -s * 2, s * 0.5, s * 0.3, 0, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#222";
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.4, -s * 2, s * 0.2, 0, 6.29);
+    ctx2.fill();
+    ctx2.restore();
+  }
+  function drawCharShipMech(ctx2) {
+    var w2 = width();
+    var h2 = height();
+    var s = Math.min(h2 * 0.075, w2 * 0.1);
+    ctx2.save();
+    ctx2.translate(w2 - s * 1.2, h2 + Math.sin(Date.now() * 21e-4 + 3) * s * 0.1);
+    ctx2.fillStyle = "#77b";
+    ctx2.fillRect(-s * 1.1, -s * 1.5, s * 2.2, s * 2);
+    ctx2.fillStyle = "#669";
+    ctx2.fillRect(s * 0.9, -s * 1.5, s * 0.2, s * 2);
+    ctx2.fillStyle = "#338";
+    ctx2.fillRect(s * 0.5, -s * 2.7, s * 0.3, s * 1.25);
+    ctx2.fillRect(-s * 0.2, -s * 2.7, s * 0.1, -s * 0.8);
+    ctx2.fillStyle = "#55a";
+    ctx2.fillRect(-s * 0.8, -s * 2.7, s * 1.3, s * 1.25);
+    ctx2.fillStyle = "#ff4";
+    ctx2.fillRect(-s * 0.25, -s * 3.4, s * 0.2, -s * 0.2);
+    ctx2.fillRect(-s * 0.7, -s * 2.5, s * 0.4, s * 0.2);
+    ctx2.fillRect(-s * 0.2, -s * 2.5, s * 0.4, s * 0.2);
+    ctx2.restore();
+  }
+  function drawCharMerchant(ctx2) {
+    var w2 = width();
+    var h2 = height();
+    var s = Math.min(h2 * 0.075, w2 * 0.1);
+    ctx2.save();
+    ctx2.translate(w2 - s * 1.2, h2 + Math.sin(Date.now() * 21e-4 + 3) * s * 0.1);
+    ctx2.fillStyle = "#b31";
+    ctx2.beginPath();
+    ctx2.ellipse(s * 0.4, s * 0.1, s * 0.8, s * 1.8, 0, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#d74";
+    ctx2.beginPath();
+    ctx2.arc(0, -s * 1.6, s * 0.6, 0, 6.29);
+    ctx2.fill();
+    ctx2.strokeStyle = "#d74";
+    ctx2.beginPath();
+    ctx2.lineWidth = s * 0.1;
+    ctx2.moveTo(-s * 0.4, -s * 2);
+    ctx2.lineTo(-s * 0.7, -s * 3);
+    ctx2.moveTo(-s * 0.1, -s * 2);
+    ctx2.lineTo(-s * 0.1, -s * 3.2);
+    ctx2.moveTo(s * 0.2, -s * 2);
+    ctx2.lineTo(s * 0.4, -s * 3);
+    ctx2.stroke();
+    ctx2.fillStyle = "#eee";
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.7, -s * 3, s * 0.2, 0, 6.29);
+    ctx2.fill();
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.1, -s * 3.2, s * 0.2, 0, 6.29);
+    ctx2.fill();
+    ctx2.beginPath();
+    ctx2.arc(s * 0.4, -s * 3, s * 0.2, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#611";
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.78, -s * 3, s * 0.1, 0, 6.29);
+    ctx2.fill();
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.18, -s * 3.2, s * 0.1, 0, 6.29);
+    ctx2.fill();
+    ctx2.beginPath();
+    ctx2.arc(s * 0.32, -s * 3, s * 0.1, 0, 6.29);
+    ctx2.fill();
+    ctx2.restore();
+  }
+  function drawCharSmuggler(ctx2) {
+    var w2 = width();
+    var h2 = height();
+    var s = Math.min(h2 * 0.075, w2 * 0.1);
+    ctx2.save();
+    ctx2.translate(w2 - s * 1.2, h2 + Math.sin(Date.now() * 21e-4 + 3) * s * 0.1);
+    ctx2.fillStyle = "#343";
+    ctx2.beginPath();
+    ctx2.arc(s * 0.2, 0, s * 0.6, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#353";
+    ctx2.beginPath();
+    ctx2.arc(s * 0.5, -s * 0.7, s * 0.6, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#363";
+    ctx2.beginPath();
+    ctx2.arc(s * 0.4, -s * 1.4, s * 0.6, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#474";
+    ctx2.beginPath();
+    ctx2.arc(0, -s * 1.9, s * 0.8, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#3f3";
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.6, -s * 2.1, s * 0.07, 0, 6.29);
+    ctx2.fill();
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.4, -s * 2.08, s * 0.07, 0, 6.29);
+    ctx2.fill();
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.65, -s * 1.9, s * 0.07, 0, 6.29);
+    ctx2.fill();
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.45, -s * 1.88, s * 0.07, 0, 6.29);
+    ctx2.fill();
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.62, -s * 1.7, s * 0.07, 0, 6.29);
+    ctx2.fill();
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.42, -s * 1.68, s * 0.07, 0, 6.29);
+    ctx2.fill();
+    ctx2.restore();
+  }
+  function drawCharTemplar(ctx2) {
+    var w2 = width();
+    var h2 = height();
+    var s = Math.min(h2 * 0.075, w2 * 0.1);
+    ctx2.save();
+    ctx2.translate(w2 - s * 1.2, h2 + Math.sin(Date.now() * 21e-4 + 3) * s * 0.1 - s * 0.5);
+    ctx2.fillStyle = "#46c";
+    ctx2.beginPath();
+    ctx2.arc(-s * 0.2, -s * 1.5, s * 0.4, 0, 6.29);
+    ctx2.fill();
+    ctx2.beginPath();
+    ctx2.arc(s * 0.2, -s * 1.4, s * 0.3, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "rgba(100,100,255,0.3)";
+    ctx2.beginPath();
+    ctx2.arc(0, -s * 0.95, s * 1.1, -3.14, 0);
+    ctx2.fill();
+    ctx2.fillStyle = "#db3";
+    ctx2.fillRect(-s * 1.2, -s, s * 2.4, s * 0.3);
+    ctx2.fillRect(-s * 0.6, -s * 0.55, s * 1.2, s * 0.2);
+    ctx2.fillRect(-s * 0.3, -s * 0.2, s * 0.6, s * 0.1);
+    ctx2.restore();
+  }
+  var lineBreaks = (ctx2, txt, maxWidth) => {
+    var str = "";
+    var lines = [];
+    for (let i = 0; i < txt.length; i++) {
+      str += txt[i];
+      if (ctx2.measureText(str).width > maxWidth) {
+        var ls = str.lastIndexOf(" ");
+        var ps = str.substring(0, ls);
+        lines.push(ps.trim());
+        str = str.substring(ls);
+      }
+    }
+    if (str.trim().length > 0) {
+      lines.push(str.trim());
+    }
+    return lines;
+  };
+  var getTextLines = (ctx2, txt, w2, h2, maxWidth) => {
+    var r = textLineMap[txt];
+    if (r) {
+      if (r.w == w2 && r.h == h2) {
+        return r.lines;
+      }
+    }
+    var l = lineBreaks(ctx2, txt, maxWidth);
+    textLineMap[txt] = { w: w2, h: h2, lines: l };
+    return l;
+  };
+  var textLineMap = {};
+  function drawDialogBox(ctx2, title, txt) {
+    var w2 = width();
+    var h2 = height();
+    var s = Math.min(h2 * 0.075, w2 * 0.1);
+    var ts = Math.max(w2 * 0.09, h2 * 0.08);
+    ctx2.save();
+    ctx2.fillStyle = "#236";
+    ctx2.strokeStyle = "#3af";
+    ctx2.lineWidth = s * 0.1;
+    ctx2.beginPath();
+    ctx2.moveTo(s * 2.8, h2 * 0.75);
+    ctx2.lineTo(w2 - s * 2.8, h2 * 0.75);
+    ctx2.lineTo(w2 - s * 2.8, h2 - s * 1.8);
+    ctx2.lineTo(w2 - s * 2.5, h2 - s * 1.6);
+    ctx2.lineTo(w2 - s * 2.8, h2 - s * 1.4);
+    ctx2.lineTo(w2 - s * 2.8, h2 - s * 0.2);
+    ctx2.lineTo(s * 2.8, h2 - s * 0.2);
+    ctx2.closePath();
+    ctx2.fill();
+    ctx2.stroke();
+    ctx2.fillStyle = "#ff3";
+    ctx2.textAlign = "left";
+    ctx2.font = `${ts * 0.25}px monospace`;
+    ctx2.fillText(title, s * 3, h2 * 0.75 + ts * 0.25);
+    ctx2.fillStyle = "#fff";
+    ctx2.textAlign = "left";
+    ctx2.font = `${ts * 0.25}px monospace`;
+    var lines = getTextLines(ctx2, txt, w2, h2, w2 - s * 6);
+    for (let i = 0; i < lines.length; i++) {
+      ctx2.fillText(lines[i], s * 3, h2 * 0.75 + ts * (2.1 + i) * 0.3);
+    }
+    ctx2.restore();
+  }
+  function drawItemShell(ctx2, x, y, s) {
+    ctx2.save();
+    ctx2.translate(x, y);
+    s /= 2;
+    ctx2.fillStyle = "#333";
+    ctx2.strokeStyle = "#666";
+    ctx2.lineWidth = s * 0.1;
+    ctx2.beginPath();
+    ctx2.arc(0, 0, s, 0, 6.29);
+    ctx2.fill();
+    ctx2.stroke();
+    ctx2.restore();
+  }
+  function drawItemXeno(ctx2, x, y, s) {
+    ctx2.save();
+    ctx2.translate(x, y);
+    s /= 2;
+    ctx2.fillStyle = "#ccd";
+    ctx2.fillRect(s * 0.07, -s * 0.7, s * 0.15, s * 0.7);
+    ctx2.beginPath();
+    ctx2.arc(s * 0.1, -s * 0.54, s * 0.24, 0, 6.29);
+    ctx2.fill();
+    ctx2.fillStyle = "#b94";
+    ctx2.fillRect(-s * 0.6, -s * 0.1, s * 1.2, s * 0.7);
+    ctx2.fillRect(s * 0.3, -s * 0.3, s * 0.4, s * 0.5);
+    ctx2.fillStyle = "#aaa";
+    ctx2.textAlign = "center";
+    ctx2.textBaseline = "bottom";
+    ctx2.font = `${s * 0.2}px monospace`;
+    ctx2.fillText("Xenotransponder", 0, s * 1.4);
+    ctx2.restore();
+  }
+
+  // src/startbutton.js
+  function StartButton(txt = "Liftoff") {
+    var hovering = false;
+    var fn = ({ x, y }) => {
+      var w2 = width();
+      var h2 = height();
+      var uiScale = Math.max(w2 * 0.08, h2 * 0.08);
+      if (x > w2 * 0.97 - uiScale * 2 && x < w2 * 0.97 && y > 0 && y < w2 * 0.02 + uiScale * 0.8) {
+        bus_default.emit("start");
+        bus_default.off("tap", fn);
+      }
+    };
+    bus_default.on("tap", fn);
+    this.render = (ctx2) => {
+      var w2 = width();
+      var h2 = height();
+      var uiScale = Math.max(w2 * 0.08, h2 * 0.08);
+      ctx2.save();
+      ctx2.translate(w2 * 0.97 - uiScale, w2 * 0.02 + uiScale * 0.4);
+      var p = Date.now() % 500 / 500;
+      var s = (1 - (1 - p) * (1 - p)) * 0.4 + 0.8;
+      ctx2.scale(s, s * 1.1);
+      ctx2.strokeStyle = "#0a0";
+      ctx2.lineWidth = uiScale * 0.1 * (1 - p);
+      ctx2.strokeRect(-uiScale, -uiScale * 0.4, uiScale * 2, uiScale * 0.8);
+      ctx2.restore();
+      ctx2.fillStyle = "#0a0";
+      ctx2.fillRect(w2 * 0.97, w2 * 0.02, -uiScale * 2, uiScale * 0.8);
+      ctx2.fillStyle = "#fff";
+      ctx2.font = `${uiScale * 0.35}px monospace`;
+      ctx2.textAlign = "center";
+      ctx2.textBaseline = "middle";
+      ctx2.fillText(txt, w2 * 0.97 - uiScale * 1, w2 * 0.02 + uiScale * 0.4);
+    };
+  }
+  var startbutton_default = StartButton;
+
+  // src/audio.js
+  function Audio() {
+    var audioCtx = null;
+    var sampleRate = null;
+    var gateCloseSound;
+    var gateOpenSound;
+    var buySound;
+    var mineralSound;
+    var collisionSound;
+    var laneSound;
+    var missileSound;
+    var laserSound;
+    var pulseBreakerSound;
+    var hopSound;
+    var dashSound;
+    var hyperSound;
+    var healSound;
+    var musicBuffer;
+    var rocketBuffer;
+    var sin = (i) => Math.min(Math.max(Math.sin(i), -1), 1);
+    var saw = (i) => (i % 6.28 - 3.14) / 6.28;
+    var sqr = (i) => Math.min(Math.max(Math.sin(i) * 1e3, -1), 1);
+    var win = (i, ts, te) => {
+      if (i < ts * 44100 || i > te * 44100) {
+        return 0;
+      }
+      return 1 - (i / 44100 - ts) / (te - ts);
+    };
+    var note = (i, tone, time, dur) => 0.01 * sqr(i / (80 / Math.pow(2, tone / 12))) * win(i, time, time + dur);
+    var hhat = (i, time) => 0.02 * Math.random() * win(i, time, time + 0.06);
+    var generate = (duration, fn, fading = true) => {
+      var audioBuffer = audioCtx.createBuffer(1, sampleRate * duration, sampleRate);
+      var buffer = audioBuffer.getChannelData(0);
+      var N = audioBuffer.length;
+      var anim = 0;
+      for (var i = 0; i < N; i++) {
+        var p = i / N;
+        var envelope = 1 - p;
+        if (!fading) {
+          envelope = 1;
+        }
+        buffer[i] = fn(i * 44100 / sampleRate) * envelope;
+      }
+      return audioBuffer;
+    };
+    this.init = () => {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      sampleRate = audioCtx.sampleRate;
+      gateCloseSound = generate(0.6, (i) => {
+        return 0.05 * sqr(i / 250) * (sin(i / 300) + 0);
+      });
+      gateOpenSound = generate(1, (i) => {
+        return 0.05 * sqr(i / 250) * (sin(i / 300) + 0) + 0.1 * Math.random() * win(i, 0, 1);
+      });
+      buySound = generate(0.7, (i) => {
+        return 0.07 * (saw(i / 19) * win(i, 0, 0.15) + saw(i / 11) * win(i, 0.1, 0.7));
+      });
+      mineralSound = generate(0.15, (i) => {
+        return 0.04 * sin(i / (15 - i / 2e3));
+      });
+      collisionSound = generate(0.8, (i) => {
+        return 0.1 * Math.random() * win(i, 0, 0.8) * (sqr(i / 200) + 1);
+      });
+      laneSound = generate(0.4, (i) => {
+        return 0.04 * (1 + Math.random() / 3) * win(i, 0, 0.4) * sin(i / 50);
+      });
+      missileSound = generate(0.7, (i) => {
+        return 0.04 * Math.random() * win(i, 0, 0.7) * (sqr(i / 100) + 1);
+      });
+      laserSound = generate(1.5, (i) => {
+        return 0.08 * (sin(i / (30 - i / 400)) * win(i, 0, 0.15) * 3 + saw(i / 60) * (sqr(i / 400) + 1) / 2 * win(i, 0.1, 1.5));
+      });
+      pulseBreakerSound = generate(1, (i) => {
+        return 0.04 * sin(i / 50) * (sqr(i / 800 + 1) + 1);
+      });
+      hopSound = generate(0.7, (i) => {
+        return 0.1 * (saw(i / 30) * win(i, 0, 0.1) + saw(i / 50) * win(i, 0.1, 0.2) + saw(i / 40) * win(i, 0.2, 0.3) + saw(i / 20) * win(i, 0.3, 0.4) + saw(i / 10) * win(i, 0.4, 0.5));
+      });
+      dashSound = generate(0.7, (i) => {
+        var acc = 0;
+        for (let q = 0; q < 10; q++) {
+          acc += sin(i / (10 + q * q / 20)) * win(i, q / 10, (q + 1) / 10);
+        }
+        return 0.05 * acc;
+      });
+      hyperSound = generate(1.5, (i) => {
+        var acc = 0;
+        for (let q = 0; q < 13; q++) {
+          acc += sqr(i / (10 - q * q / 15)) * win(i, q / 15, (q + 1) / 15);
+          acc += sqr(i / (40 - q * q / 3)) * win(i, q / 15 + 0.03, (q + 1) / 15);
+        }
+        return 0.05 * acc;
+      });
+      healSound = generate(0.6, (i) => {
+        return 0.04 * sin(i / (50 - i / 2e3)) * (sqr(i / 700 + 1) + 1);
+      });
+      musicBuffer = generate(0.2 * 48, (i) => {
+        var d = 0.2;
+        var acc = 0;
+        for (let q = 0; q < 48; q += 8) {
+          acc += hhat(i, d * (q + 0)) + hhat(i, d * (q + 1)) + hhat(i, d * (q + 2)) * 3 + hhat(i, d * (q + 3)) + hhat(i, d * (q + 4)) + hhat(i, d * (q + 6)) * 3;
+        }
+        acc += note(i, 12, d * 8, d * 1) + note(i, 7, d * 11, d * 1) + note(i, 10, d * 14, d * 1.5) + note(i, 9, d * 16, d * 1.5) + note(i, 3, d * 18, d * 1.5) + note(i, 6, d * 32, d * 1) + note(i, 3, d * 35, d * 1) + note(i, 5, d * 38, d * 1.5) + note(i, 3, d * 40, d * 1.5) + note(i, 0, d * 42, d * 1.5);
+        return acc;
+      }, false);
+      rocketBuffer = generate(3, (i) => {
+        return 0.01 * (saw(i / 300) * sqr(i / 130) + 1);
+      }, false);
+    };
+    var play = (audioBuffer) => {
+      var source = audioCtx.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect(audioCtx.destination);
+      source.start();
+    };
+    this.setup = () => {
+      if (audioCtx == null) {
+        this.init();
+      }
+      bus_default.on("txn", () => {
+        play(gateCloseSound);
+      });
+      bus_default.on("txn-done", () => {
+        play(gateOpenSound);
+      });
+      bus_default.on("buy", () => {
+        play(buySound);
+      });
+      bus_default.on("mineral", () => {
+        play(mineralSound);
+      });
+      bus_default.on("mine", () => {
+        play(mineralSound);
+      });
+      bus_default.on("hit", () => {
+        play(collisionSound);
+      });
+      bus_default.on("boom", () => {
+        play(collisionSound);
+      });
+      bus_default.on("lane", () => {
+        play(laneSound);
+      });
+      bus_default.on("hop", () => {
+        play(hopSound);
+      });
+      bus_default.on("dash", () => {
+        play(dashSound);
+      });
+      bus_default.on("hyper", () => {
+        play(hyperSound);
+      });
+      bus_default.on("heal", () => {
+        play(healSound);
+      });
+      bus_default.on("projectile", (t) => {
+        if (t == 1 || t == 4 || t == 5) {
+          play(missileSound);
+        }
+        if (t == 2) {
+          play(laserSound);
+        }
+        if (t == 3) {
+          play(pulseBreakerSound);
+        }
+      });
+    };
+    var musicSource = null;
+    this.music = () => {
+      if (audioCtx == null) {
+        this.init();
+      }
+      musicSource = audioCtx.createBufferSource();
+      musicSource.buffer = musicBuffer;
+      musicSource.loop = true;
+      musicSource.connect(audioCtx.destination);
+      musicSource.start();
+    };
+    this.bgRocket = () => {
+      if (audioCtx == null) {
+        this.init();
+      }
+      musicSource = audioCtx.createBufferSource();
+      musicSource.buffer = rocketBuffer;
+      musicSource.loop = true;
+      musicSource.connect(audioCtx.destination);
+      musicSource.start();
+    };
+    this.stopMusic = () => {
+      try {
+        if (musicSource != null) {
+          musicSource.stop();
+        }
+      } catch (e) {
+      }
+    };
+  }
+  var audio_default = new Audio();
+
+  // src/steam.js
+  function Steam(x, y) {
+    var ttl = Math.random() * 0.4 + 0.2;
+    var size = (Math.random() + 1) * width() * 0.02;
+    var vy = (Math.random() - 0.5) * height() * 0.08 * size;
+    this.update = (dT) => {
+      ttl -= dT;
+      if (ttl < 0) {
+        this.destroyed = false;
+      }
+      size += size * ttl * dT;
+      y += vy * dT;
+      vy -= vy * dT * 2;
+      x -= (Math.random() - 0.5) * size * dT * 5;
+    };
+    this.render = (ctx2) => {
+      var w2 = width();
+      var opacity = ttl;
+      ctx2.fillStyle = `rgba(255,255,255,${opacity})`;
+      ctx2.beginPath();
+      ctx2.arc(x, y, Math.max(size, 1), 0, 6.29);
+      ctx2.fill();
+    };
+  }
+
+  // src/text.js
+  function Text(str, x, y, color = "#fff", size = "1", align = "left") {
+    this.str = str;
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.size = size;
+    this.render = (ctx2) => {
+      var uiScale = width() * 0.08;
+      ctx2.textAlign = align;
+      ctx2.textBaseline = "middle";
+      ctx2.fillStyle = this.color;
+      ctx2.font = `${this.size * uiScale}px monospace`;
+      ctx2.fillText(this.str, this.x(), this.y());
+    };
+  }
+  var text_default = Text;
+
+  // src/mainmenu.js
+  function MainMenu() {
+    this.render = (ctx2) => drawStars(ctx2, -Date.now() * 0.03, 0, 3, 0);
+    add(new text_default("SHUTTLEDECK", () => width() / 2, () => height() * 0.4, "#fff", 1, "center"));
+    var pushToStart = new text_default("[ Press to start ]", () => width() / 2, () => height() * 0.6, "#777", 0.5, "center");
+    pushToStart.ecs = [pulse((x) => {
+      pushToStart.size = x;
+    }, 0.45, 0.55, 1)];
+    add(pushToStart);
+    add(new text_default("by Ariel Wexler", () => width() / 2, () => height() * 0.8, "#f3f", 0.35, "center"));
+    var fn = () => {
+      bus_default.emit("transition-scene", 1);
+      bus_default.off("tap", fn);
+    };
+    bus_default.on("tap", fn);
+  }
+
+  // src/cards.js
+  var cards = [
+    {
+      color: [255, 51, 51],
+      title: ["Rho", "Channel"],
+      cost: 1,
+      price: 5,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.beginPath();
+        ctx2.arc(0, -cs / 6, cs / 7, 0, 6.29);
+        ctx2.stroke();
+        ctx2.strokeRect(-cs / 6, cs / 10, cs / 3, 0);
+        ctx2.strokeRect(-cs / 6, cs / 4, cs / 3, 0);
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("lane", 0);
+      }
+    },
+    {
+      color: [51, 255, 51],
+      title: ["Gamma", "Sector"],
+      cost: 1,
+      price: 5,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.beginPath();
+        ctx2.arc(0, 0, cs / 7, 0, 6.29);
+        ctx2.stroke();
+        ctx2.strokeRect(-cs / 6, -cs / 4, cs / 3, 0);
+        ctx2.strokeRect(-cs / 6, cs / 4, cs / 3, 0);
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("lane", 1);
+      }
+    },
+    {
+      color: [51, 51, 255],
+      title: ["Beta", "Stream"],
+      cost: 1,
+      price: 5,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.beginPath();
+        ctx2.arc(0, cs / 6, cs / 7, 0, 6.29);
+        ctx2.stroke();
+        ctx2.strokeRect(-cs / 6, -cs / 10, cs / 3, 0);
+        ctx2.strokeRect(-cs / 6, -cs / 4, cs / 3, 0);
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("lane", 2);
+      }
+    },
+    {
+      color: [255, 160, 30],
+      title: ["Kepler", "Missile"],
+      cost: 2,
+      price: 10,
+      glyph: function(ctx2, cs, ls = 0.05) {
+        ctx2.save();
+        ctx2.translate(cs / 20, 0);
+        ctx2.rotate(0.6);
+        ctx2.lineWidth = cs * ls;
+        ctx2.beginPath();
+        ctx2.moveTo(-cs / 18, -cs / 6);
+        ctx2.lineTo(0, -cs / 4);
+        ctx2.lineTo(cs / 18, -cs / 6);
+        ctx2.lineTo(cs / 18, cs / 4);
+        ctx2.lineTo(-cs / 18, cs / 4);
+        ctx2.closePath();
+        ctx2.moveTo(-cs / 8, cs / 4);
+        ctx2.lineTo(-cs / 6, cs / 4);
+        ctx2.lineTo(-cs / 8, cs / 10);
+        ctx2.closePath();
+        ctx2.moveTo(cs / 8, cs / 4);
+        ctx2.lineTo(cs / 6, cs / 4);
+        ctx2.lineTo(cs / 8, cs / 10);
+        ctx2.closePath();
+        ctx2.stroke();
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("projectile", 1);
+      }
+    },
+    {
+      color: [255, 160, 30],
+      title: ["Sigma", "Cannon"],
+      cost: 3,
+      price: 15,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.translate(cs / 12, cs / 15);
+        ctx2.rotate(0.6);
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        ctx2.beginPath();
+        ctx2.moveTo(-cs / 4, -cs / 4);
+        ctx2.lineTo(-cs / 14, -cs / 4);
+        ctx2.lineTo(-cs / 14, -cs / 10);
+        ctx2.lineTo(cs / 10, -cs / 10);
+        ctx2.lineTo(cs / 10, cs / 4);
+        ctx2.lineTo(-cs / 4, cs / 4);
+        ctx2.closePath();
+        ctx2.moveTo(-cs / 6, 0);
+        ctx2.lineTo(0, 0);
+        ctx2.lineTo(-cs / 12, cs / 12);
+        ctx2.lineTo(0, cs / 6);
+        ctx2.lineTo(-cs / 6, cs / 6);
+        ctx2.stroke();
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("projectile", 2);
+      }
+    },
+    {
+      color: [255, 160, 30],
+      title: ["Pulse", "Breaker"],
+      cost: 3,
+      price: 15,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.translate(-cs / 30, 0);
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        ctx2.beginPath();
+        ctx2.arc(0, 0, cs / 16, 0, 6.29);
+        ctx2.stroke();
+        ctx2.beginPath();
+        ctx2.arc(0, 0, cs / 5, -1, 1);
+        ctx2.stroke();
+        ctx2.beginPath();
+        ctx2.arc(0, 0, cs / 3, -0.8, 0.8);
+        ctx2.stroke();
+        ctx2.rotate(0.5);
+        ctx2.strokeRect(-cs / 8, -cs / 30, -cs / 8, cs / 15);
+        ctx2.rotate(-1);
+        ctx2.strokeRect(-cs / 8, -cs / 30, -cs / 8, cs / 15);
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("projectile", 3);
+      }
+    },
+    {
+      color: [255, 160, 30],
+      title: ["Crazy", "Rockets"],
+      cost: 2,
+      price: 10,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        for (let i = 0; i < 2; i++) {
+          ctx2.beginPath();
+          ctx2.moveTo(-cs / 4, cs / 8);
+          ctx2.lineTo(-cs / 6, -cs / 8);
+          ctx2.lineTo(cs / 14, cs / 20);
+          ctx2.lineTo(cs / 8, -cs / 6);
+          ctx2.stroke();
+          ctx2.beginPath();
+          ctx2.moveTo(cs / 8 + cs / 12, -cs / 6);
+          ctx2.lineTo(cs / 8 - cs / 12, -cs / 6);
+          ctx2.lineTo(cs / 8, -cs / 6 - cs / 8);
+          ctx2.closePath();
+          ctx2.stroke();
+          ctx2.translate(cs / 16, cs / 5);
+          ctx2.rotate(0.2);
+        }
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("projectile", 4);
+      }
+    },
+    {
+      color: [255, 160, 30],
+      title: ["Tactical", "Nuke"],
+      cost: 4,
+      price: 20,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        ctx2.beginPath();
+        ctx2.arc(0, 0, cs / 3, 0, 6.29);
+        ctx2.stroke();
+        ctx2.beginPath();
+        ctx2.arc(0, 0, cs / 20, 0, 6.29);
+        ctx2.stroke();
+        ctx2.rotate(0.5);
+        for (let i = 0; i < 3; i++) {
+          ctx2.beginPath();
+          ctx2.arc(0, 0, cs / 4, -0.4, 0.4, false);
+          ctx2.arc(0, 0, cs / 8, 0.4, -0.4, true);
+          ctx2.closePath();
+          ctx2.stroke();
+          ctx2.rotate(2.1);
+        }
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("projectile", 5);
+      }
+    },
+    {
+      color: [255, 70, 255],
+      title: ["Quantum", "Hopper"],
+      cost: 1,
+      price: 5,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        ctx2.beginPath();
+        ctx2.arc(0, cs / 5, cs / 14, 0, 6.29);
+        ctx2.stroke();
+        ctx2.beginPath();
+        ctx2.arc(0, 0, cs / 14, 0, 6.29);
+        ctx2.stroke();
+        ctx2.beginPath();
+        ctx2.arc(0, -cs / 5, cs / 14, 0, 6.29);
+        ctx2.stroke();
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("hop", 2);
+      }
+    },
+    {
+      color: [255, 70, 255],
+      title: ["Shadow", "Dash"],
+      cost: 2,
+      price: 10,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        ctx2.translate(-cs / 20, cs / 10);
+        ctx2.rotate(0.6);
+        ctx2.beginPath();
+        ctx2.arc(0, 0, cs / 10, 0, 6.29);
+        ctx2.stroke();
+        ctx2.beginPath();
+        ctx2.moveTo(0, -cs / 6);
+        ctx2.lineTo(0, -cs / 3);
+        ctx2.moveTo(0, cs / 6);
+        ctx2.lineTo(0, cs / 4);
+        ctx2.stroke();
+        ctx2.beginPath();
+        ctx2.moveTo(-cs / 12, -cs / 3);
+        ctx2.lineTo(cs / 12, -cs / 3);
+        ctx2.lineTo(0, -cs / 2);
+        ctx2.closePath();
+        ctx2.stroke();
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("dash");
+      }
+    },
+    {
+      color: [255, 70, 255],
+      title: ["Shield", "Charger"],
+      cost: 3,
+      price: 15,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        ctx2.beginPath();
+        ctx2.arc(0, 0, cs / 4, 0, 6.29);
+        ctx2.stroke();
+        ctx2.beginPath();
+        ctx2.moveTo(-cs / 7, 0);
+        ctx2.lineTo(cs / 7, 0);
+        ctx2.moveTo(0, -cs / 7);
+        ctx2.lineTo(0, cs / 7);
+        ctx2.stroke();
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("heal");
+      }
+    },
+    {
+      color: [255, 70, 255],
+      title: ["Mineral", "Siphon"],
+      cost: 3,
+      price: 15,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        for (let i = 0; i < 3; i++) {
+          ctx2.save();
+          ctx2.translate((1 - (i - 1) * (i - 1)) * cs / 5, (i - 1) * cs / 5);
+          ctx2.beginPath();
+          ctx2.moveTo(-cs / 12, 0);
+          ctx2.lineTo(0, -cs / 10);
+          ctx2.lineTo(cs / 12, 0);
+          ctx2.lineTo(0, cs / 10);
+          ctx2.closePath();
+          ctx2.stroke();
+          ctx2.restore();
+        }
+        ctx2.beginPath();
+        ctx2.moveTo(0, 0);
+        ctx2.lineTo(-cs / 3, 0);
+        ctx2.moveTo(-cs / 8, cs / 10);
+        ctx2.lineTo(-cs / 3, 0);
+        ctx2.moveTo(-cs / 8, -cs / 10);
+        ctx2.lineTo(-cs / 3, 0);
+        ctx2.stroke();
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("mine");
+      }
+    },
+    {
+      color: [255, 70, 255],
+      title: ["Hyper", "Drive"],
+      cost: 4,
+      price: 20,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        ctx2.beginPath();
+        ctx2.moveTo(-cs / 6, -cs / 4);
+        ctx2.lineTo(cs / 6, -cs / 4);
+        ctx2.lineTo(-cs / 6, cs / 4);
+        ctx2.lineTo(cs / 6, cs / 4);
+        ctx2.closePath();
+        ctx2.stroke();
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("hyper");
+      }
+    },
+    {
+      color: [0, 255, 255],
+      title: ["Defense", "Blessing"],
+      cost: 0,
+      price: 25,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.beginPath();
+        ctx2.arc(0, 0, cs / 3, 0, 6.29);
+        ctx2.stroke();
+        ctx2.beginPath();
+        ctx2.arc(0, 0, cs / 7, 0, 6.29);
+        ctx2.stroke();
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("persist-max-shield");
+      }
+    },
+    {
+      color: [255, 255, 0],
+      title: ["Strength", "Blessing"],
+      cost: 0,
+      price: 25,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        ctx2.translate(0, -cs / 10);
+        ctx2.strokeRect(-cs / 4, -cs / 6, cs / 2, cs * 0.6);
+        ctx2.strokeRect(-cs / 10, -cs / 4, cs / 5, -cs / 8);
+        ctx2.translate(0, cs / 7);
+        ctx2.beginPath();
+        ctx2.moveTo(-cs / 10, -cs / 6);
+        ctx2.lineTo(cs / 10, -cs / 6);
+        ctx2.lineTo(-cs / 20, 0);
+        ctx2.lineTo(cs / 20, 0);
+        ctx2.lineTo(0, cs / 6);
+        ctx2.stroke();
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("persist-max-energy");
+      }
+    },
+    {
+      color: [200, 200, 200],
+      title: ["Vision", "Blessing"],
+      cost: 0,
+      price: 25,
+      glyph: function(ctx2, cs) {
+        ctx2.save();
+        ctx2.lineWidth = cs * 0.05;
+        ctx2.lineCap = "round";
+        ctx2.strokeRect(-cs * 0.25, 0, cs * 0.2, cs * 0.3);
+        ctx2.strokeRect(cs * 0.05, 0, cs * 0.2, cs * 0.3);
+        ctx2.strokeRect(-cs * 0.1, -cs * 0.4, cs * 0.2, cs * 0.3);
+        ctx2.restore();
+      },
+      use: () => {
+        bus_default.emit("persist-max-hand");
+      }
+    }
+  ];
+  var cards_default = cards;
+
+  // src/persist.js
+  var persist_default = (() => {
+    var minerals = 0;
+    var level = 0;
+    var handSize = 3;
+    var maxEnergy = 5;
+    var maxShield = 3;
+    var deck = [];
+    var a = {
+      reset: () => {
+        minerals = 0;
+        level = 0;
+        handSize = 3;
+        maxEnergy = 5;
+        maxShield = 3;
+        deck = [
+          cards_default[0],
+          cards_default[0],
+          cards_default[0],
+          cards_default[1],
+          cards_default[1],
+          cards_default[1],
+          cards_default[2],
+          cards_default[2],
+          cards_default[2]
+        ];
+      },
+      getMinerals: () => minerals,
+      addMineral: (m) => minerals += m,
+      getLevel: () => level,
+      setLevel: (l) => level = l,
+      getHandSize: () => handSize,
+      setHandSize: (e) => handSize = e,
+      getMaxEnergy: () => maxEnergy,
+      setMaxEnergy: (e) => maxEnergy = e,
+      getMaxShield: () => maxShield,
+      setMaxShield: (e) => maxShield = e,
+      getDeck: () => deck,
+      addToDeck: (c) => deck.push(c)
+    };
+    a.reset();
+    return a;
+  })();
+
+  // src/intro.js
+  function Intro() {
+    add(new text_default("Professor Zorn's Lab", () => width() * 0.03, () => width() * 0.05, "#fff", 0.5, "left"));
+    add(new startbutton_default());
+    bus_default.on("start", () => {
+      persist_default.reset();
+      bus_default.emit("transition-scene", 2);
+    });
+    this.render = (ctx2) => {
+      var uiScale = height() * 0.3;
+      drawCharPlayer(ctx2);
+      drawCharZoren(ctx2);
+      drawDialogBox(
+        ctx2,
+        "Professor Zorn",
+        "Hey there Courier, I need your help getting this Xenotransponder to Korva-6. It's only a few planets away."
+      );
+      drawItemShell(ctx2, width() * 0.5, height() * 0.4, uiScale);
+      drawItemXeno(ctx2, width() * 0.5, height() * 0.4, uiScale);
+    };
+  }
+
+  // src/playedcard.js
+  function PlayedCard(x, y, card, cs) {
+    var anim = 0;
+    this.update = (dT) => {
+      y -= 500 * (0.5 - anim) * dT;
+      cs += cs * 3 * (0.5 - anim) * dT;
+      anim += dT * 1.2;
+      if (anim > 0.5) {
+        this.destroyed = true;
+      }
+    };
+    this.render = (ctx2) => {
+      drawCard(ctx2, x, y, cs, card, false, (0.5 - anim) * 2);
+    };
+  }
+  var playedcard_default = PlayedCard;
+
+  // src/pullcard.js
+  function PullCard(engine, x, y, card, cs, slot) {
+    var anim = -0.5;
+    this.update = (dT) => {
+      anim += dT * 3;
+      if (anim > 1) {
+        this.destroyed = true;
+        bus_default.emit("place", { slot, card });
+      }
+    };
+    this.render = (ctx2) => {
+      var maxOp = 0.15;
+      if (engine.hasEnergy(card)) {
+        maxOp = 1;
+      }
+      var p = Math.min(Math.max(anim, 0), 1);
+      drawCard(
+        ctx2,
+        x * p * p + width() / 2 * (1 - p * p),
+        y * p * p + height() * (1 - p * p),
+        cs * p,
+        card,
+        false,
+        p * maxOp
+      );
+    };
+  }
+  var pullcard_default = PullCard;
+
+  // src/asteroid.js
+  function Asteroid(engine, tick, slot) {
+    var anim = Math.random() * 100;
+    this.x = 0;
+    this.y = 0;
+    this.obstacle = true;
+    this.update = (dT) => {
+      anim += dT * 0.1;
+      this.x = engine.laneX(tick);
+      this.y = engine.laneY(slot);
+      if (engine.getTick() > tick + 6) {
+        this.destroyed = true;
+      }
+      if (engine.closeToShip(engine.laneX(tick), engine.laneY(slot), 2)) {
+        this.destroyed = true;
+        bus_default.emit("hit", 1);
+      }
+    };
+    this.render = (ctx2) => {
+      ctx2.save();
+      ctx2.translate(this.x, this.y);
+      var s = engine.laneScale() * 1;
+      ctx2.fillStyle = "#963";
+      for (let i = 0; i < 8; i++) {
+        ctx2.beginPath();
+        ctx2.arc(
+          (i + 0.7) * s * 0.3 + Math.sin(anim * 3 + i * i * 4) * s * 0.6,
+          Math.sin(anim * 5 + i * i * 4) * s * 0.7,
+          s * 0.6 / (1 + i * 1),
+          0,
+          6.29
+        );
+        ctx2.fill();
+      }
+      ctx2.beginPath();
+      ctx2.arc(0, 0, s, 0, 6.29);
+      ctx2.fill();
+      ctx2.restore();
+    };
+  }
+  var asteroid_default = Asteroid;
+
+  // src/mineral.js
+  function Mineral(engine, tick, slot, type) {
+    var anim = Math.random() * 100;
+    this.x = 0;
+    this.y = 0;
+    var homing = false;
+    var ht = 0;
+    var value = 1;
+    if (Math.random() > 0.6) {
+      value = 3;
+      if (Math.random() > 0.6) {
+        value = 7;
+      }
+    }
+    var mineFn = () => {
+      homing = true;
+      bus_default.emit("poof", { x: this.x, y: this.y, color: [255, 130, 255], size: 0.6, t: 0.3 });
+      bus_default.off("mine", mineFn);
+    };
+    bus_default.on("mine", mineFn);
+    this.update = (dT) => {
+      anim += dT * 1;
+      if (homing) {
+        var dx = engine.getShipX() - this.x;
+        var dy = engine.getShipY() - this.y;
+        var m = Math.sqrt(dx * dx + dy * dy);
+        var s = width() * ht;
+        ht += dT;
+        this.x += dx / m * s * dT;
+        this.y += dy / m * s * dT;
+      } else {
+        this.x = engine.laneX(tick);
+        this.y = engine.laneY(slot);
+      }
+      if (engine.getTick() > tick + 6 && !homing) {
+        this.destroyed = true;
+        bus_default.off("mine", mineFn);
+      }
+      if (engine.closeToShip(this.x, this.y, 1.4)) {
+        this.destroyed = true;
+        bus_default.off("mine", mineFn);
+        bus_default.emit("mineral", value);
+      }
+    };
+    this.render = (ctx2) => {
+      var s = engine.laneScale();
+      if (value == 1) {
+        drawMineral(ctx2, this.x, this.y, anim, s * 0.4);
+      } else if (value == 3) {
+        drawMineral(ctx2, this.x - s / 3, this.y, anim, s * 0.3);
+        drawMineral(ctx2, this.x + s / 3, this.y - s / 2, anim, s * 0.3);
+        drawMineral(ctx2, this.x + s / 3, this.y + s / 2, anim, s * 0.3);
+      } else if (value == 7) {
+        for (let i = 0; i < 6; i++) {
+          drawMineral(ctx2, this.x + Math.sin(i * 1.04) * s * 0.8, this.y + Math.cos(i * 1.04) * s * 0.8, anim, s * 0.25);
+        }
+        drawMineral(ctx2, this.x, this.y, anim, s * 0.3);
+      }
+    };
+  }
+  var mineral_default = Mineral;
+
+  // src/projectile.js
+  function Projectile(engine, x, y, targetLane, projectileType) {
+    var anim = 0;
+    this.x = x;
+    this.y = y;
+    var trail = [];
+    this.update = (dT) => {
+      anim += dT * 1;
+      if (projectileType == 5) {
+        this.x += dT * width() * (1 - anim / 0.35);
+        if (anim > 0.35) {
+          get().forEach((g2) => {
+            if (g2.obstacle) {
+              g2.destroyed = true;
+              bus_default.emit("poof", { x: g2.x, y: g2.y, color: [255, 50, 50], size: 1, t: 0.5 });
+            }
+          });
+          var w2 = width(), h2 = height(), n = Math.sqrt(w2 * h2) / 20;
+          for (let i = 0; i < n; i++) {
+            bus_default.emit("poof", { x: Math.random() * w2, y: Math.random() * h2, color: [255, 244, 50], size: Math.random() * 1 + 1, t: Math.random() * 0.4 + 0.4 });
+          }
+          bus_default.emit("boom");
+          this.destroyed = true;
+        }
+      } else if (projectileType != 2) {
+        if (projectileType != 4) {
+          this.x += dT * width() / 2;
+        } else {
+          var angle = Math.sin(Date.now() / 30) * 0.4;
+          if (this.homing && !this.homing.destroyed) {
+            angle += Math.atan2(this.homing.y - this.y, this.homing.x - this.x);
+          }
+          this.y += dT * width() * 0.8 * Math.sin(angle);
+          this.x += dT * width() * 0.8 * Math.cos(angle);
+        }
+        if (anim > 4) {
+          this.destroyed = true;
+        }
+        if (engine.collideTargets(this.x, this.y, 1.5)) {
+          this.destroyed = true;
+          bus_default.emit("boom");
+          if (projectileType == 1) {
+            bus_default.emit("poof", { x: this.x, y: this.y, color: [255, 200, 100], size: 1, t: 0.5 });
+          }
+          if (projectileType == 3) {
+            bus_default.emit("poof", { x: this.x, y: this.y, color: [100, 255, 100], size: 1, t: 0.5 });
+          }
+          if (projectileType == 4) {
+            bus_default.emit("poof", { x: this.x, y: this.y, color: [255, 200, 140], size: 0.6, t: 0.5 });
+          }
+        }
+      } else {
+        var s = engine.laneScale();
+        var ly = engine.getShipY();
+        var lx = engine.getShipX();
+        get().forEach((g2) => {
+          if (g2.obstacle) {
+            var dy = ly - g2.y;
+            if (dy * dy < s * s && g2.x > lx && !g2.destroyed) {
+              g2.destroyed = true;
+              bus_default.emit("poof", { x: g2.x, y: ly, color: [50, 130, 255], size: 0.7, t: 0.5 });
+            }
+          }
+        });
+        if (anim > 1) {
+          this.destroyed = true;
+        }
+      }
+    };
+    this.render = (ctx2) => {
+      ctx2.save();
+      var s = engine.laneScale();
+      if (projectileType == 1) {
+        ctx2.fillStyle = "#fff";
+        ctx2.translate(this.x, this.y);
+        ctx2.fillRect(-s * 0.2, -s * 0.2, s * 1.2, s * 0.4);
+        ctx2.fillRect(-s * 0.4, -s * 0.35, s * 0.4, s * 0.2);
+        ctx2.fillRect(-s * 0.4, s * 0.15, s * 0.4, s * 0.2);
+        ctx2.fillStyle = "#fa3";
+        if (Math.sin(Date.now() / 14) > 0) {
+          ctx2.fillRect(-s * 0.3, -s * 0.05, -s * 0.8, s * 0.1);
+        }
+      }
+      if (projectileType == 2) {
+        ctx2.translate(engine.getShipX(), engine.getShipY());
+        ctx2.fillStyle = "#338";
+        ctx2.fillRect(s * 0.8, -s * 0.3, s * 0.6, s * 0.6);
+        ctx2.fillRect(s * 0.9, -s * 0.2, width(), s * 0.4);
+        ctx2.fillStyle = "#3af";
+        if (Math.sin(Date.now() / 14) > 0) {
+          ctx2.fillRect(s, -s * 0.1, width(), s * 0.2);
+          ctx2.fillRect(s * 0.9, -s * 0.2, s * 0.4, s * 0.4);
+        }
+      }
+      if (projectileType == 3) {
+        ctx2.fillStyle = "#383";
+        ctx2.translate(this.x, this.y);
+        ctx2.beginPath();
+        ctx2.arc(0, 0, s * 0.6, 0, 6.29);
+        ctx2.fill();
+        if (Math.sin(Date.now() / 14) > 0) {
+          ctx2.fillStyle = "#8f8";
+          ctx2.beginPath();
+          ctx2.arc(0, 0, s * 0.4, 0, 6.29);
+          ctx2.fill();
+        }
+      }
+      if (projectileType == 4) {
+        ctx2.fillStyle = "#fa4";
+        ctx2.beginPath();
+        ctx2.arc(this.x, this.y, s * 0.3, 0, 6.29);
+        ctx2.fill();
+        trail.unshift({ x: this.x, y: this.y });
+        if (trail.length > 14) {
+          trail.pop();
+        }
+        ctx2.lineWidth = s * 0.1;
+        ctx2.strokeStyle = "#fa4";
+        ctx2.beginPath();
+        ctx2.moveTo(this.x, this.y);
+        for (let i = 0; i < trail.length; i++) {
+          ctx2.lineTo(trail[i].x, trail[i].y);
+        }
+        ctx2.stroke();
+      }
+      if (projectileType == 5) {
+        ctx2.fillStyle = "#ff0";
+        ctx2.translate(this.x, this.y);
+        ctx2.beginPath();
+        ctx2.arc(0, 0, s * 0.4, 0, 6.29);
+        ctx2.fill();
+        ctx2.fillStyle = "#333";
+        ctx2.fillRect(-s * 0.2, -s * 0.2, s * 0.4, s * 0.4);
+      }
+      ctx2.restore();
+    };
+  }
+  var projectile_default = Projectile;
+
+  // src/poof.js
+  function Poof(engine, x, y, color, size, duration) {
+    var anim = 0;
+    this.update = (dT) => {
+      anim += dT * 1;
+      if (anim > duration) {
+        this.destroyed = true;
+      }
+    };
+    this.render = (ctx2) => {
+      ctx2.save();
+      var s = engine.laneScale();
+      ctx2.translate(x, y);
+      ctx2.beginPath();
+      var opacity = 1 - anim / duration;
+      var p = 0.5 + 1.5 * (1 - Math.exp(-anim / duration * 3));
+      ctx2.fillStyle = `rgba(${color[0]},${color[1]},${color[2]},${opacity})`;
+      ctx2.arc(0, 0, size * s * p, 0, 6.29);
+      ctx2.fill();
+      ctx2.restore();
+    };
+  }
+  var poof_default = Poof;
+
+  // src/engine.js
+  function Engine() {
+    var currLevel = persist_default.getLevel();
+    var cloneCard = (card) => Object.assign({}, card);
+    var shuffle = (d) => d.sort(() => Math.random() - 0.5);
+    var removeFromHand = (idx) => {
+      discardPile.push(hand[idx]);
+      hand[idx] = null;
+    };
+    var pullFromDeckToSlot = (slot) => {
+      var idx = parseInt(Math.random() * deck.length);
+      var pulledCard = deck[idx];
+      deck.splice(idx, 1);
+      var w2 = width();
+      var h2 = height();
+      var cs = getCardScale(w2, h2);
+      var x = getCardPosX(slot, cs, w2);
+      var y = getCardPosY(h2);
+      add(new pullcard_default(this, x, y, pulledCard, cs, slot));
+      if (deck.length == 0) {
+        deck = discardPile;
+        shuffle(deck);
+        discardPile = [];
+      }
+    };
+    var getCardScale = (w2, h2) => Math.min(w2 * (0.95 / (1 + handSize)), h2 * 0.185);
+    var getCardPosX = (q, cs, w2) => w2 * 0.5 + (q - (handSize - 1) / 2) * cs * 1.17;
+    var getCardPosY = (h2) => h2 * 0.735;
+    var deck = persist_default.getDeck().map(cloneCard);
+    var discardPile = [];
+    shuffle(deck);
+    var handSize = persist_default.getHandSize();
+    var hand = [];
+    for (let i = 0; i < handSize; i++) {
+      pullFromDeckToSlot(i);
+    }
+    var hovering = -1;
+    var currentLane = 1;
+    var laneAnim = 1;
+    var shipAngle = 0;
+    var dashing = 0;
+    var dashSpeed = 0;
+    var maxShield = persist_default.getMaxShield();
+    var shield = maxShield;
+    var maxEnergy = persist_default.getMaxEnergy();
+    var energy = maxEnergy;
+    var energyRefill = 0;
+    var energyRefillRate = 0.75;
+    var totalTicks = 20 + currLevel * 2;
+    var currentTick = 0;
+    var tickAnim = 0;
+    var anim = 0;
+    const getHoverIndex = (evt) => {
+      const w2 = width();
+      const h2 = height();
+      const mx = evt.x, my = evt.y;
+      var hov = -1;
+      var cardsInHand = hand.length;
+      var cs = Math.min(w2 * (0.95 / (1 + cardsInHand)), h2 * 0.185);
+      for (let q = 0; q < cardsInHand; q++) {
+        var x = w2 * 0.5 + (q - (cardsInHand - 1) / 2) * cs * 1.17;
+        var y = h2 * 0.735;
+        if (mx > x - cs / 2 && mx < x + cs / 2 && my > y - cs * 3 / 4 && my < y + cs * 3 / 4) {
+          hov = q;
+        }
+      }
+      return hov;
+    };
+    bus_default.on("tap", (evt) => {
+      var hov = getHoverIndex(evt);
+      if (hov >= 0 && hand[hov] != null) {
+        cost = hand[hov].cost;
+        if (energy >= cost) {
+          energy -= cost;
+          hand[hov].use();
+          var w2 = width();
+          var h2 = height();
+          var cs = getCardScale(w2, h2);
+          var x = getCardPosX(hov, cs, w2);
+          var y = getCardPosY(h2);
+          add(new playedcard_default(x, y, hand[hov], cs));
+          removeFromHand(hov);
+          pullFromDeckToSlot(hov);
+        }
+      }
+    });
+    bus_default.on("move", (evt) => {
+      hovering = getHoverIndex(evt);
+    });
+    bus_default.on("lane", (lane) => {
+      currentLane = lane;
+    });
+    bus_default.on("hop", () => {
+      var newLane = currentLane;
+      while (newLane == currentLane) {
+        newLane = parseInt(Math.random() * 3);
+      }
+      var sx = this.getShipX();
+      var sc = this.laneScale();
+      for (let i = 0; i < 3; i++) {
+        sz = 0.3;
+        var col = [255, 0, 255];
+        if (i == newLane) {
+          sz = 1;
+          col = [100, 255, 100];
+        }
+        add(new poof_default(this, sx + sc * 2, this.laneY(i), col, sz, 0.7));
+      }
+      currentLane = newLane;
+    });
+    bus_default.on("dash", () => {
+      dashing = 0.5;
+      dashSpeed = 2;
+    });
+    bus_default.on("hyper", () => {
+      dashing = 0.4;
+      dashSpeed = 10;
+    });
+    bus_default.on("persist-max-shield", () => {
+      persist_default.setMaxShield(persist_default.getMaxShield() + 1);
+    });
+    bus_default.on("persist-max-energy", () => {
+      persist_default.setMaxEnergy(persist_default.getMaxEnergy() + 1);
+    });
+    bus_default.on("persist-max-hand", () => {
+      persist_default.setHandSize(persist_default.getHandSize() + 1);
+    });
+    bus_default.on("heal", () => {
+      shield = Math.min(shield + 1, maxShield);
+      add(new poof_default(this, this.getShipX(), this.getShipY(), [0, 255, 0], 1, 0.5));
+    });
+    bus_default.on("poof", ({ x, y, color, size, t }) => {
+      add(new poof_default(this, x, y, color, size, t));
+    });
+    bus_default.on("projectile", (projectileType) => {
+      if (projectileType == 1 || projectileType == 2 || projectileType == 5) {
+        add(new projectile_default(this, this.getShipX(), this.getShipY(), currentLane, projectileType));
+      }
+      if (projectileType == 3) {
+        add(new projectile_default(this, this.getShipX(), this.laneY(0), 0, projectileType));
+        add(new projectile_default(this, this.getShipX(), this.laneY(1), 1, projectileType));
+        add(new projectile_default(this, this.getShipX(), this.laneY(2), 2, projectileType));
+      }
+      if (projectileType == 4) {
+        var s = this.laneScale();
+        var p1 = new projectile_default(this, this.getShipX(), this.getShipY() - s / 2, currentLane, projectileType);
+        var p2 = new projectile_default(this, this.getShipX(), this.getShipY() + s / 2, currentLane, projectileType);
+        var targets = get().filter((g2) => g2.obstacle && g2.x > s * 3);
+        var idx = parseInt(Math.random() * targets.length);
+        p1.homing = targets[idx];
+        targets.splice(idx, 1);
+        var idx = parseInt(Math.random() * targets.length);
+        p2.homing = targets[idx];
+        targets.splice(idx, 1);
+        add(p1);
+        add(p2);
+      }
+    });
+    bus_default.on("place", ({ slot, card }) => {
+      hand[slot] = card;
+    });
+    bus_default.on("hit", (dmg) => {
+      shield -= dmg;
+      if (shield <= 0) {
+        bus_default.emit("transition-scene", 4);
+      }
+      bus_default.emit("poof", { x: this.getShipX(), y: this.getShipY(), color: [255, 255, 255], size: 1, t: 0.5 });
+    });
+    bus_default.on("mineral", (m) => {
+      persist_default.addMineral(m);
+    });
+    var generateContent = () => {
+      if (currentTick > totalTicks - 7 || dashSpeed > 4) {
+        return;
+      }
+      var lanes = {};
+      for (let q = 0; q < 0.1 + currLevel * 0.15; q++) {
+        if (Math.random() > 0.7 / (1 + currLevel * 0.04)) {
+          var lane = parseInt(Math.random() * 3);
+          if (!lanes[lane]) {
+            lanes[lane] = 1;
+            add(new asteroid_default(this, currentTick, lane));
+          }
+        }
+      }
+      if (Math.random() > 0.6) {
+        var lane = parseInt(Math.random() * 3);
+        if (!lanes[lane]) {
+          lanes[lane] = 1;
+          add(new mineral_default(this, currentTick, lane, 1));
+        }
+      }
+    };
+    this.hasEnergy = (card) => energy >= card.cost;
+    this.laneY = (slot) => {
+      var h2 = height();
+      if (slot == 0)
+        return h2 * 0.18;
+      if (slot == 1)
+        return h2 * 0.34;
+      return h2 * 0.5;
+    };
+    this.laneX = (tick) => {
+      var w2 = width(), h2 = height();
+      var ticksInView = 5;
+      var shipX = 50 + w2 / 40 + this.laneScale();
+      return shipX + (1 - (currentTick + tickAnim - tick) / ticksInView) * (w2 + shipX);
+    };
+    this.laneScale = () => {
+      var w2 = width(), h2 = height();
+      const ph = h2 * 0.16;
+      return Math.min(ph, w2 / 8) * 0.3;
+    };
+    this.getTick = () => currentTick;
+    this.getShipX = () => {
+      var w2 = width();
+      return 50 + w2 / 40 + this.laneScale();
+    };
+    this.getShipY = () => {
+      var h2 = height();
+      return h2 * 0.18 + laneAnim * h2 * 0.16;
+    };
+    this.closeToShip = (x, y, dist) => {
+      if (dashing > 0)
+        return false;
+      var s = this.laneScale();
+      var dx = x - this.getShipX();
+      var dy = y - this.getShipY();
+      return dx * dx + dy * dy < s * s * dist;
+    };
+    this.collideTargets = (x, y, dist) => {
+      var s = this.laneScale();
+      var hit = false;
+      get().forEach((g2) => {
+        if (g2.obstacle) {
+          var dx = x - g2.x;
+          var dy = y - g2.y;
+          if (dx * dx + dy * dy < s * s * dist) {
+            hit = true;
+            g2.destroyed = true;
+          }
+        }
+      });
+      return hit;
+    };
+    this.update = (dT) => {
+      anim += dT;
+      if (anim > 1) {
+        if (dashing > 0) {
+          dashing -= dT;
+          tickAnim += dT * dashSpeed;
+          anim += dT * dashSpeed * 2;
+        } else {
+          dashSpeed = 0;
+        }
+        tickAnim += dT * 2;
+      }
+      if (tickAnim > 1) {
+        tickAnim--;
+        currentTick++;
+        generateContent();
+        if (currentTick > totalTicks) {
+          if (currLevel == 13) {
+            bus_default.emit("transition-scene", 5);
+          } else {
+            bus_default.emit("transition-scene", 3);
+          }
+        }
+      }
+      if (energy < maxEnergy) {
+        energyRefill += energyRefillRate * dT;
+        if (energyRefill >= 1) {
+          energyRefill -= 1;
+          energy++;
+        }
+      } else {
+        energyRefill = 0;
+      }
+      shipAngle += ((currentLane - laneAnim) * 0.5 - shipAngle) * 7 * dT;
+      laneAnim += (currentLane - laneAnim) * 5 * dT;
+    };
+    this.render = (ctx2) => {
+      const w2 = width();
+      const h2 = height();
+      const pw = w2 / 40;
+      const ph = h2 * 0.16;
+      const th = h2 * 0.1;
+      const mh = th + ph;
+      const bh = mh + ph;
+      const s = Math.min(ph, w2 / 8) * 0.3;
+      drawStars(ctx2, -anim * 20, 0, 3 + dashSpeed, 0);
+      var r = h2 * 0.3;
+      ctx2.fillStyle = "#224";
+      ctx2.beginPath();
+      ctx2.arc(-(currentTick + tickAnim) / 10 * w2, h2 * 0.34, r, 0, 6.28);
+      ctx2.fill();
+      ctx2.beginPath();
+      ctx2.arc(-(currentTick + tickAnim - totalTicks) / 10 * w2 + w2 * 0.4, h2 * 0.34, r, 0, 6.28);
+      ctx2.fill();
+      var pr = h2 * 0.02;
+      ctx2.fillStyle = "#446";
+      ctx2.fillRect(15 + pw, th / 2, w2 - 30 - 2 * pw, 1);
+      ctx2.fillStyle = "#446";
+      ctx2.beginPath();
+      ctx2.arc(15 + pr, th / 2, pr, 0, 6.28);
+      ctx2.fill();
+      ctx2.fillStyle = "#446";
+      ctx2.beginPath();
+      ctx2.arc(w2 - 15 - pr, th / 2, pr, 0, 6.28);
+      ctx2.fill();
+      ctx2.fillStyle = "#fff";
+      var px = 15 + pw + (w2 - 30 - 2 * pw) * ((currentTick + tickAnim) / (totalTicks + 1));
+      ctx2.beginPath();
+      ctx2.moveTo(px + pw / 3, th / 2);
+      ctx2.lineTo(px - pw / 3, th / 2 - pw / 3);
+      ctx2.lineTo(px - pw / 3, th / 2 + pw / 3);
+      ctx2.closePath();
+      ctx2.fill();
+      ctx2.fillStyle = "#f33";
+      ctx2.fillRect(15, th, pw, ph);
+      ctx2.fillStyle = "#3f3";
+      ctx2.fillRect(15, mh, pw, ph);
+      ctx2.fillStyle = "#33f";
+      ctx2.fillRect(15, bh, pw, ph);
+      ctx2.fillStyle = "#f33";
+      ctx2.fillRect(w2 - 15, th, -pw, ph);
+      ctx2.fillStyle = "#3f3";
+      ctx2.fillRect(w2 - 15, mh, -pw, ph);
+      ctx2.fillStyle = "#33f";
+      ctx2.fillRect(w2 - 15, bh, -pw, ph);
+      ctx2.fillStyle = "rgba(100,100,100,0.4)";
+      ctx2.fillRect(15, th, w2 - 30, 1);
+      ctx2.fillRect(15, mh, w2 - 30, 1);
+      ctx2.fillRect(15, bh, w2 - 30, 1);
+      ctx2.fillRect(15, bh + ph, w2 - 30, 1);
+      ctx2.save();
+      ctx2.translate(50 + pw + s, th + ph / 2 + laneAnim * ph);
+      ctx2.rotate(shipAngle);
+      for (let i = 5; i >= 0; i--) {
+        if (i < 1) {
+          ctx2.fillStyle = "#fd6";
+        } else if (i < 3) {
+          ctx2.fillStyle = "#fa1";
+        } else {
+          ctx2.fillStyle = "#a41";
+        }
+        ctx2.beginPath();
+        var spot = Math.sin(anim * (i + 1) * 20) * 0.2 + 0.5;
+        ctx2.arc(-s - s * i * 0.1, Math.sin(-anim * 40 + i) * i * s / 30, s * spot / (1.5 + i * 0.3), 0, 6.29);
+        ctx2.fill();
+      }
+      ctx2.translate(Math.sin(anim * 30) * s / 60, Math.sin(anim * 35) * s / 40);
+      ctx2.fillStyle = "#fff";
+      ctx2.beginPath();
+      ctx2.moveTo(s, 0);
+      ctx2.lineTo(-s * 0.65, -s * 0.8);
+      ctx2.lineTo(-s * 0.65, -s * 0.3);
+      ctx2.lineTo(-s, -s * 0.5);
+      ctx2.lineTo(-s, s * 0.5);
+      ctx2.lineTo(-s * 0.65, s * 0.3);
+      ctx2.lineTo(-s * 0.65, s * 0.8);
+      ctx2.closePath();
+      if (dashing > 0) {
+        ctx2.lineWidth = s * 0.1;
+        ctx2.strokeStyle = "#fff";
+        ctx2.stroke();
+      } else {
+        ctx2.fill();
+      }
+      ctx2.fillRect(-s * 0.4, s * 0.4, s, s * 0.15);
+      ctx2.fillRect(-s * 0.4, -s * 0.4, s, -s * 0.15);
+      ctx2.restore();
+      var uiScale = Math.min(h2 * 0.025, w2 * 0.035);
+      var shieldTextLevel = h2 - uiScale;
+      ctx2.textBaseline = "bottom";
+      ctx2.font = `${uiScale}px monospace`;
+      ctx2.textAlign = "right";
+      ctx2.fillStyle = "#ff3";
+      ctx2.fillText("Energy", w2 - pw, shieldTextLevel);
+      ctx2.textAlign = "right";
+      ctx2.fillText(energy, w2 - (pw + uiScale * 6), shieldTextLevel);
+      ctx2.textAlign = "left";
+      ctx2.fillStyle = "#888";
+      ctx2.font = `${uiScale * 0.8}px monospace`;
+      ctx2.fillText(`/ ${maxEnergy}`, w2 - (pw + uiScale * 5.7), shieldTextLevel);
+      var cellWidth = uiScale * 1.2;
+      for (let i = 0; i < maxEnergy; i++) {
+        var sx = w2 - (pw + i * (cellWidth * 0.8 + 4) + cellWidth);
+        var sy = shieldTextLevel - cellWidth * 2.4;
+        drawEnergy(ctx2, sx, sy, cellWidth, i < energy);
+      }
+      ctx2.fillStyle = "#333";
+      var fillMeterScale = (cellWidth * 0.8 + 4) * maxEnergy;
+      ctx2.fillRect(w2 - pw, shieldTextLevel - cellWidth * 1.07, -fillMeterScale, 2);
+      ctx2.fillStyle = "#ff3";
+      ctx2.fillRect(w2 - pw, shieldTextLevel - cellWidth * 1.07, -energyRefill * fillMeterScale, 2);
+      var cellRadius = uiScale * 0.6;
+      var energyTextLevel = h2 - uiScale;
+      ctx2.textBaseline = "bottom";
+      ctx2.font = `${uiScale}px monospace`;
+      ctx2.textAlign = "left";
+      ctx2.fillStyle = "#3ff";
+      ctx2.fillText("Shield", pw, energyTextLevel);
+      ctx2.textAlign = "right";
+      ctx2.fillText(shield, pw + uiScale * 5.3, energyTextLevel);
+      ctx2.textAlign = "left";
+      ctx2.fillStyle = "#888";
+      ctx2.font = `${uiScale * 0.8}px monospace`;
+      ctx2.fillText(`/ ${maxShield}`, pw + uiScale * 5.6, energyTextLevel);
+      for (let i = 0; i < maxShield; i++) {
+        var sx = pw + i * (cellRadius * 2.5 + 4) + cellRadius;
+        var sy = energyTextLevel - cellRadius * 4;
+        drawShield(ctx2, sx, sy, cellRadius, i < shield);
+      }
+      var mineralTextLevel = h2 - uiScale;
+      ctx2.textBaseline = "bottom";
+      ctx2.font = `${uiScale}px monospace`;
+      ctx2.textAlign = "center";
+      ctx2.fillStyle = "#f3f";
+      ctx2.fillText(persist_default.getMinerals(), w2 * 0.4, mineralTextLevel);
+      drawMineral(ctx2, w2 * 0.4, mineralTextLevel - uiScale * 2.1, 0.785, uiScale * 0.5);
+      ctx2.fillStyle = "#aaa";
+      ctx2.fillText(deck.length, w2 * 0.6, mineralTextLevel);
+      drawDeck(ctx2, w2 * 0.6, mineralTextLevel - uiScale * 2.1, uiScale * 0.4);
+      var cardsInHand = hand.length;
+      var cs = getCardScale(w2, h2);
+      for (let q = 0; q < cardsInHand; q++) {
+        if (hand[q] == null)
+          continue;
+        var x = getCardPosX(q, cs, w2);
+        var y = getCardPosY(h2);
+        var opacity = 1;
+        if (energy < hand[q].cost) {
+          opacity = 0.15;
+        }
+        drawCard(ctx2, x, y, cs, hand[q], hovering == q, opacity);
+      }
+    };
+  }
+
+  // src/utils.js
+  function pick(l) {
+    return l[parseInt(Math.random() * l.length)];
+  }
+  var planets = [
+    "Tenadu",
+    "Nurosto Prime",
+    "Worlax",
+    "Mektrov Zero",
+    "Cytoxia",
+    "Broggendor",
+    "Voitec",
+    "Helion",
+    "Earth (Remnants)",
+    "Yonzi Mata",
+    "Streva Gateway",
+    "Lumatorr",
+    "Desela",
+    "Korva-6"
+  ];
+
+  // src/planetevent.js
+  function PlanetEvent() {
+    var currLevel = persist_default.getLevel();
+    add(new text_default(
+      `Planet ${planets[currLevel]}`,
+      () => width() * 0.03,
+      () => width() * 0.05,
+      "#fff",
+      0.5,
+      "left"
+    ));
+    add(new startbutton_default());
+    bus_default.on("start", () => {
+      persist_default.setLevel(persist_default.getLevel() + 1);
+      bus_default.emit("transition-scene", 2);
+    });
+    onTapCard = ({ x, y }) => {
+      var w2 = width();
+      var h2 = height();
+      var m = persist_default.getMinerals();
+      var cs = Math.min(h2 * 0.2, w2 * 0.25);
+      for (let i = 0; i < items.length; i++) {
+        var bx = w2 / 2 + (i - (items.length - 1) / 2) * w2 * 0.3;
+        if (items[i] != null && m >= items[i].price) {
+          if (x > bx - cs / 2 && x < bx + cs / 2 && y > h2 * 0.4 - cs * 3 / 4 && y < h2 * 0.4 + cs * 3 / 4) {
+            add(new playedcard_default(bx, h2 * 0.4, items[i], cs));
+            persist_default.addMineral(-items[i].price);
+            bus_default.emit("buy");
+            if (evtType == 4) {
+              items[i].use();
+            } else {
+              persist_default.addToDeck(items[i]);
+            }
+            items[i] = null;
+          }
+        }
+      }
+    };
+    var evtType = [];
+    if (currLevel == 0) {
+      evtType = pick([0, 2]);
+    } else {
+      evtType = pick([0, 1, 2, 3, 4]);
+    }
+    var items = [];
+    var merchantName = "";
+    var merchantGfx = drawCharWeaponTech;
+    var merchantText = "";
+    if (evtType == 0) {
+      merchantName = "Weapon Tech";
+      merchantGfx = drawCharWeaponTech;
+      merchantText = pick([
+        "Stop staring human! Either buy something or leave.",
+        "Rockets! Laser beams! What are you looking for? I've got it all.",
+        "Hey hey, don't touch the merchandise! You might hurt yourself..."
+      ]);
+      var selection = [cards_default[3], cards_default[4], cards_default[5], cards_default[6], cards_default[7]];
+      var numCardsInShop = parseInt(Math.random() * 2) + 2;
+      for (let i = 0; i < numCardsInShop; i++) {
+        items.push(selection[parseInt(Math.random() * selection.length)]);
+      }
+      bus_default.on("tap", onTapCard);
+    }
+    if (evtType == 1) {
+      merchantName = "Ship Mechanic";
+      merchantGfx = drawCharShipMech;
+      merchantText = pick([
+        "Beep Boop - May I assist you with upgrades for that spacefaring vessel?",
+        "Zip Zap - Your shield generator looks a bit flimsy. I can help with that.",
+        "Wrrrrr - Do you call that piece of scrap metal a ship?"
+      ]);
+      var selection = [cards_default[8], cards_default[9], cards_default[10], cards_default[11], cards_default[12]];
+      var numCardsInShop = parseInt(Math.random() * 2) + 2;
+      for (let i = 0; i < numCardsInShop; i++) {
+        items.push(selection[parseInt(Math.random() * selection.length)]);
+      }
+      bus_default.on("tap", onTapCard);
+    }
+    if (evtType == 2) {
+      merchantName = "Street Merchant";
+      merchantGfx = drawCharMerchant;
+      merchantText = pick([
+        "Pssst. Yeah you. You look like you could use a pumpjack for that ship.",
+        "Only the best mechatronics here. Forged from the finest Worlax Steel.",
+        "Got this stuff from the Gateway District... You're not a cop right?"
+      ]);
+      var selection = [cards_default[3], cards_default[4], cards_default[8], cards_default[9]];
+      var numCardsInShop = parseInt(Math.random() * 2) + 2;
+      for (let i = 0; i < numCardsInShop; i++) {
+        items.push(selection[parseInt(Math.random() * selection.length)]);
+      }
+      bus_default.on("tap", onTapCard);
+    }
+    if (evtType == 3) {
+      merchantName = "Cytox Smuggler";
+      merchantGfx = drawCharSmuggler;
+      merchantText = pick([
+        "Sssseems like you need ssssome black market tech. Letssss sssee what I've got...",
+        "Elzo Mineralsss are in short sssupply these daysss. My pricing hasss to ssslither up.",
+        "This lot isn't my normal sssset of ssssuplies, but itsss much sssafer than the cccytox trade."
+      ]);
+      var selection = [cards_default[5], cards_default[6], cards_default[10], cards_default[11]];
+      var numCardsInShop = parseInt(Math.random() * 2) + 2;
+      for (let i = 0; i < numCardsInShop; i++) {
+        items.push(selection[parseInt(Math.random() * selection.length)]);
+      }
+      bus_default.on("tap", onTapCard);
+    }
+    if (evtType == 4) {
+      merchantName = "Neuro-Templar";
+      merchantGfx = drawCharTemplar;
+      merchantText = pick([
+        "I sense your journey has experienced rough patches. A blessing will surely aid you.",
+        "The Great Consciousness has a gift for you, but an exchange of minerals must be made.",
+        "Words from The Cortex will pave your road to enlightenment... for a small fee."
+      ]);
+      var selection = [cards_default[13], cards_default[14], cards_default[15]];
+      for (let i = 0; i < 2; i++) {
+        var opt = parseInt(Math.random() * selection.length);
+        items.push(selection[opt]);
+        selection.splice(opt, 1);
+      }
+      bus_default.on("tap", onTapCard);
+    }
+    this.drawCost = (ctx2, txt, x, y, s, canAfford) => {
+      ctx2.fillStyle = "#f3f";
+      ctx2.font = `${s * 0.25}px monospace`;
+      ctx2.textAlign = "left";
+      ctx2.textBaseline = "middle";
+      var tw = ctx2.measureText(txt).width;
+      var mw = s * 0.061;
+      var cx = (tw + mw * 2) / 2;
+      ctx2.fillText(txt, x + mw * 3 - cx, y + s);
+      drawMineral(ctx2, x + mw / 2 - cx, y + s, 0.785, s * 0.08);
+      if (!canAfford) {
+        ctx2.save();
+        ctx2.fillStyle = "rgba(255,0,0,0.7)";
+        ctx2.translate(x, y + s);
+        ctx2.rotate(0.1);
+        ctx2.fillRect(-s * 0.5, -1, s, 3);
+        ctx2.rotate(-0.2);
+        ctx2.fillRect(-s * 0.5, -1, s, 3);
+        ctx2.restore();
+      }
+    };
+    this.render = (ctx2) => {
+      var w2 = width();
+      var h2 = height();
+      var m = persist_default.getMinerals();
+      var hs = persist_default.getHandSize();
+      var me = persist_default.getMaxEnergy();
+      var ms = persist_default.getMaxShield();
+      drawCharPlayer(ctx2);
+      merchantGfx(ctx2);
+      drawDialogBox(ctx2, merchantName, merchantText);
+      var us = Math.min(h2 * 0.04, w2 * 0.04);
+      ctx2.textAlign = "left";
+      ctx2.textBaseline = "middle";
+      ctx2.font = `${us}px monospace`;
+      drawMineral(ctx2, us, h2 * 0.71, 0.785, us * 0.3);
+      ctx2.fillStyle = "#f3f";
+      ctx2.fillText(`${m} minerals`, us * 1.7, h2 * 0.71);
+      drawDeck(ctx2, us, h2 * 0.71 - us, us * 0.2);
+      ctx2.fillStyle = "#999";
+      ctx2.fillText(`${hs} cards in hand`, us * 1.7, h2 * 0.71 - us);
+      drawShield(ctx2, us, h2 * 0.71 - us * 2, us * 0.4, true);
+      ctx2.fillStyle = "#3ff";
+      ctx2.fillText(`${ms} shields`, us * 1.7, h2 * 0.71 - us * 2);
+      drawEnergy(ctx2, us - us * 0.325, h2 * 0.71 - us * 3.45, us * 0.8, true);
+      ctx2.fillStyle = "#ff3";
+      ctx2.fillText(`${me} energy`, us * 1.7, h2 * 0.71 - us * 3);
+      var cs = Math.min(Math.max(h2 * 0.1, w2 * 0.17), h2 * 0.18);
+      for (let i = 0; i < items.length; i++) {
+        if (items[i] != null) {
+          var bx = w2 / 2 + (i - (items.length - 1) / 2) * (cs + w2 * 0.12);
+          drawCard(ctx2, bx, h2 * 0.35, cs, items[i], false, 1);
+          this.drawCost(ctx2, `${items[i].price}`, bx, h2 * 0.35, cs, m >= items[i].price);
+        }
+      }
+    };
+  }
+
+  // src/gameover.js
+  function GameOver() {
+    var currLevel = persist_default.getLevel();
+    add(new text_default("SHUTTLEDECK", () => width() / 2, () => height() * 0.2, "#fff", 1, "center"));
+    add(new text_default("Game Over", () => width() / 2, () => height() * 0.35, "#f55", 1, "center"));
+    add(new text_default(`Exploded approaching planet ${planets[currLevel]}`, () => width() / 2, () => height() * 0.6, "#f55", 0.4, "center"));
+    add(new text_default("[ Press to retry ]", () => width() / 2, () => height() * 0.8, "#777", 0.5, "center"));
+    var fn = () => {
+      bus_default.emit("transition-scene", 1);
+      bus_default.off("tap", fn);
+    };
+    bus_default.on("tap", fn);
+    this.render = (ctx2) => {
+      var w2 = width();
+      var h2 = height();
+      var uiScale = Math.min(h2 * 0.03, w2 * 0.03);
+      drawStars(ctx2, -Date.now() * 0.03, 0, 3, 0);
+      ctx2.lineWidth = uiScale * 0.2;
+      ctx2.strokeStyle = "#555";
+      ctx2.beginPath();
+      ctx2.moveTo(w2 / 2 - w2 * 14 / 36, h2 / 2);
+      ctx2.lineTo(w2 / 2 + w2 * 14 / 36, h2 / 2);
+      ctx2.stroke();
+      for (let i = 0; i < planets.length + 1; i++) {
+        var x = (i - 7) * w2 / 18 + w2 / 2;
+        if (i <= currLevel) {
+          ctx2.beginPath();
+          ctx2.arc(x, h2 * 0.5, uiScale * 0.6, 0, 6.29);
+          ctx2.fillStyle = "#fff";
+          ctx2.fill();
+        } else {
+          ctx2.beginPath();
+          ctx2.arc(x, h2 * 0.5, uiScale * 0.5, 0, 6.29);
+          ctx2.fillStyle = "#000";
+          ctx2.strokeStyle = "#f55";
+          ctx2.fill();
+          ctx2.stroke();
+        }
+      }
+    };
+  }
+
+  // src/win.js
+  function Win() {
+    add(new text_default("Planet Korva-6", () => width() * 0.03, () => width() * 0.05, "#fff", 0.5, "left"));
+    add(new text_default("Package Delivered!", () => width() / 2, () => height() / 2, "#5f5", 0.6, "center"));
+    add(new startbutton_default("Main Menu"));
+    bus_default.on("start", () => {
+      bus_default.emit("transition-scene", 0);
+    });
+    this.render = (ctx2) => {
+      var uiScale = height() * 0.3;
+      drawCharPlayer(ctx2);
+      drawCharZoren(ctx2, "#f55");
+      drawDialogBox(
+        ctx2,
+        "Professor Quinn",
+        "Is that a Xenotransponder?? My brother Zorn must have sent this. Thank you, Courier!"
+      );
+    };
+  }
+
+  // src/scene.js
+  function init() {
+    bus_default.emit("scene", 0);
+  }
+  function transition2(s) {
+    bus_default.emit("txn");
+    bus_default.on("txn-done", () => {
+      bus_default.emit("scene", s);
+      add(new transition(0.9, false));
+      for (let i = 0; i < width(); i += width() * 0.01) {
+        add(new Steam(i, height() / 2));
+      }
+    });
+    get().forEach((go) => {
+      go.update = void 0;
+    });
+    add(new transition(0.4, true));
+  }
+  (() => {
+    var scene = 0;
+    var sceneConfig = (sceneNum) => {
+      scene = sceneNum;
+      bus_default.clear();
+      bus_default.on("scene", sceneConfig);
+      bus_default.on("transition-scene", transition2);
+      audio_default.stopMusic();
+      audio_default.setup();
+      clear();
+      if (scene == 0) {
+        add(new MainMenu());
+      }
+      if (scene == 1) {
+        add(new Intro());
+        audio_default.music();
+      }
+      if (scene == 2) {
+        add(new Engine());
+        audio_default.bgRocket();
+      }
+      if (scene == 3) {
+        add(new PlanetEvent());
+        audio_default.music();
+      }
+      if (scene == 4) {
+        add(new GameOver());
+      }
+      if (scene == 5) {
+        add(new Win());
+      }
+    };
+    bus_default.on("scene", sceneConfig);
+  })();
+
+  // src/input.js
+  isMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  window.addEventListener("touchstart", (evt) => {
+    evt.stopPropagation();
+    bus_default.emit("tap", { x: evt.touches[0].clientX, y: evt.touches[0].clientY });
+  });
+  window.addEventListener("mousedown", (evt) => {
+    evt.preventDefault();
+    evt.stopPropagation();
+    if (!isMobile()) {
+      bus_default.emit("tap", { x: evt.x, y: evt.y });
+    }
+  });
+  window.addEventListener("mousemove", (evt) => {
+    evt.preventDefault();
+    evt.stopPropagation();
+    if (isMobile()) {
+      bus_default.emit("move", { x: -1, y: -1 });
+    } else {
+      bus_default.emit("move", { x: evt.x, y: evt.y });
+    }
+  });
+
+  // src/main.js
+  init();
+  (() => {
+    var canvas2 = document.createElement("canvas");
+    canvas2.width = 64;
+    canvas2.height = 64;
+    document.body.appendChild(canvas2);
+    var ctx2 = canvas2.getContext("2d");
+    ctx2.fillStyle = "#000";
+    ctx2.fillRect(0, 0, 64, 64);
+    ctx2.strokeStyle = "#fa3";
+    ctx2.lineWidth = 2;
+    ctx2.lineJoin = "round";
+    ctx2.lineCap = "round";
+    ctx2.strokeRect(0, 0, 64, 64);
+    ctx2.translate(31, 29);
+    cards_default[3].glyph(ctx2, 82, 0.05);
+    var link = document.querySelector("link[rel~='icon']");
+    link.href = canvas2.toDataURL();
+    document.body.removeChild(canvas2);
+  })();
+  (() => {
+    var lastTime = Date.now();
+    var removeQueue = [];
+    var noop = () => {
+    };
+    var gameloop = () => {
+      var currTime = Date.now();
+      var dT = (currTime - lastTime) * 1e-3;
+      if (dT > 0.3) {
+        dT = 0.3;
+      }
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, width(), height());
+      removeQueue.length = 0;
+      get().forEach((g2) => {
+        (g2.ecs || []).forEach((u) => u(dT));
+        (g2.update || noop)(dT);
+        (g2.render || noop)(ctx);
+        if (g2.destroyed) {
+          removeQueue.push(g2);
+        }
+      });
+      removeQueue.forEach((x) => remove(x));
+      lastTime = currTime;
+      requestAnimationFrame(gameloop);
+    };
+    gameloop();
+  })();
+})();
+</script></html>

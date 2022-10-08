@@ -435,7 +435,7 @@ export function drawDialogBox(ctx, title, txt) {
   // title text
   ctx.fillStyle='#ff3';
   ctx.textAlign='left';
-  ctx.font=`${ts*0.3}px monospace`;
+  ctx.font=`${ts*0.25}px monospace`;
   ctx.fillText(title, s*3, h*0.75+ts*0.25);
 
   // title text

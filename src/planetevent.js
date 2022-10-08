@@ -197,29 +197,29 @@ export default function PlanetEvent() {
     ctx.textBaseline='middle';
     ctx.font=`${us}px monospace`;
     // Mineral stats
-    gfx.drawMineral(ctx, us, h*0.75, 0.785, us*0.3);
+    gfx.drawMineral(ctx, us, h*0.71, 0.785, us*0.3);
     ctx.fillStyle='#f3f';
-    ctx.fillText(m, us*1.7,h*0.75);
+    ctx.fillText(`${m} minerals`, us*1.7,h*0.71);
     // Hand stats
-    gfx.drawDeck(ctx, us, h*0.75-us, us*0.2);
+    gfx.drawDeck(ctx, us, h*0.71-us, us*0.2);
     ctx.fillStyle='#999';
-    ctx.fillText(hs, us*1.7,h*0.75-us);
+    ctx.fillText(`${hs} cards in hand`, us*1.7,h*0.71-us);
     // Shield stats
-    gfx.drawShield(ctx, us, h*0.75-us*2, us*0.4, true);
+    gfx.drawShield(ctx, us, h*0.71-us*2, us*0.4, true);
     ctx.fillStyle='#3ff';
-    ctx.fillText(ms, us*1.7,h*0.75-us*2);
+    ctx.fillText(`${ms} shields`, us*1.7,h*0.71-us*2);
     // Energy stats
-    gfx.drawEnergy(ctx, us-us*0.325, h*0.75-us*3.45, us*0.8, true);
+    gfx.drawEnergy(ctx, us-us*0.325, h*0.71-us*3.45, us*0.8, true);
     ctx.fillStyle='#ff3';
-    ctx.fillText(me, us*1.7,h*0.75-us*3);
+    ctx.fillText(`${me} energy`, us*1.7,h*0.71-us*3);
 
     // Show items for interaction
-    var cs = Math.min(h*0.2, w*0.25);
+    var cs = Math.min(Math.max(h*0.1, w*0.17), h*0.18);
     for (let i = 0; i < items.length; i++) {
       if (items[i] != null) {
-        var bx = w/2 + (i - (items.length - 1)/2) * w * 0.3;
-        gfx.drawCard(ctx, bx, h*0.4, cs, items[i], false,1);
-        this.drawCost(ctx, `${items[i].price}`, bx, h*0.4, cs, m >= items[i].price);
+        var bx = w/2 + (i - (items.length - 1)/2) * (cs + w * 0.12);
+        gfx.drawCard(ctx, bx, h*0.35, cs, items[i], false,1);
+        this.drawCost(ctx, `${items[i].price}`, bx, h*0.35, cs, m >= items[i].price);
       }
     }
   }
