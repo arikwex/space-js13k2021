@@ -37,7 +37,7 @@ const cards = [
   use: () => { bus.emit('lane', 1) }
 },
 {
-  color: [51, 51, 255],
+  color: [50, 100, 255],
   title: ['Beta', 'Stream'],
   cost: 1,
   price: 5,
@@ -59,6 +59,7 @@ const cards = [
   title: ['Kepler', 'Missile'],
   cost: 2,
   price: 10,
+  description: 'The KEPLER MISSILE fires in a straight line and destroys the first target it hits.',
   glyph: function (ctx, cs, ls = 0.05) {
     ctx.save();
     ctx.translate(cs/20, 0);
@@ -90,6 +91,7 @@ const cards = [
   title: ['Sigma', 'Cannon'],
   cost: 3,
   price: 15,
+  description: 'SIGMA CANNON beams melt through anything in their path while active.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.translate(cs/12, cs/15);
@@ -118,8 +120,9 @@ const cards = [
   // 3 parallel pulses that break the first obstacle on each channel
   color: [255, 160, 30],
   title: ['Pulse', 'Breaker'],
-  cost: 3,
+  cost: 2,
   price: 15,
+  description: 'When activated the PULSE BREAKER launches a destructive bolt in each lane.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.translate(-cs/30, 0);
@@ -148,6 +151,7 @@ const cards = [
   title: ['Crazy', 'Rockets'],
   cost: 2,
   price: 10,
+  description: 'Launches two CRAZY ROCKETS that target random nearby objects.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -176,8 +180,9 @@ const cards = [
   // Blows up everything on the screen
   color: [255, 160, 30],
   title: ['Tactical', 'Nuke'],
-  cost: 4,
+  cost: 3,
   price: 20,
+  description: 'Drops a TACTICAL NUKE that clears the entire area of obstacles.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -207,6 +212,7 @@ const cards = [
   title: ['Quantum', 'Hopper'],
   cost: 1,
   price: 5,
+  description: 'The QUANTUM HOPPER module makes your ship navigate to a random different lane.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -230,6 +236,7 @@ const cards = [
   title: ['Shadow', 'Dash'],
   cost: 2,
   price: 10,
+  description: 'The SHADOW DASH module is used to teleport short ranges through obstacles.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -261,6 +268,7 @@ const cards = [
   title: ['Shield', 'Charger'],
   cost: 3,
   price: 15,
+  description: 'The SHIELD CHARGER module regenerates one shield point for your ship.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -282,8 +290,9 @@ const cards = [
   // Siphon all minerals on screen toward you
   color: [255, 70, 255],
   title: ['Mineral', 'Siphon'],
-  cost: 3,
+  cost: 2,
   price: 15,
+  description: 'The MINERAL SIPHON module pulls all nearby minerals to your ship when activated.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -318,6 +327,7 @@ const cards = [
   title: ['Hyper', 'Drive'],
   cost: 4,
   price: 20,
+  description: 'The HYPER DRIVE module safely and rapidly accelerates your ship towards the destination.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -339,6 +349,7 @@ const cards = [
   title: ['Defense', 'Blessing'],
   cost: 0,
   price: 25,
+  description: 'DEFENSE BLESSINGS increase the maximum shield capacity of your ship.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -358,6 +369,7 @@ const cards = [
   title: ['Strength', 'Blessing'],
   cost: 0,
   price: 25,
+  description: 'STRENGTH BLESSINGS increase the maximum energy capacity of your ship.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -383,6 +395,7 @@ const cards = [
   title: ['Vision', 'Blessing'],
   cost: 0,
   price: 25,
+  description: 'VISION BLESSINGS increase the maximum cards you can see at once.',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;
@@ -401,6 +414,7 @@ const cards = [
   cost: 0,
   price: -15,
   useNow: true,
+  description: 'Uplinking to CYBERAD HOLOGRAM... Minerals have been added to your account!',
   glyph: function (ctx, cs) {
     ctx.save();
     ctx.lineWidth = cs * 0.05;

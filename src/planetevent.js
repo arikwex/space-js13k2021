@@ -47,6 +47,7 @@ export default function PlanetEvent() {
         if (x > bx-cs/2 && x < bx+cs/2 && y > h*0.4-cs*3/4 && y < h*0.4+cs*3/4) {
           gameobjects.add(new PlayedCard(bx, h*0.35, items[i], cs));
           persist.addMineral(-items[i].price);
+          merchantText = items[i].description;
           bus.emit('buy');
           // Templar does not add cards to deck
           if (evtType == 4 || items[i].useNow) {

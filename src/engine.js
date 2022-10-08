@@ -390,10 +390,10 @@ export default function Engine() {
     // Draw the lanes
     ctx.fillStyle = '#f33'; ctx.fillRect(15, th, pw, ph);
     ctx.fillStyle = '#3f3'; ctx.fillRect(15, mh, pw, ph);
-    ctx.fillStyle = '#33f'; ctx.fillRect(15, bh, pw, ph);
+    ctx.fillStyle = '#36f'; ctx.fillRect(15, bh, pw, ph);
     ctx.fillStyle = '#f33'; ctx.fillRect(w-15, th, -pw, ph);
     ctx.fillStyle = '#3f3'; ctx.fillRect(w-15, mh, -pw, ph);
-    ctx.fillStyle = '#33f'; ctx.fillRect(w-15, bh, -pw, ph);
+    ctx.fillStyle = '#36f'; ctx.fillRect(w-15, bh, -pw, ph);
     ctx.fillStyle = 'rgba(100,100,100,0.4)';
     ctx.fillRect(15, th, w-30, 1);
     ctx.fillRect(15, mh, w-30, 1);
