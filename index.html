@@ -122,7 +122,7 @@
     }
     ctx2.stroke();
   }
-  function drawCard(ctx2, x, y, cs, card, hovering, opacity) {
+  function drawCard(ctx2, x, y, cs, card, hovering, opacity, showDetails = true) {
     ctx2.save();
     if (hovering) {
       cs *= 1.04;
@@ -160,20 +160,24 @@
     ctx2.save();
     ctx2.translate(0, -cs * 0.15);
     card.glyph(ctx2, cs);
-    ctx2.translate(0, -cs * 0.52);
-    ctx2.fillStyle = `rgba(255,255,51,${opacity})`;
-    var es = cs * 0.12;
-    for (let i = 0; i < card.cost; i++) {
-      ctx2.fillRect((i - (card.cost - 1) / 2) * es * 1.1 - es * 0.45, 0, es * 0.9, es * 0.9);
+    if (showDetails) {
+      ctx2.translate(0, -cs * 0.52);
+      ctx2.fillStyle = `rgba(255,255,51,${opacity})`;
+      var es = cs * 0.12;
+      for (let i = 0; i < card.cost; i++) {
+        ctx2.fillRect((i - (card.cost - 1) / 2) * es * 1.1 - es * 0.45, 0, es * 0.9, es * 0.9);
+      }
     }
     ctx2.restore();
-    ctx2.fillStyle = netColor;
-    ctx2.textBaseline = "middle";
-    ctx2.font = `${cs / 6}px monospace`;
-    ctx2.textAlign = "center";
-    var lines = card.title;
-    for (let i = 0; i < lines.length; i++) {
-      ctx2.fillText(lines[i], 0, csh * 0.65 + (i - (lines.length - 1) / 2) * csh * 0.2);
+    if (showDetails) {
+      ctx2.fillStyle = netColor;
+      ctx2.textBaseline = "middle";
+      ctx2.font = `${cs / 6}px monospace`;
+      ctx2.textAlign = "center";
+      var lines = card.title;
+      for (let i = 0; i < lines.length; i++) {
+        ctx2.fillText(lines[i], 0, csh * 0.65 + (i - (lines.length - 1) / 2) * csh * 0.2);
+      }
     }
     ctx2.restore();
   }
@@ -1381,7 +1385,7 @@
 
   // src/intro.js
   function Intro() {
-    let step = 2;
+    let step = 0;
     add(new text_default("Professor Zorn's Lab", () => width() * 0.03, () => width() * 0.05, "#fff", 0.5, "left"));
     add(new startbutton_default());
     bus_default.on("start", () => {
@@ -1400,8 +1404,8 @@
           "Professor Zorn",
           "Hey there Courier, I need your help getting this Xenotransponder to Korva-6. It's only a few planets away."
         );
-        drawItemShell(ctx2, width() * 0.5, height() * 0.4, uiScale);
-        drawItemXeno(ctx2, width() * 0.5, height() * 0.4, uiScale);
+        drawItemShell(ctx2, width() * 0.5, height() * 0.33, uiScale);
+        drawItemXeno(ctx2, width() * 0.5, height() * 0.33, uiScale);
       } else if (step == 1) {
         const cs = uiScale * 0.3;
         drawCard(ctx2, w2 * 0.5 - cs * 1.4, h2 * 0.45, cs, cards_default[0], true, 1);
@@ -1418,7 +1422,7 @@
         drawDialogBox(
           ctx2,
           "Manual [1 / 4]",
-          "To move your ship to different flight lanes, click on the corresponding movement card."
+          "Move your ship to different flight lanes by clicking on the corresponding movement card."
         );
       } else if (step == 2) {
         const cs = uiScale * 0.3;
@@ -1453,19 +1457,66 @@
         ctx2.font = `${cs * 0.2}px monospace`;
         ctx2.textAlign = "center";
         ctx2.textBaseline = "middle";
-        ctx2.fillText("Shield (3 / 5)", w2 * 0.5, h2 * 0.45 - ss * 1.2);
+        ctx2.fillText("Current Ship Shield (3 / 5)", w2 * 0.5, h2 * 0.45 - ss * 1.2);
         drawDialogBox(
           ctx2,
           "Manual [2 / 4]",
           "Travel between planets by avoiding asteroids and keeping your shields above zero."
         );
       } else if (step == 3) {
+        const cs = uiScale * 0.3;
+        drawShip(ctx2, w2 * 0.5 - cs, h2 * 0.3, cs * 0.4);
+        drawMineral(ctx2, w2 * 0.5 + cs, h2 * 0.3, Date.now() % 6280 / 1e3, cs * 0.1);
+        ctx2.save();
+        ctx2.translate(w2 * 0.5 + cs * 1.5, h2 * 0.5);
+        const s = cs * 0.3;
+        ctx2.fillStyle = "#d72";
+        ctx2.beginPath();
+        ctx2.ellipse(s * 0.1, s * 0.1, s * 1, s * 1.4, 0, 0, 6.29);
+        ctx2.fill();
+        ctx2.fillStyle = "#f94";
+        ctx2.beginPath();
+        ctx2.arc(0, -s * 1.9, s, 0, 6.29);
+        ctx2.fill();
+        ctx2.fillRect(-s * 0.8, -s * 2.3, s * 0.4, -s);
+        ctx2.fillRect(s * 0.4, -s * 2.4, s * 0.4, -s);
+        ctx2.fillStyle = "#fff";
+        ctx2.beginPath();
+        ctx2.ellipse(-s * 0.3, -s * 2, s * 0.5, s * 0.3, 0, 0, 6.29);
+        ctx2.fill();
+        ctx2.fillStyle = "#222";
+        ctx2.beginPath();
+        ctx2.arc(-s * 0.4, -s * 2, s * 0.2, 0, 6.29);
+        ctx2.fill();
+        ctx2.fillStyle = "#000";
+        ctx2.fillRect(-s * 2, 0, s * 4, s * 3);
+        ctx2.restore();
+        const uics = s * 2;
+        drawCard(ctx2, w2 * 0.5 - uics * 1.4 - s * 1, h2 * 0.455, uics, cards_default[3], true, 1, false);
+        drawCard(ctx2, w2 * 0.5 + uics * 0 - s * 1, h2 * 0.455, uics, cards_default[9], true, 1, false);
+        drawCard(ctx2, w2 * 0.5 + uics * 1.4 - s * 1, h2 * 0.455, uics, cards_default[15], true, 1, false);
         drawDialogBox(
           ctx2,
           "Manual [3 / 4]",
-          "Collect minerals to buy new abilities cards. These cards are shuffled randomly into your deck."
+          "Collect minerals to buy new ability cards. These cards are shuffled randomly into your deck."
         );
       } else if (step == 4) {
+        const cs = uiScale * 0.3;
+        const ss = cs * 0.4;
+        drawEnergy(ctx2, w2 * 0.5 - ss * 1.3 * 2.5, h2 * 0.5, ss, false);
+        drawEnergy(ctx2, w2 * 0.5 - ss * 1.3 * 1.5, h2 * 0.5, ss, false);
+        drawEnergy(ctx2, w2 * 0.5 - ss * 1.3 * 0.5, h2 * 0.5, ss, true);
+        drawEnergy(ctx2, w2 * 0.5 + ss * 1.3 * 0.5, h2 * 0.5, ss, true);
+        drawEnergy(ctx2, w2 * 0.5 + ss * 1.3 * 1.5, h2 * 0.5, ss, true);
+        drawEnergy(ctx2, w2 * 0.5 + ss * 1.3 * 2.5, h2 * 0.5, ss, true);
+        drawCard(ctx2, w2 * 0.5 - cs, h2 * 0.3, cs, cards_default[7], true, 1);
+        ctx2.fillStyle = "#fff";
+        ctx2.font = `${cs * 0.2}px monospace`;
+        ctx2.textAlign = "center";
+        ctx2.textBaseline = "middle";
+        ctx2.fillText("Current Ship Energy (4 / 6)", w2 * 0.5 + ss * 0.42, h2 * 0.5 - ss * 1.2);
+        ctx2.fillText("Card energy cost (3)", w2 * 0.5 + cs, h2 * 0.3 - ss * 0.4);
+        ctx2.fillText("shown at top of card", w2 * 0.5 + cs, h2 * 0.3 + ss * 0.4);
         drawDialogBox(
           ctx2,
           "Manual [4 / 4]",

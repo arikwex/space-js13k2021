@@ -8,7 +8,7 @@ import persist from './persist.js';
 import cards from './cards.js';
 
 export default function Intro() {
-  let step = 2;
+  let step = 0;
 
   gameobjects.add(new Text('Professor Zorn\'s Lab', ()=>canvas.width()*0.03, ()=>canvas.width()*0.05, '#fff', 0.5, 'left'));
   gameobjects.add(new StartButton());
@@ -30,8 +30,8 @@ export default function Intro() {
         'Professor Zorn',
         'Hey there Courier, I need your help getting this Xenotransponder to Korva-6. It\'s only a few planets away.'
       );
-      gfx.drawItemShell(ctx, canvas.width()*0.5, canvas.height()*0.4,uiScale);
-      gfx.drawItemXeno(ctx, canvas.width()*0.5, canvas.height()*0.4,uiScale);
+      gfx.drawItemShell(ctx, canvas.width()*0.5, canvas.height()*0.33,uiScale);
+      gfx.drawItemXeno(ctx, canvas.width()*0.5, canvas.height()*0.33,uiScale);
     }
 
     // Explain lanes and cards
@@ -50,7 +50,7 @@ export default function Intro() {
       gfx.drawShip(ctx, w * 0.5, h * 0.25, cs * 0.4);
       gfx.drawDialogBox(ctx,
         'Manual [1 / 4]',
-        'To move your ship to different flight lanes, click on the corresponding movement card.'
+        'Move your ship to different flight lanes by clicking on the corresponding movement card.'
       );
     }
 
@@ -87,7 +87,7 @@ export default function Intro() {
       ctx.font = `${cs*0.2}px monospace`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('Shield (3 / 5)', w*0.5, h*0.45-ss * 1.2);
+      ctx.fillText('Current Ship Shield (3 / 5)', w*0.5, h*0.45-ss * 1.2);
 
       gfx.drawDialogBox(ctx,
         'Manual [2 / 4]',
@@ -97,14 +97,70 @@ export default function Intro() {
     
     // Collect minerals
     else if (step == 3) {
+      const cs = uiScale * 0.3;
+      gfx.drawShip(ctx, w * 0.5 - cs, h * 0.3, cs * 0.4);
+      gfx.drawMineral(ctx, w * 0.5 + cs, h * 0.3, (Date.now() % 6280) / 1000.0, cs * 0.1);
+      // mechanic character repro
+      ctx.save();
+      ctx.translate(w * 0.5 + cs * 1.5, h * 0.5);
+      const s = cs * 0.3;
+      // Torso
+      ctx.fillStyle='#d72';
+      ctx.beginPath();
+      ctx.ellipse(s*0.1, s*0.1, s*1.0, s*1.4, 0, 0, 6.29);
+      ctx.fill();
+      // Head
+      ctx.fillStyle='#f94';
+      ctx.beginPath();
+      ctx.arc(0, -s*1.9, s, 0, 6.29);
+      ctx.fill();
+      // Ears
+      ctx.fillRect(-s*0.8,-s*2.3,s*0.4,-s);
+      ctx.fillRect(s*0.4,-s*2.4,s*0.4,-s);
+      // Eye
+      ctx.fillStyle='#fff';
+      ctx.beginPath();
+      ctx.ellipse(-s*0.3, -s*2, s*0.5, s*0.3, 0, 0, 6.29);
+      ctx.fill();
+      ctx.fillStyle='#222';
+      ctx.beginPath();
+      ctx.arc(-s*0.4, -s*2, s*0.2, 0, 6.29);
+      ctx.fill();
+      // Block bottom
+      ctx.fillStyle='#000';
+      ctx.fillRect(-s*2,0,s*4,s*3);
+      ctx.restore();
+      const uics = s * 2;
+      gfx.drawCard(ctx, w * 0.5 - uics * 1.4 - s * 1, h * 0.455, uics, cards[3], true, 1, false);
+      gfx.drawCard(ctx, w * 0.5 + uics * 0 - s * 1, h * 0.455, uics, cards[9], true, 1, false);
+      gfx.drawCard(ctx, w * 0.5 + uics * 1.4 - s * 1, h * 0.455, uics, cards[15], true, 1, false);
+
       gfx.drawDialogBox(ctx,
         'Manual [3 / 4]',
-        'Collect minerals to buy new abilities cards. These cards are shuffled randomly into your deck.'
+        'Collect minerals to buy new ability cards. These cards are shuffled randomly into your deck.'
       );
     }
 
     // Energy
     else if (step == 4) {
+      const cs = uiScale * 0.3;
+      const ss = cs * 0.4;
+      gfx.drawEnergy(ctx, w * 0.5 - ss * 1.3 * 2.5, h * 0.5, ss, false);
+      gfx.drawEnergy(ctx, w * 0.5 - ss * 1.3 * 1.5, h * 0.5, ss, false);
+      gfx.drawEnergy(ctx, w * 0.5 - ss * 1.3 * 0.5, h * 0.5, ss, true);
+      gfx.drawEnergy(ctx, w * 0.5 + ss * 1.3 * 0.5, h * 0.5, ss, true);
+      gfx.drawEnergy(ctx, w * 0.5 + ss * 1.3 * 1.5, h * 0.5, ss, true);
+      gfx.drawEnergy(ctx, w * 0.5 + ss * 1.3 * 2.5, h * 0.5, ss, true);
+      gfx.drawCard(ctx, w * 0.5-cs, h * 0.3, cs, cards[7], true, 1);
+
+      ctx.fillStyle = '#fff';
+      ctx.font = `${cs*0.2}px monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Current Ship Energy (4 / 6)', w*0.5+ss*0.42, h*0.5-ss * 1.2);
+      ctx.fillText('Card energy cost (3)', w*0.5+cs, h*0.3-ss * 0.4);
+      ctx.fillText('shown at top of card', w*0.5+cs, h*0.3+ss * 0.4);
+
       gfx.drawDialogBox(ctx,
         'Manual [4 / 4]',
         'Using ability cards rapidly will drain your energy, but it recharges over time. Time to LIFTOFF!'

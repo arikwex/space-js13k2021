@@ -19,7 +19,7 @@ export function drawStars(ctx, x, y, vx, vy) {
   ctx.stroke();
 }
 
-export function drawCard(ctx, x, y, cs, card, hovering, opacity) {
+export function drawCard(ctx, x, y, cs, card, hovering, opacity, showDetails = true) {
   ctx.save();
 
   if (hovering) {
@@ -74,22 +74,26 @@ export function drawCard(ctx, x, y, cs, card, hovering, opacity) {
   card.glyph(ctx, cs);
 
   // cost
-  ctx.translate(0, -cs * 0.52);
-  ctx.fillStyle = `rgba(255,255,51,${opacity})`;
-  var es = cs * 0.12;
-  for (let i = 0; i < card.cost; i++) {
-    ctx.fillRect((i - (card.cost - 1) / 2) * es * 1.1 - es * 0.45, 0, es * 0.9, es * 0.9);
+  if (showDetails) {
+    ctx.translate(0, -cs * 0.52);
+    ctx.fillStyle = `rgba(255,255,51,${opacity})`;
+    var es = cs * 0.12;
+    for (let i = 0; i < card.cost; i++) {
+      ctx.fillRect((i - (card.cost - 1) / 2) * es * 1.1 - es * 0.45, 0, es * 0.9, es * 0.9);
+    }
   }
   ctx.restore();
 
   // text
-  ctx.fillStyle = netColor;
-  ctx.textBaseline = 'middle';
-  ctx.font = `${cs/6}px monospace`;
-  ctx.textAlign = 'center';
-  var lines = card.title;
-  for (let i = 0; i < lines.length; i++) {
-    ctx.fillText(lines[i], 0, csh * 0.65 + (i - (lines.length - 1) / 2) * csh * 0.2);
+  if (showDetails) {
+    ctx.fillStyle = netColor;
+    ctx.textBaseline = 'middle';
+    ctx.font = `${cs/6}px monospace`;
+    ctx.textAlign = 'center';
+    var lines = card.title;
+    for (let i = 0; i < lines.length; i++) {
+      ctx.fillText(lines[i], 0, csh * 0.65 + (i - (lines.length - 1) / 2) * csh * 0.2);
+    }
   }
   ctx.restore();
 }
