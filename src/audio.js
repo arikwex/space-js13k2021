@@ -76,7 +76,8 @@ function Audio() {
 
     // Swap lane
     laneSound = generate(0.4, (i) => {
-      return 0.04 * (1+Math.random()/3) * win(i, 0, 0.4) * sin(i/50);
+      //return 0.04 * (1+Math.random()/3) * win(i, 0, 0.4) * sin(i/50);
+      return 0.043 * win(i, 0, 0.4) * sin(i/(50+i/8000-i*i/8000/8000));
     });
 
     // Kepler missile + Crazy Rockets + Nuke
@@ -181,6 +182,7 @@ function Audio() {
     bus.on('dash', () => { play(dashSound); });
     bus.on('hyper', () => { play(hyperSound); });
     bus.on('heal', () => { play(healSound); });
+    bus.on('next-btn', () => { play(laneSound); });
     bus.on('projectile', (t) => {
       if (t==1 || t==4 || t==5) {play(missileSound);}
       if (t==2) {play(laserSound);}

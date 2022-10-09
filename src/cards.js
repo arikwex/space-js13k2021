@@ -3,7 +3,7 @@ import { requestAd } from './sdk.js';
 
 const cards = [
 {
-  color: [255, 51, 51],
+  color: [255, 58, 58],
   title: ['Rho', 'Channel'],
   cost: 1,
   price: 5,

@@ -484,3 +484,22 @@ export function drawItemXeno(ctx, x, y, s) {
   ctx.fillText('Xenotransponder',0,s*1.4);
   ctx.restore();
 }
+
+export function drawShip(ctx, x, y, s) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.moveTo(s, 0);
+  ctx.lineTo(-s*0.65,-s*0.8);
+  ctx.lineTo(-s*0.65,-s*0.3);
+  ctx.lineTo(-s,-s*0.5);
+  ctx.lineTo(-s,s*0.5);
+  ctx.lineTo(-s*0.65,s*0.3);
+  ctx.lineTo(-s*0.65,s*0.8);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillRect(-s*0.4,s*0.4,s,s*0.15);
+  ctx.fillRect(-s*0.4,-s*0.4,s,-s*0.15);
+  ctx.restore();
+}

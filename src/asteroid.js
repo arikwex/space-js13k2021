@@ -28,7 +28,7 @@ function Asteroid(engine, tick, slot) {
     for (let i = 0; i < 8; i++) {
       ctx.beginPath();
       ctx.arc(
-        (i + 0.7) * s * 0.3 + Math.sin(anim*3+i*i*4)*s*0.6,
+        (i + 0.7) * s * 0.3 + Math.sin(anim*(3+i/20)+i*i*4)*s*0.6,
         Math.sin(anim*5+i*i*4)*s*0.7,
         s * 0.6 / (1.0 + i * 1.0),
         0, 6.29);
